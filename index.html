@@ -1,384 +1,1173 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Elite English Pro · Final</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>English Practice (Premium · 1 HTML)</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+  <!-- ✅ CSS externos (tema premium + iconos + toasts + tooltips + fuentes) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lux/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css">
 
-<style>
-:root{
---bg:#050812;
---card:#12183a;
---card2:#0b0f2e;
---glass:#ffffff12;
---text:#f4f6ff;
---muted:#aab3d9;
---brand:#7b7cff;
---brand2:#35e3ff;
---gold:#ffd479;
---ok:#2bff88;
---bad:#ff5a5a;
-}
-*{box-sizing:border-box}
-body{
-margin:0;
-font-family:Inter;
-background:radial-gradient(1200px 700px at 50% -300px,#1c2570,#050812);
-color:var(--text);
-padding-bottom:110px;
-}
-header{
-padding:18px;
-font-family:Outfit;
-font-weight:900;
-text-align:center;
-background:#050812dd;
-backdrop-filter:blur(24px);
-position:sticky;
-top:0;
-z-index:10;
-}
-.container{max-width:900px;margin:auto;padding:24px}
-.card{
-background:linear-gradient(180deg,var(--card),var(--card2));
-border-radius:28px;
-padding:26px;
-margin-bottom:28px;
-box-shadow:0 40px 120px rgba(0,0,0,.65);
-}
-.badge{
-font-size:.7rem;
-font-weight:900;
-letter-spacing:.12em;
-color:#bcd1ff;
-margin-bottom:12px;
-}
-.text-en{font-family:Outfit;font-size:1.6rem;line-height:1.3}
-.text-es{color:var(--muted);margin-top:10px}
-.text-fig{
-font-family:monospace;
-color:var(--gold);
-background:#0008;
-padding:14px;
-border-radius:14px;
-margin-top:12px;
-}
-.controls{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
-.btn-icon{
-width:48px;height:48px;border-radius:50%;
-border:none;
-background:linear-gradient(135deg,var(--brand),var(--brand2));
-color:#fff;font-size:1.1rem;
-}
-.btn-main{
-width:100%;padding:16px;border:none;border-radius:22px;
-background:linear-gradient(135deg,var(--brand),var(--brand2));
-font-family:Outfit;font-weight:900;color:#fff;margin-top:18px;
-}
-.tab{display:none}.tab.active{display:block}
+  <style>
+    :root{
+      --bg0:#0b1220;
+      --bg1:#0f172a;
+      --muted:#6b7280;
+      --ok:#16a34a;
+      --bad:#ef4444;
+      --warn:#f59e0b;
+      --brand:#4f46e5;
+      --brand2:#22c55e;
+      --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --ui:"Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --title:"Sora","Inter",system-ui,sans-serif;
+      --radius:18px;
+    }
 
-/* TRANSLATOR */
-.translator{display:flex;flex-direction:column;gap:14px}
-.trans-box{background:var(--glass);border-radius:20px;padding:16px}
-.lang-row{
-display:flex;justify-content:space-between;align-items:center;
-font-weight:900;font-size:.8rem;color:#bcd1ff;margin-bottom:6px
-}
-.swap{
-border:none;border-radius:50%;
-width:54px;height:54px;
-align-self:center;
-background:#ffffff20;color:#fff;font-size:1.2rem;margin:10px 0
-}
-textarea,input,select{
-width:100%;min-height:44px;
-border:none;border-radius:14px;
-padding:14px;background:#0007;color:#fff;
-font-family:Inter
-}
-textarea{min-height:140px;resize:none}
+    body{
+      font-family:var(--ui);
+      background:
+        radial-gradient(1200px 900px at 20% 10%, rgba(79,70,229,.18), transparent 50%),
+        radial-gradient(1000px 700px at 90% 20%, rgba(34,197,94,.14), transparent 50%),
+        linear-gradient(180deg, #f8fafc, #f1f5f9);
+      min-height:100vh;
+    }
 
-/* EXERCISES */
-.option{
-background:#ffffff14;
-padding:14px;border-radius:14px;margin-top:10px
-}
-.correct{background:#2bff8830}
-.wrong{background:#ff5a5a40}
+    body.dark{
+      background:
+        radial-gradient(1200px 900px at 20% 10%, rgba(79,70,229,.22), transparent 50%),
+        radial-gradient(1000px 700px at 90% 20%, rgba(34,197,94,.18), transparent 50%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      color:#e5e7eb;
+    }
 
-/* NAV */
-nav{
-position:fixed;bottom:0;left:0;right:0;
-height:88px;
-background:#050812f2;
-backdrop-filter:blur(30px);
-display:flex;justify-content:space-around;align-items:center
-}
-nav div{
-display:flex;flex-direction:column;align-items:center;
-gap:6px;font-size:.65rem;font-weight:900;
-color:#9aa3d0
-}
-nav i{font-size:1.5rem}
-nav .active{color:var(--brand2);transform:translateY(-4px)}
-</style>
+    .title{font-family:var(--title);letter-spacing:-.02em;}
+    .mono{font-family:var(--mono);}
+
+    .app-card{
+      border:0;
+      border-radius:var(--radius);
+      box-shadow:0 14px 40px rgba(2,6,23,.10);
+      overflow:hidden;
+      background:rgba(255,255,255,.86);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,.35);
+    }
+    body.dark .app-card{
+      background:rgba(255,255,255,.06);
+      border-color:rgba(255,255,255,.10);
+      box-shadow:0 18px 50px rgba(0,0,0,.35);
+    }
+
+    .soft{
+      background:rgba(79,70,229,.08);
+      border:1px solid rgba(79,70,229,.10);
+      border-radius:16px;
+    }
+    body.dark .soft{
+      background:rgba(79,70,229,.12);
+      border-color:rgba(255,255,255,.10);
+    }
+
+    .tiny{font-size:.9rem;color:var(--muted);}
+    body.dark .tiny{color:rgba(229,231,235,.75);}
+
+    .pill{border-radius:999px !important;}
+    .btn-premium{border-radius:14px;padding:.65rem .95rem;box-shadow:0 10px 26px rgba(79,70,229,.12);}
+
+    .nav-premium .nav-link{
+      border-radius:14px;
+      padding:.65rem .8rem;
+      font-weight:800;
+      color:#0f172a;
+      background:rgba(15,23,42,.04);
+    }
+    body.dark .nav-premium .nav-link{
+      color:#e5e7eb;
+      background:rgba(255,255,255,.06);
+    }
+    .nav-premium .nav-link.active{
+      background:linear-gradient(90deg, rgba(79,70,229,.92), rgba(34,197,94,.80));
+      color:#fff;
+      box-shadow:0 12px 28px rgba(2,6,23,.15);
+    }
+
+    .list-compact .list-group-item{
+      border:0;
+      border-radius:16px;
+      margin-bottom:10px;
+      background:rgba(15,23,42,.03);
+      transition:transform .12s ease, box-shadow .12s ease;
+    }
+    body.dark .list-compact .list-group-item{
+      background:rgba(255,255,255,.06);
+    }
+    .list-compact .list-group-item:hover{
+      transform:translateY(-1px);
+      box-shadow:0 10px 25px rgba(2,6,23,.08);
+    }
+
+    .word-ok{color:var(--ok);font-weight:900;}
+    .word-bad{color:var(--bad);font-weight:900;}
+
+    .kbd{
+      font-family:var(--mono);
+      font-size:.82rem;
+      padding:.12rem .38rem;
+      border-radius:10px;
+      border:1px solid rgba(148,163,184,.45);
+      background:rgba(255,255,255,.85);
+    }
+    body.dark .kbd{
+      background:rgba(255,255,255,.08);
+      border-color:rgba(255,255,255,.12);
+      color:#e5e7eb;
+    }
+
+    .page-pad{padding-top:18px;padding-bottom:24px;}
+
+    .brand-badge{
+      width:40px;height:40px;border-radius:16px;
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg, rgba(79,70,229,.95), rgba(34,197,94,.78));
+      color:#fff;
+      box-shadow:0 14px 30px rgba(79,70,229,.20);
+      flex:0 0 auto;
+    }
+
+    .truncate-2{
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+
+    .seg{
+      display:inline-block;
+      padding:.15rem .4rem;
+      margin:.15rem .15rem 0 0;
+      border-radius:999px;
+      background:rgba(79,70,229,.10);
+      border:1px solid rgba(79,70,229,.12);
+      font-family:var(--mono);
+      font-size:.86rem;
+    }
+    body.dark .seg{
+      background:rgba(255,255,255,.08);
+      border-color:rgba(255,255,255,.10);
+    }
+  </style>
 </head>
 
 <body>
+<main class="container page-pad">
+  <div class="row g-3">
 
-<header>ELITE ENGLISH PRO</header>
+    <!-- PANEL IZQUIERDO -->
+    <div class="col-lg-4">
+      <div class="app-card p-3">
+        <div class="d-flex justify-content-between align-items-center gap-2">
+          <div class="d-flex align-items-center gap-2">
+            <div class="brand-badge"><i class="fa-solid fa-headphones-simple"></i></div>
+            <div>
+              <div class="title fw-bold">English Practice</div>
+              <div class="tiny">Premium UI · 1 HTML · Sin barra superior</div>
+            </div>
+          </div>
 
-<div class="container">
+          <div class="d-flex gap-2">
+            <button id="themeBtn" class="btn btn-sm btn-light pill" data-tippy-content="Cambiar tema">
+              <i class="fa-solid fa-moon"></i>
+            </button>
+            <button id="helpBtn" class="btn btn-sm btn-light pill" data-tippy-content="Ayuda rápida">
+              <i class="fa-regular fa-circle-question"></i>
+            </button>
+          </div>
+        </div>
 
-<!-- PHRASES -->
-<section id="phrases" class="tab active">
-<div class="card">
-<div class="badge">PHRASES</div>
-<div id="phEn" class="text-en"></div>
-<div id="phFig" class="text-fig"></div>
-<div id="phEs" class="text-es"></div>
-<div class="controls">
-<button class="btn-icon" onclick="tts(phEn.innerText,'en',1)"><i class="fas fa-play"></i></button>
-<button class="btn-icon" onclick="tts(phEn.innerText,'en',0.6)"><i class="fas fa-snail"></i></button>
-<button class="btn-icon" onclick="duo(phEn.innerText,phEs.innerText)"><i class="fas fa-globe"></i></button>
-</div>
-<button class="btn-main" onclick="loadPhrase()">NEW PHRASE</button>
-</div>
-</section>
+        <div class="d-flex align-items-center justify-content-between mt-2">
+          <div class="tiny">
+            <i class="fa-solid fa-microphone-lines me-1"></i> Soporte de voz (SpeechRecognition)
+          </div>
+          <span id="supportBadge" class="badge rounded-pill text-bg-warning">Detectando…</span>
+        </div>
 
-<!-- STORIES -->
-<section id="stories" class="tab">
-<div class="card">
-<div class="badge">STORIES</div>
-<div id="stEn" class="text-en"></div>
-<div id="stFig" class="text-fig"></div>
-<div id="stEs" class="text-es"></div>
-<div class="controls">
-<button class="btn-icon" onclick="tts(stEn.innerText,'en',1)"><i class="fas fa-play"></i></button>
-<button class="btn-icon" onclick="tts(stEn.innerText,'en',0.6)"><i class="fas fa-snail"></i></button>
-<button class="btn-icon" onclick="duo(stEn.innerText,stEs.innerText)"><i class="fas fa-globe"></i></button>
-</div>
-<button class="btn-main" onclick="loadStory()">NEW STORY</button>
-</div>
-</section>
+        <hr class="my-3">
 
-<!-- TRANSLATOR -->
-<section id="translator" class="tab">
-<div class="card">
-<div class="badge">TRANSLATOR</div>
-<div class="translator">
-<div class="trans-box">
-<div class="lang-row"><span id="langFrom">🇪🇸 ESPAÑOL</span></div>
-<textarea id="trInput" placeholder="Escribe aquí..."></textarea>
-</div>
-<button class="swap" onclick="swapLangs()"><i class="fas fa-right-left"></i></button>
-<div class="trans-box">
-<div class="lang-row"><span id="langTo">🇺🇸 ENGLISH</span></div>
-<div id="trOutput" class="text-en"></div>
-<div id="trFig" class="text-fig"></div>
-<div class="controls">
-<button class="btn-icon" onclick="tts(trOutput.innerText,currentTo,1)">
-<i class="fas fa-volume-up"></i></button>
-</div>
-</div>
-</div>
-<button class="btn-main" onclick="translateText()">TRANSLATE</button>
-</div>
-</section>
+        <ul class="nav nav-pills nav-premium flex-column gap-2" id="tabs">
+          <li class="nav-item"><button class="nav-link active" data-tab="podcasts"><i class="fa-solid fa-podcast me-2"></i>Podcasts</button></li>
+          <li class="nav-item"><button class="nav-link" data-tab="phrases"><i class="fa-solid fa-quote-left me-2"></i>Frases</button></li>
+          <li class="nav-item"><button class="nav-link" data-tab="practice"><i class="fa-solid fa-microphone-lines me-2"></i>Pronunciación</button></li>
+        </ul>
 
-<!-- SPEAK -->
-<section id="speak" class="tab">
-<div class="card">
-<div class="badge">SPEAK</div>
-<div id="spTarget" class="text-en"></div>
-<div id="spFig" class="text-fig"></div>
-<div id="spEs" class="text-es"></div>
-<div class="controls">
-<button class="btn-icon" onclick="tts(spTarget.innerText,'en',1)"><i class="fas fa-play"></i></button>
-<button class="btn-icon" onclick="startSpeak()"><i class="fas fa-microphone"></i></button>
-</div>
-<div id="spResult"></div>
-<button class="btn-main" onclick="generateSpeak()">NEW PHRASE</button>
-</div>
-</section>
+        <hr class="my-3">
 
-<!-- EXERCISES -->
-<section id="exercises" class="tab">
-<div class="card">
-<div class="badge">EXERCISES</div>
-<div id="exQ" class="text-en"></div>
-<div id="exOpts"></div>
-<button class="btn-main" onclick="loadExercise()">NEW EXERCISE</button>
-</div>
-</section>
+        <div class="soft p-3">
+          <div class="fw-semibold">Voz (TTS)</div>
+          <div class="tiny">Escuchar usa SpeechSynthesis del navegador.</div>
+          <select id="voiceSelect" class="form-select mt-2"></select>
+        </div>
 
-<!-- GLOBAL -->
-<section id="global" class="tab">
-<div class="card">
-<div class="badge">GLOBAL · IA SETTINGS</div>
-<label>GEMINI API KEY</label>
-<input id="geminiKey" type="password" placeholder="Paste your Gemini API Key">
-<label style="margin-top:12px">AI MODE</label>
-<select id="aiMode">
-<option value="off">OFF (Internet + Local)</option>
-<option value="gemini">GEMINI (Priority)</option>
-</select>
-<button class="btn-main" onclick="saveGlobal()">SAVE SETTINGS</button>
-<div id="globalStatus" class="text-es"></div>
-</div>
-</section>
+        <div class="soft p-3 mt-3">
+          <div class="fw-semibold">Frase seleccionada</div>
+          <div id="selectedPhrasePreview" class="tiny mt-1">Ninguna</div>
+          <div class="d-grid mt-2">
+            <button id="useSelectedBtn" class="btn btn-primary btn-premium">
+              <i class="fa-solid fa-arrow-right me-2"></i>Usar en Pronunciación
+            </button>
+          </div>
+        </div>
 
-</div>
+        <div class="soft p-3 mt-3">
+          <div class="fw-semibold">Pronunciación figurada (config)</div>
+          <div class="tiny">Ajusta la guía a tu preferencia.</div>
+          <div class="row g-2 mt-2">
+            <div class="col-6">
+              <label class="tiny fw-semibold">TH</label>
+              <select id="thMode" class="form-select form-select-sm">
+                <option value="d" selected>TH → “D” (MX)</option>
+                <option value="z">TH → “Z” (ES)</option>
+              </select>
+            </div>
+            <div class="col-6">
+              <label class="tiny fw-semibold">R</label>
+              <select id="rMode" class="form-select form-select-sm">
+                <option value="simple" selected>R simple</option>
+                <option value="marked">R marcada (er/ar)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-check form-switch mt-2">
+            <input class="form-check-input" type="checkbox" role="switch" id="stressMarks" checked>
+            <label class="form-check-label tiny" for="stressMarks">Marcar acento (á/é/í/ó/ú)</label>
+          </div>
+        </div>
 
-<nav>
-<div class="active" onclick="tab('phrases',this)"><i class="fas fa-bolt"></i><span>PHRASES</span></div>
-<div onclick="tab('stories',this)"><i class="fas fa-book"></i><span>STORIES</span></div>
-<div onclick="tab('translator',this)"><i class="fas fa-language"></i><span>TRANSLATE</span></div>
-<div onclick="tab('speak',this)"><i class="fas fa-microphone"></i><span>SPEAK</span></div>
-<div onclick="tab('exercises',this)"><i class="fas fa-dumbbell"></i><span>EXERCISES</span></div>
-<div onclick="tab('global',this)"><i class="fas fa-gear"></i><span>GLOBAL</span></div>
-</nav>
+        <div class="tiny mt-3">
+          <div><span class="kbd">Tip</span> Si “Frases de Internet” falla, abre la página con <span class="kbd">Live Server</span> (no con doble clic).</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VISTAS DERECHA -->
+    <div class="col-lg-8">
+
+      <!-- PODCASTS -->
+      <section id="view-podcasts" class="app-card p-3">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+          <div>
+            <div class="title fw-bold fs-4"><i class="fa-solid fa-podcast me-2"></i>Podcasts</div>
+            <div class="tiny">Busca podcasts y reproduce episodios.</div>
+          </div>
+          <div class="soft px-3 py-2"><span class="tiny"><i class="fa-solid fa-wand-magic-sparkles me-1"></i>Premium UI</span></div>
+        </div>
+
+        <hr class="my-3">
+
+        <div class="row g-2">
+          <div class="col-md-8">
+            <input id="podQuery" class="form-control form-control-lg" placeholder="Ej: english learning, science, business, news..." />
+          </div>
+          <div class="col-md-4 d-grid">
+            <button id="podSearchBtn" class="btn btn-primary btn-premium btn-lg">
+              <i class="fa-solid fa-magnifying-glass me-2"></i>Buscar
+            </button>
+          </div>
+        </div>
+
+        <div id="podResults" class="mt-3"></div>
+
+        <div id="feedHeader" class="soft p-3 mt-3 d-none">
+          <div class="d-flex gap-3 align-items-start">
+            <img id="feedArt" src="" alt="" style="width:92px;height:92px;border-radius:18px;object-fit:cover;">
+            <div class="flex-grow-1">
+              <div id="feedTitle" class="fw-bold"></div>
+              <div id="feedDesc" class="tiny truncate-2"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="episodes" class="mt-3 list-group list-compact"></div>
+
+        <div class="soft p-3 mt-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="fw-semibold"><i class="fa-solid fa-play me-2"></i>Reproductor</div>
+            <div id="nowPlaying" class="tiny"></div>
+          </div>
+          <div class="mt-2">
+            <audio id="player" controls class="w-100"></audio>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHRASES -->
+      <section id="view-phrases" class="app-card p-3 d-none">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+          <div>
+            <div class="title fw-bold fs-4"><i class="fa-solid fa-quote-left me-2"></i>Frases</div>
+            <div class="tiny">Crea tus frases o tráelas de Internet (con fallback).</div>
+          </div>
+          <div class="d-flex gap-2">
+            <button id="getInternetPhraseBtn" class="btn btn-outline-primary btn-premium" data-tippy-content="Traer una frase de Internet">
+              <i class="fa-solid fa-cloud-arrow-down me-2"></i>Internet
+            </button>
+            <button id="clearCacheBtn" class="btn btn-outline-secondary btn-premium" data-tippy-content="Borra caché local de frases">
+              <i class="fa-solid fa-broom me-2"></i>Caché
+            </button>
+          </div>
+        </div>
+
+        <hr class="my-3">
+
+        <div class="row g-2">
+          <div class="col-md-8">
+            <input id="newPhrase" class="form-control form-control-lg" placeholder="Escribe tu frase (corta o larga)..." />
+          </div>
+          <div class="col-md-4 d-grid">
+            <button id="addPhraseBtn" class="btn btn-success btn-premium btn-lg">
+              <i class="fa-solid fa-plus me-2"></i>Agregar
+            </button>
+          </div>
+        </div>
+
+        <div class="row g-2 mt-2">
+          <div class="col-md-8">
+            <input id="phraseSearch" class="form-control" placeholder="Buscar en tus frases..." />
+          </div>
+          <div class="col-md-4">
+            <select id="tagFilter" class="form-select">
+              <option value="">Todos los tags</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="soft p-3 mt-3">
+          <div class="fw-semibold"><i class="fa-solid fa-spell-check me-2"></i>Pronunciación figurada (preview)</div>
+          <div class="tiny">Selecciona una frase para ver guía y segmentos.</div>
+          <div class="mt-2">
+            <div class="tiny fw-semibold">Guía:</div>
+            <div id="phoneticPreview" class="mono">—</div>
+          </div>
+          <div class="mt-2">
+            <div class="tiny fw-semibold">Segmentos:</div>
+            <div id="segmentsPreview">—</div>
+          </div>
+        </div>
+
+        <div id="phrasesList" class="mt-3 list-group list-compact"></div>
+      </section>
+
+      <!-- PRACTICE -->
+      <section id="view-practice" class="app-card p-3 d-none">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+          <div>
+            <div class="title fw-bold fs-4"><i class="fa-solid fa-microphone-lines me-2"></i>Pronunciación</div>
+            <div class="tiny">Gratis: SpeechRecognition (aproximado) + TTS.</div>
+          </div>
+          <span class="badge rounded-pill text-bg-warning" data-tippy-content="Aproximado: compara texto reconocido vs objetivo.">Aprox.</span>
+        </div>
+
+        <hr class="my-3">
+
+        <label class="form-label fw-semibold">Frase objetivo (lo que debes decir)</label>
+        <textarea id="referenceText" class="form-control form-control-lg" rows="3" placeholder="Ej: I would like to improve my English pronunciation."></textarea>
+
+        <div class="row g-2 mt-2">
+          <div class="col-md-6">
+            <div class="soft p-3 h-100">
+              <div class="fw-semibold"><i class="fa-solid fa-language me-2"></i>Guía al español</div>
+              <div class="tiny">Te ayuda a leer el inglés con sonidos cercanos al español.</div>
+              <div class="mono mt-2" id="phoneticFromReference">—</div>
+              <div class="mt-2">
+                <div class="tiny fw-semibold">Segmentos:</div>
+                <div id="segmentsFromReference">—</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="soft p-3 h-100">
+              <div class="fw-semibold"><i class="fa-solid fa-wand-magic-sparkles me-2"></i>Acciones</div>
+              <div class="d-flex flex-wrap gap-2 mt-2">
+                <button id="ttsBtn" class="btn btn-secondary btn-premium" data-tippy-content="Escuchar con voz del navegador">
+                  <i class="fa-solid fa-volume-high me-2"></i>Escuchar
+                </button>
+                <button id="startRecBtn" class="btn btn-primary btn-premium" data-tippy-content="Habla la frase para evaluar">
+                  <i class="fa-solid fa-microphone me-2"></i>Probar
+                </button>
+                <button id="stopRecBtn" class="btn btn-outline-danger btn-premium d-none">
+                  <i class="fa-solid fa-stop me-2"></i>Detener
+                </button>
+              </div>
+              <div class="tiny mt-2">Si no funciona el micrófono, prueba Chrome/Edge y permite permisos.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-2 mt-3">
+          <div class="col-md-4">
+            <div class="soft p-3">
+              <div class="tiny">Porcentaje</div>
+              <div id="scorePct" class="title fw-bold" style="font-size:2.2rem;">—</div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="soft p-3">
+              <div class="tiny">Lo que el navegador entendió</div>
+              <div id="recognizedText" class="mono mt-1">—</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="soft p-3 mt-3">
+          <div class="tiny mb-2">Comparación (verde = coincide, rojo = no coincide)</div>
+          <div id="highlighted" class="lead mb-0">—</div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<!-- ✅ JS externos -->
+<script src="https://cdn.jsdelivr.net/npm/localforage@1.10.0/dist/localforage.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+<script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
 
 <script>
-let currentFrom="es",currentTo="en";
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const notyf = new Notyf({ duration: 2400, ripple: true, dismissible: true, position: { x:'right', y:'top' } });
+  tippy('[data-tippy-content]', { animation: 'scale', theme: 'light-border' });
 
-/* NAV */
-function tab(id,el){
-document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-document.querySelectorAll('nav div').forEach(n=>n.classList.remove('active'));
-el.classList.add('active');
-}
+  const store = localforage.createInstance({ name: "english_practice_single_html_fixed_v1" });
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-/* AUDIO */
-function tts(t,lang,r){
-if(!t)return;
-const u=new SpeechSynthesisUtterance(t);
-u.lang=lang==="en"?"en-US":"es-ES";
-u.rate=r;
-speechSynthesis.speak(u);
-}
-function duo(en,es){
-tts(en,"en",1);
-setTimeout(()=>tts(es,"es",1),1200);
-}
+  const state = {
+    phrases: [],
+    selectedPhraseId: null,
+    quotesCache: null,
+    phraseFuse: null,
+    tags: new Set(),
+    howl: null,
+    recognition: null,
+    recognizing: false,
+  };
 
-/* ===== PRONUNCIACIÓN FIGURADA PRO EN → ES ===== */
-function pronunciacionFiguradaEN(text){
-let t = " " + text.toLowerCase() + " ";
+  const esc = (s="") => s.replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;" }[m]));
 
-t = t.replace(/th/g," d ").replace(/ph/g," f ").replace(/ck/g," k ")
-.replace(/qu/g," ku ").replace(/wh/g," gu ").replace(/wr/g," r ")
-.replace(/kn/g," n ").replace(/gn/g," n ").replace(/ps/g," s ")
-.replace(/gh/g," ");
+  /* ---------------- Tabs ---------------- */
+  function showTab(tab){
+    ["podcasts","phrases","practice"].forEach(t => $("view-"+t).classList.toggle("d-none", t !== tab));
+    document.querySelectorAll("#tabs .nav-link").forEach(btn => btn.classList.toggle("active", btn.dataset.tab === tab));
+  }
+  $("tabs").addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-tab]");
+    if (!btn) return;
+    showTab(btn.dataset.tab);
+  });
 
-t = t.replace(/tion\b/g," shon ").replace(/sion\b/g," shon ")
-.replace(/cial\b/g," shal ").replace(/tial\b/g," shal ")
-.replace(/ing\b/g," in ").replace(/ed\b/g," d ")
-.replace(/ly\b/g," li ").replace(/ous\b/g," os ")
-.replace(/able\b/g," eibol ").replace(/ment\b/g," ment ");
+  /* ---------------- Theme ---------------- */
+  function applyTheme(isDark){
+    document.body.classList.toggle("dark", isDark);
+    const icon = $("themeBtn").querySelector("i");
+    icon.className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
+  }
+  $("themeBtn").addEventListener("click", async () => {
+    const next = !document.body.classList.contains("dark");
+    await store.setItem("theme_dark", next);
+    applyTheme(next);
+  });
 
-t = t.replace(/ee|ea/g," ii ").replace(/ie|igh/g," ai ")
-.replace(/ai|ay/g," ei ").replace(/oa/g," ou ")
-.replace(/ow|ou/g," au ").replace(/oo/g," u ");
+  $("helpBtn").addEventListener("click", () => {
+    notyf.open({ type: "info", message: "💡 Abre con Live Server (http://localhost) para que 'Internet' funcione. Podcasts: busca 'english learning'. Frases: agrega o trae. Pronunciación: Escuchar → Probar." });
+  });
 
-t = t.replace(/[^a-záéíóúñ\s]/gi," ");
-t = t.replace(/\s+/g," ").trim();
-return t;
-}
+  /* ---------------- Speech support ---------------- */
+  function setupSpeechSupport(){
+    if (SR){
+      $("supportBadge").className = "badge rounded-pill text-bg-success";
+      $("supportBadge").textContent = "Mic OK";
+    } else {
+      $("supportBadge").className = "badge rounded-pill text-bg-danger";
+      $("supportBadge").textContent = "Sin SpeechRecognition";
+    }
+  }
 
-/* APIs */
-async function translateAPI(t,f,to){
-const r=await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(t)}&langpair=${f}|${to}`);
-return (await r.json()).responseData.translatedText;
-}
+  /* ---------------- Voices (TTS) ---------------- */
+  function loadVoices(){
+    const voices = speechSynthesis.getVoices();
+    const sel = $("voiceSelect");
+    sel.innerHTML = "";
+    let list = voices.filter(v => (v.lang || "").toLowerCase().startsWith("en"));
+    if (!list.length) list = voices;
+    list.forEach(v => {
+      const opt = document.createElement("option");
+      opt.value = v.name;
+      opt.textContent = `${v.name} (${v.lang})`;
+      sel.appendChild(opt);
+    });
+  }
+  speechSynthesis.onvoiceschanged = loadVoices;
+  loadVoices();
 
-/* CONTENT */
-async function loadPhrase(){
-const r=await fetch("https://api.adviceslip.com/advice");
-const t=(await r.json()).slip.advice;
-phEn.innerText=t;
-phFig.innerText=pronunciacionFiguradaEN(t);
-phEs.innerText=await translateAPI(t,"en","es");
-}
-async function loadStory(){
-const r=await fetch("https://en.wikipedia.org/api/rest_v1/page/random/summary");
-const d=await r.json();
-stEn.innerText=d.extract;
-stFig.innerText=pronunciacionFiguradaEN(d.extract);
-stEs.innerText=await translateAPI(d.extract,"en","es");
-}
-async function generateSpeak(){
-const r=await fetch("https://api.adviceslip.com/advice");
-const t=(await r.json()).slip.advice;
-spTarget.innerText=t;
-spFig.innerText=pronunciacionFiguradaEN(t);
-spEs.innerText=await translateAPI(t,"en","es");
-}
-function startSpeak(){
-const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-const r=new SR();r.lang="en-US";
-r.onresult=e=>spResult.innerText=e.results[0][0].transcript;
-r.start();
-}
-async function loadExercise(){
-try{
-const r=await fetch("https://opentdb.com/api.php?amount=1&type=multiple");
-const d=await r.json();
-const q=d.results[0];
-exQ.innerText=q.question;
-exOpts.innerHTML="";
-[...q.incorrect_answers,q.correct_answer].sort().forEach(o=>{
-let div=document.createElement("div");
-div.className="option";
-div.innerText=o;
-div.onclick=()=>div.classList.add(o===q.correct_answer?"correct":"wrong");
-exOpts.appendChild(div);
-});
-}catch{
-exQ.innerText="She ___ English every day.";
-exOpts.innerHTML="";
-["study","studies","studying"].forEach((o,i)=>{
-let d=document.createElement("div");
-d.className="option";
-d.innerText=o;
-d.onclick=()=>d.classList.add(i===1?"correct":"wrong");
-exOpts.appendChild(d);
-});
-}
-}
+  function speak(text){
+    if (!text) return;
+    const u = new SpeechSynthesisUtterance(text);
+    const voices = speechSynthesis.getVoices();
+    const chosen = voices.find(v => v.name === $("voiceSelect").value);
+    if (chosen) u.voice = chosen;
+    u.rate = 1.0; u.pitch = 1.0;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+  }
+  $("ttsBtn").addEventListener("click", () => speak($("referenceText").value.trim()));
 
-/* TRANSLATOR */
-function swapLangs(){
-[currentFrom,currentTo]=[currentTo,currentFrom];
-langFrom.innerText=currentFrom==="es"?"🇪🇸 ESPAÑOL":"🇺🇸 ENGLISH";
-langTo.innerText=currentTo==="en"?"🇺🇸 ENGLISH":"🇪🇸 ESPAÑOL";
-trFig.innerText="";
-}
-async function translateText(){
-const t=trInput.value.trim();if(!t)return;
-const out=await translateAPI(t,currentFrom,currentTo);
-trOutput.innerText=out;
-trFig.innerText=currentTo==="en"?pronunciacionFiguradaEN(out):"";
-}
+  /* ---------------- JSONP helper ---------------- */
+  function jsonp(url, { timeout=16000, callbackParam="callback" } = {}) {
+    return new Promise((resolve, reject) => {
+      const cbName = "cb_" + Math.random().toString(36).slice(2);
+      const sep = url.includes("?") ? "&" : "?";
+      const full = `${url}${sep}${callbackParam}=${cbName}`;
+      const script = document.createElement("script");
+      let done = false;
 
-/* GLOBAL */
-function saveGlobal(){
-localStorage.setItem("GEMINI_KEY",geminiKey.value.trim());
-localStorage.setItem("AI_MODE",aiMode.value);
-globalStatus.innerText="✅ Settings saved";
-}
-(function(){
-geminiKey.value=localStorage.getItem("GEMINI_KEY")||"";
-aiMode.value=localStorage.getItem("AI_MODE")||"off";
+      window[cbName] = (data) => { done = true; cleanup(); resolve(data); };
+      const timer = setTimeout(() => { if (done) return; done = true; cleanup(); reject(new Error("JSONP timeout")); }, timeout);
+
+      function cleanup(){
+        clearTimeout(timer);
+        delete window[cbName];
+        script.remove();
+      }
+
+      script.onerror = () => { if (done) return; done = true; cleanup(); reject(new Error("JSONP load error")); };
+      script.src = full;
+      document.head.appendChild(script);
+    });
+  }
+
+  /* ---------------- Podcasts: iTunes JSONP + rss2json JSONP ---------------- */
+  function renderPodcastResults(list){
+    const box = $("podResults");
+    if (!list.length){
+      box.innerHTML = `<div class="soft p-3 tiny">Sin resultados. Prueba: <span class="kbd">english learning</span> o <span class="kbd">news</span>.</div>`;
+      return;
+    }
+    box.innerHTML = `
+      <div class="tiny mb-2">Selecciona un podcast para cargar episodios:</div>
+      <div class="list-group list-compact">
+        ${list.map(p => {
+          const art = p.artworkUrl100 || p.artworkUrl60 || "";
+          const title = p.collectionName || p.trackName || "Podcast";
+          const author = p.artistName || "";
+          const feedUrl = p.feedUrl || "";
+          return `
+            <button class="list-group-item text-start" data-feed="${esc(feedUrl)}">
+              <div class="d-flex gap-3 align-items-start">
+                <img src="${esc(art)}" alt="" style="width:64px;height:64px;border-radius:14px;object-fit:cover;">
+                <div class="flex-grow-1">
+                  <div class="fw-bold">${esc(title)}</div>
+                  <div class="tiny">${esc(author)}</div>
+                  <div class="tiny mono truncate-2">${esc(feedUrl)}</div>
+                </div>
+                <div class="align-self-center"><i class="fa-solid fa-chevron-right"></i></div>
+              </div>
+            </button>
+          `;
+        }).join("")}
+      </div>
+    `;
+    box.querySelectorAll("button[data-feed]").forEach(btn => btn.addEventListener("click", () => loadEpisodes(btn.dataset.feed)));
+  }
+
+  async function searchPodcasts(term){
+    const q = encodeURIComponent(term.trim());
+    const url = `https://itunes.apple.com/search?term=${q}&media=podcast&entity=podcast&limit=14`;
+    const data = await jsonp(url, { callbackParam: "callback" });
+    const results = (data && data.results) ? data.results : [];
+    return results.filter(x => x.feedUrl);
+  }
+
+  $("podSearchBtn").addEventListener("click", async () => {
+    const term = $("podQuery").value.trim();
+    if (!term) return notyf.error("Escribe algo para buscar.");
+
+    $("podSearchBtn").disabled = true;
+    $("podSearchBtn").innerHTML = `<i class="fa-solid fa-spinner fa-spin me-2"></i>Buscando…`;
+
+    $("podResults").innerHTML = "";
+    $("episodes").innerHTML = "";
+    $("feedHeader").classList.add("d-none");
+
+    try{
+      const list = await searchPodcasts(term);
+      renderPodcastResults(list);
+      notyf.success("Resultados listos.");
+    } catch (e) {
+      notyf.error("No se pudo buscar. Intenta de nuevo.");
+      $("podResults").innerHTML = `<div class="soft p-3 tiny">Error al buscar (temporal).</div>`;
+      console.warn(e);
+    } finally {
+      $("podSearchBtn").disabled = false;
+      $("podSearchBtn").innerHTML = `<i class="fa-solid fa-magnifying-glass me-2"></i>Buscar`;
+    }
+  });
+
+  async function loadEpisodes(feedUrl){
+    if (!feedUrl) return notyf.error("Este podcast no tiene RSS (feedUrl).");
+    $("episodes").innerHTML = `<div class="soft p-3 tiny"><i class="fa-solid fa-spinner fa-spin me-2"></i>Cargando episodios…</div>`;
+    $("feedHeader").classList.add("d-none");
+
+    try{
+      const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
+      const data = await jsonp(api, { callbackParam: "callback", timeout: 18000 });
+      if (data.status !== "ok") throw new Error(data.message || "rss2json error");
+
+      const feed = data.feed || {};
+      const items = Array.isArray(data.items) ? data.items : [];
+
+      $("feedArt").src = feed.image || "";
+      $("feedTitle").textContent = feed.title || "Podcast";
+      $("feedDesc").textContent = (feed.description || "").replace(/<[^>]+>/g,"").trim().slice(0, 220);
+      $("feedHeader").classList.remove("d-none");
+
+      const eps = items.map(it => {
+        const title = it.title || "(sin título)";
+        const desc = (it.description || "").replace(/<[^>]+>/g,"").trim();
+        const pubDate = it.pubDate || "";
+        const audioUrl = it.enclosure?.link || it.enclosure?.url || "";
+        return { title, desc, pubDate, audioUrl };
+      }).filter(x => x.audioUrl);
+
+      if (!eps.length){
+        $("episodes").innerHTML = `<div class="soft p-3 tiny">No encontré audio (enclosure). Prueba otro podcast.</div>`;
+        return;
+      }
+
+      $("episodes").innerHTML = eps.slice(0, 18).map(ep => `
+        <button class="list-group-item text-start" data-audio="${esc(ep.audioUrl)}" data-title="${esc(ep.title)}">
+          <div class="d-flex justify-content-between align-items-start gap-2">
+            <div>
+              <div class="fw-bold">${esc(ep.title)}</div>
+              <div class="tiny">${esc(ep.pubDate ? dayjs(ep.pubDate).format("DD MMM YYYY") : "")}</div>
+              <div class="tiny truncate-2">${esc(ep.desc)}</div>
+            </div>
+            <span class="badge rounded-pill text-bg-primary">Play</span>
+          </div>
+        </button>
+      `).join("");
+
+      $("episodes").querySelectorAll("button[data-audio]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const url = btn.dataset.audio;
+          const title = btn.dataset.title || "";
+          $("nowPlaying").textContent = title;
+
+          try { if (state.howl) { state.howl.stop(); state.howl.unload(); } } catch {}
+          state.howl = new Howl({
+            src: [url],
+            html5: true,
+            onloaderror: () => notyf.error("No se pudo cargar el audio."),
+            onplayerror: () => notyf.error("No se pudo reproducir."),
+          });
+
+          $("player").src = url;
+          $("player").play().catch(()=>{});
+          state.howl.play();
+        });
+      });
+
+      notyf.success("Episodios cargados.");
+    } catch (e) {
+      notyf.error("No se pudo cargar el RSS (límite/host).");
+      $("episodes").innerHTML = `<div class="soft p-3 tiny">Error cargando episodios. Intenta con otro podcast.</div>`;
+      console.warn(e);
+    }
+  }
+
+  /* ---------------- Phrases ---------------- */
+  function rebuildTags(){
+    state.tags = new Set();
+    state.phrases.forEach(p => (p.tags || []).forEach(t => state.tags.add(t)));
+  }
+
+  function buildFuse(){
+    state.phraseFuse = new Fuse(state.phrases, {
+      keys: ["text", "tags", "source"],
+      threshold: 0.35,
+      ignoreLocation: true,
+      includeScore: true
+    });
+  }
+
+  function renderTagFilter(){
+    const sel = $("tagFilter");
+    const prev = sel.value;
+    sel.innerHTML = `<option value="">Todos los tags</option>` +
+      Array.from(state.tags).sort().map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join("");
+    sel.value = prev || "";
+  }
+
+  async function loadPhrases(){
+    const data = await store.getItem("phrases");
+    state.phrases = Array.isArray(data) ? data : [];
+    state.selectedPhraseId = await store.getItem("selectedPhraseId") || null;
+
+    if (!state.phrases.length){
+      state.phrases = [
+        { id: crypto.randomUUID(), text: "I would like to improve my English pronunciation.", createdAt: Date.now(), tags:["starter"], source:"starter" },
+        { id: crypto.randomUUID(), text: "Could you please repeat that more slowly?", createdAt: Date.now(), tags:["starter"], source:"starter" },
+        { id: crypto.randomUUID(), text: "What do you recommend I practice today?", createdAt: Date.now(), tags:["daily"], source:"starter" },
+      ];
+      await store.setItem("phrases", state.phrases);
+    }
+
+    rebuildTags(); buildFuse(); renderTagFilter();
+    renderPhrases(); renderSelectedPreview();
+  }
+
+  async function savePhrases(){
+    await store.setItem("phrases", state.phrases);
+  }
+
+  function getSelected(){
+    return state.phrases.find(x => x.id === state.selectedPhraseId) || null;
+  }
+
+  function renderSelectedPreview(){
+    const p = getSelected();
+    $("selectedPhrasePreview").textContent = p ? p.text : "Ninguna";
+    $("phoneticPreview").textContent = p ? englishToSpanishPhonetic(p.text) : "—";
+    $("segmentsPreview").innerHTML = p ? makeSegments(englishToSpanishPhonetic(p.text)) : "—";
+  }
+
+  function renderPhrases(){
+    const box = $("phrasesList");
+    const query = $("phraseSearch").value.trim();
+    const tag = $("tagFilter").value || "";
+
+    let list = state.phrases.slice();
+    if (query && state.phraseFuse) list = state.phraseFuse.search(query).map(r => r.item);
+    if (tag) list = list.filter(p => (p.tags || []).includes(tag));
+
+    if (!list.length){
+      box.innerHTML = `<div class="soft p-3 tiny">No hay coincidencias. Prueba otra búsqueda.</div>`;
+      return;
+    }
+
+    box.innerHTML = list.map(p => {
+      const isSel = p.id === state.selectedPhraseId;
+      const tags = (p.tags || []).map(t => `<span class="badge rounded-pill text-bg-secondary me-1">${esc(t)}</span>`).join("") || `<span class="tiny">sin tags</span>`;
+      const phon = englishToSpanishPhonetic(p.text);
+
+      return `
+        <div class="list-group-item">
+          <div class="d-flex justify-content-between gap-2">
+            <div class="flex-grow-1">
+              <div class="fw-bold ${isSel ? 'text-success' : ''}">${esc(p.text)}</div>
+              <div class="tiny mt-1">${tags}</div>
+              <div class="tiny">${dayjs(p.createdAt).format("DD MMM YYYY • HH:mm")} · <span class="kbd">${esc(p.source || "custom")}</span></div>
+
+              <div class="soft p-2 mt-2">
+                <div class="tiny fw-semibold">Pronunciación figurada:</div>
+                <div class="mono">${esc(phon)}</div>
+                <div class="mt-1">${makeSegments(phon)}</div>
+              </div>
+            </div>
+
+            <div class="btn-group btn-group-sm align-self-start">
+              <button class="btn ${isSel ? 'btn-success' : 'btn-outline-success'}" data-act="select" data-id="${p.id}">${isSel ? 'OK' : 'Seleccionar'}</button>
+              <button class="btn btn-outline-secondary" data-act="speak" data-id="${p.id}" title="Escuchar"><i class="fa-solid fa-volume-high"></i></button>
+              <button class="btn btn-outline-primary" data-act="tag" data-id="${p.id}" title="Tags"><i class="fa-solid fa-tags"></i></button>
+              <button class="btn btn-outline-danger" data-act="del" data-id="${p.id}" title="Borrar"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    box.querySelectorAll("button[data-act]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const id = btn.dataset.id;
+        const act = btn.dataset.act;
+        const item = state.phrases.find(x => x.id === id);
+        if (!id) return;
+
+        if (act === "select"){
+          state.selectedPhraseId = id;
+          await store.setItem("selectedPhraseId", id);
+          renderPhrases(); renderSelectedPreview();
+          notyf.success("Frase seleccionada.");
+        }
+
+        if (act === "speak" && item) speak(item.text);
+
+        if (act === "del"){
+          state.phrases = state.phrases.filter(x => x.id !== id);
+          if (state.selectedPhraseId === id){
+            state.selectedPhraseId = null;
+            await store.removeItem("selectedPhraseId");
+          }
+          await savePhrases();
+          rebuildTags(); buildFuse(); renderTagFilter();
+          renderPhrases(); renderSelectedPreview();
+          notyf.success("Eliminada.");
+        }
+
+        if (act === "tag" && item){
+          const t = prompt("Tags (separados por coma). Ej: daily, travel, work", (item.tags || []).join(", "));
+          if (t === null) return;
+          const tags = t.split(",").map(x => x.trim().toLowerCase()).filter(Boolean).slice(0,8);
+          item.tags = Array.from(new Set(tags));
+          await savePhrases();
+          rebuildTags(); buildFuse(); renderTagFilter();
+          renderPhrases(); renderSelectedPreview();
+          notyf.success("Tags actualizados.");
+        }
+      });
+    });
+  }
+
+  $("addPhraseBtn").addEventListener("click", async () => {
+    const t = $("newPhrase").value.trim();
+    if (!t) return notyf.error("Escribe una frase.");
+    state.phrases.unshift({ id: crypto.randomUUID(), text: t, createdAt: Date.now(), tags:["custom"], source:"custom" });
+    $("newPhrase").value = "";
+    await savePhrases();
+    rebuildTags(); buildFuse(); renderTagFilter();
+    renderPhrases();
+    notyf.success("Frase agregada.");
+  });
+
+  $("phraseSearch").addEventListener("input", () => renderPhrases());
+  $("tagFilter").addEventListener("change", () => renderPhrases());
+
+  $("useSelectedBtn").addEventListener("click", () => {
+    const p = getSelected();
+    if (!p) return notyf.error("Primero selecciona una frase.");
+    $("referenceText").value = p.text;
+    updatePhoneticFromReference();
+    showTab("practice");
+    notyf.success("Frase enviada a Pronunciación.");
+  });
+
+  /* ---------- ✅ Frases de Internet corregido (con diagnóstico + fallback) ---------- */
+  const FALLBACK_QUOTES = [
+    { text: "Success is the sum of small efforts, repeated day in and day out.", author: "Robert Collier" },
+    { text: "The secret of getting ahead is getting started.", author: "Mark Twain" },
+    { text: "If you want to go fast, go alone. If you want to go far, go together.", author: "Proverb" },
+    { text: "Small progress is still progress.", author: "Unknown" },
+  ];
+
+  async function getQuotesCache(){
+    if (state.quotesCache && Array.isArray(state.quotesCache) && state.quotesCache.length) return state.quotesCache;
+
+    const cached = await store.getItem("quotesCache");
+    if (Array.isArray(cached) && cached.length){
+      state.quotesCache = cached;
+      return cached;
+    }
+
+    const url = "https://type.fit/api/quotes";
+
+    let resp;
+    try{
+      resp = await fetch(url, { cache: "no-store" });
+    } catch (err){
+      throw new Error(
+        "Fallo de red al pedir frases. Si abriste el HTML con doble clic (file://), usa Live Server/localhost. " +
+        "Detalle: " + (err?.message || err)
+      );
+    }
+
+    if (!resp.ok){
+      const text = await resp.text().catch(()=> "");
+      throw new Error(`HTTP ${resp.status} al pedir frases. Resp: ${text.slice(0,120)}...`);
+    }
+
+    let data;
+    try{
+      data = await resp.json();
+    } catch {
+      throw new Error("La respuesta no fue JSON válido (posible bloqueo/proxy).");
+    }
+
+    const cleaned = (Array.isArray(data) ? data : [])
+      .filter(x => x && typeof x.text === "string" && x.text.trim().length)
+      .map(x => ({ text: x.text.trim(), author: (x.author || "").trim() }))
+      .filter(x => x.text.length >= 10 && x.text.length <= 180);
+
+    if (!cleaned.length) throw new Error("La API respondió pero sin frases útiles.");
+
+    await store.setItem("quotesCache", cleaned);
+    state.quotesCache = cleaned;
+    return cleaned;
+  }
+
+  $("getInternetPhraseBtn").addEventListener("click", async () => {
+    try{
+      $("getInternetPhraseBtn").disabled = true;
+      $("getInternetPhraseBtn").innerHTML = `<i class="fa-solid fa-spinner fa-spin me-2"></i>Cargando…`;
+
+      let quotes;
+      try{
+        quotes = await getQuotesCache();
+      } catch (e){
+        console.warn("API frases falló, usando fallback:", e);
+        quotes = FALLBACK_QUOTES;
+        notyf.open({ type: "warning", message: "No pude acceder a la API. Usando frases de respaldo." });
+      }
+
+      const q = quotes[Math.floor(Math.random() * quotes.length)];
+      const text = q.author ? `${q.text} — ${q.author}` : q.text;
+
+      state.phrases.unshift({ id: crypto.randomUUID(), text, createdAt: Date.now(), tags:["internet"], source:"internet" });
+      await savePhrases();
+      rebuildTags(); buildFuse(); renderTagFilter();
+      renderPhrases(); renderSelectedPreview();
+      notyf.success("Frase agregada.");
+    } catch (err){
+      notyf.error("Error: " + (err?.message || err));
+    } finally{
+      $("getInternetPhraseBtn").disabled = false;
+      $("getInternetPhraseBtn").innerHTML = `<i class="fa-solid fa-cloud-arrow-down me-2"></i>Internet`;
+    }
+  });
+
+  $("clearCacheBtn").addEventListener("click", async () => {
+    await store.removeItem("quotesCache");
+    state.quotesCache = null;
+    notyf.success("Caché limpiada.");
+  });
+
+  /* ---------------- Pronunciation (SpeechRecognition) ---------------- */
+  function normalizeWords(text){
+    return text.toLowerCase().replace(/[^a-z0-9\s']/g," ").replace(/\s+/g," ").trim().split(" ").filter(Boolean);
+  }
+  function levenshtein(a,b){
+    const n=a.length,m=b.length;
+    if(!n) return m; if(!m) return n;
+    const dp=Array.from({length:n+1},()=>Array(m+1).fill(0));
+    for(let i=0;i<=n;i++) dp[i][0]=i;
+    for(let j=0;j<=m;j++) dp[0][j]=j;
+    for(let i=1;i<=n;i++){
+      for(let j=1;j<=m;j++){
+        const cost=a[i-1]===b[j-1]?0:1;
+        dp[i][j]=Math.min(dp[i-1][j]+1,dp[i][j-1]+1,dp[i-1][j-1]+cost);
+      }
+    }
+    return dp[n][m];
+  }
+  function similarityPct(ref,said){
+    const a=ref.trim().toLowerCase(), b=said.trim().toLowerCase();
+    if(!a&&!b) return 100;
+    if(!a||!b) return 0;
+    const dist=levenshtein(a,b);
+    const maxLen=Math.max(a.length,b.length);
+    return Math.max(0,Math.min(100,Math.round((1-dist/maxLen)*100)));
+  }
+  function highlightByWords(reference,recognized){
+    const ref=normalizeWords(reference);
+    const rec=normalizeWords(recognized);
+    let ptr=0;
+    const out=[];
+    for(const w of ref){
+      let found=false;
+      for(let k=ptr;k<rec.length;k++){
+        if(rec[k]===w){ found=true; ptr=k+1; break; }
+      }
+      out.push(found?`<span class="word-ok">${esc(w)}</span>`:`<span class="word-bad">${esc(w)}</span>`);
+    }
+    return out.join(" ");
+  }
+
+  function startRecognition(){
+    if(!SR) return notyf.error("Tu navegador no soporta SpeechRecognition. Usa Chrome/Edge.");
+    const reference=$("referenceText").value.trim();
+    if(!reference) return notyf.error("Escribe una frase objetivo.");
+
+    const rec=new SR();
+    rec.lang="en-US";
+    rec.interimResults=true;
+    rec.continuous=false;
+
+    state.recognition=rec;
+    state.recognizing=true;
+
+    $("startRecBtn").classList.add("d-none");
+    $("stopRecBtn").classList.remove("d-none");
+    $("recognizedText").textContent="Escuchando… habla ahora.";
+    $("highlighted").textContent="—";
+    $("scorePct").textContent="—";
+
+    let finalText="";
+
+    rec.onresult=(event)=>{
+      let interim="";
+      for(let i=event.resultIndex;i<event.results.length;i++){
+        const t=event.results[i][0].transcript;
+        if(event.results[i].isFinal) finalText+=t+" ";
+        else interim+=t;
+      }
+      const shown=(finalText+interim).trim();
+      $("recognizedText").textContent=shown||"…";
+      $("scorePct").textContent=similarityPct(reference,shown)+"%";
+      $("highlighted").innerHTML=highlightByWords(reference,shown);
+    };
+
+    rec.onerror=(e)=>{
+      stopRecognition();
+      notyf.error("Error mic/reconocimiento: " + (e.error || "desconocido"));
+    };
+
+    rec.onend=()=>{
+      if(!state.recognizing) return;
+      stopRecognition();
+      notyf.success("Evaluación terminada.");
+    };
+
+    rec.start();
+    notyf.open({ type:"info", message:"🎙️ Habla la frase completa." });
+  }
+
+  function stopRecognition(){
+    if(state.recognition){
+      try{ state.recognition.stop(); }catch{}
+    }
+    state.recognition=null;
+    state.recognizing=false;
+    $("startRecBtn").classList.remove("d-none");
+    $("stopRecBtn").classList.add("d-none");
+  }
+
+  $("startRecBtn").addEventListener("click", startRecognition);
+  $("stopRecBtn").addEventListener("click", stopRecognition);
+
+  /* ---------------- Pronunciación figurada al español (configurable) ---------------- */
+  function cfg(){
+    return {
+      th: $("thMode").value,      // "d" o "z"
+      r: $("rMode").value,        // "simple" o "marked"
+      stress: $("stressMarks").checked
+    };
+  }
+  $("thMode").addEventListener("change", () => { renderPhrases(); renderSelectedPreview(); updatePhoneticFromReference(); });
+  $("rMode").addEventListener("change", () => { renderPhrases(); renderSelectedPreview(); updatePhoneticFromReference(); });
+  $("stressMarks").addEventListener("change", () => { renderPhrases(); renderSelectedPreview(); updatePhoneticFromReference(); });
+
+  function englishToSpanishPhonetic(text){
+    const words=(text||"").replace(/[“”]/g,'"').replace(/[‘’]/g,"'").split(/\s+/).filter(Boolean);
+    return words.map(w=>wordToPhonetic(w,cfg())).join(" ");
+  }
+
+  function wordToPhonetic(word,opt){
+    const m=word.match(/^(.+?)([.,!?;:]*)$/);
+    let core=m?m[1]:word;
+    const punct=m?m[2]:"";
+    const lower=core.toLowerCase();
+
+    const dict={
+      "the": opt.th==="z" ? "ze" : "de",
+      "this": opt.th==="z" ? "zis" : "dis",
+      "that": opt.th==="z" ? "zat" : "dat",
+      "these": opt.th==="z" ? "ziiz" : "diiz",
+      "those": opt.th==="z" ? "zóuz" : "dóuz",
+      "you":"yuu","your":"yor","are":"ar","to":"tú","of":"ov","for":"for","and":"and","with":"wíd",
+      "what":"wát","when":"wen","where":"wer","why":"wái","how":"jáu",
+      "i":"ái","my":"mái","we":"wí",
+      "they": opt.th==="z" ? "zéi" : "dei",
+      "it":"it","is":"iz","was":"wos","were":"wer",
+      "please":"plíiz","english":"ínglish","pronunciation":"pronánsiéishon","repeat":"ripíit","slowly":"slóuli","today":"tudéi"
+    };
+    if(dict[lower]) return dict[lower]+punct;
+
+    let x=lower;
+
+    x=x.replace(/n't\b/g,"nt").replace(/'re\b/g," ar").replace(/'ll\b/g,"l").replace(/'ve\b/g,"v").replace(/'d\b/g,"d").replace(/'m\b/g,"m");
+    x=x.replace(/ing\b/g,"in").replace(/tion\b/g,"shon").replace(/sion\b/g,"shon");
+    x=x.replace(/ph/g,"f").replace(/ght/g,"t").replace(/kn/g,"n").replace(/wr/g,"r").replace(/wh/g,"w").replace(/qu/g,"kw");
+    x=x.replace(/ch/g,"ch").replace(/sh/g,"sh");
+    x=x.replace(/th/g, opt.th==="z" ? "z" : "d");
+
+    x=x.replace(/ee/g,"ii").replace(/ea/g,"ii").replace(/oo/g,"uu");
+    x=x.replace(/ou/g,"au").replace(/ow/g,"au").replace(/ai/g,"ei").replace(/ay/g,"ei").replace(/igh/g,"ai").replace(/ie/g,"ai").replace(/oa/g,"óu");
+
+    x=x.replace(/ce/g,"s").replace(/ci/g,"si").replace(/cy/g,"si");
+    x=x.replace(/ge/g,"y").replace(/gi/g,"yi").replace(/gy/g,"yi");
+
+    x=x.replace(/ck/g,"k").replace(/c/g,"k");
+    x=x.replace(/j/g,"y");
+    x=x.replace(/y\b/g,"i");
+    x=x.replace(/e\b/g,"");
+
+    if(opt.r==="marked"){
+      x=x.replace(/er\b/g,"er").replace(/ar\b/g,"ar").replace(/or\b/g,"or");
+    }
+
+    x=x.replace(/(.)\1+/g,"$1$1");
+    if(opt.stress) x=addStressMark(x);
+
+    if(/^[A-ZÁÉÍÓÚÑ]/.test(core)) x=x.charAt(0).toUpperCase()+x.slice(1);
+    return x+punct;
+  }
+
+  function addStressMark(w){
+    const vowels="aeiou";
+    const pos=[];
+    for(let i=0;i<w.length;i++) if(vowels.includes(w[i])) pos.push(i);
+    if(pos.length<=1) return w;
+    const idx=pos[Math.max(0,pos.length-2)];
+    const map={a:"á",e:"é",i:"í",o:"ó",u:"ú"};
+    const ch=w[idx];
+    return map[ch] ? (w.slice(0,idx)+map[ch]+w.slice(idx+1)) : w;
+  }
+
+  function makeSegments(phon){
+    if(!phon||phon==="—") return "—";
+    const tokens=phon.split(/\s+/).filter(Boolean);
+    return tokens.slice(0,24).map(t=>`<span class="seg">${esc(t)}</span>`).join("") || "—";
+  }
+
+  function updatePhoneticFromReference(){
+    const t=$("referenceText").value.trim();
+    const ph=t ? englishToSpanishPhonetic(t) : "—";
+    $("phoneticFromReference").textContent=ph;
+    $("segmentsFromReference").innerHTML=makeSegments(ph);
+  }
+  $("referenceText").addEventListener("input", updatePhoneticFromReference);
+
+  /* ---------------- Init ---------------- */
+  async function init(){
+    // Aviso si se abre con file:// (causa común de fallo de fetch)
+    if (location.protocol === "file:") {
+      notyf.open({ type:"warning", message:"⚠️ Estás en file://. Usa Live Server o http://localhost para que 'Internet' funcione." });
+    }
+
+    applyTheme(!!(await store.getItem("theme_dark")));
+    setupSpeechSupport();
+
+    await loadPhrases();
+    renderPhrases();
+    renderSelectedPreview();
+
+    showTab("podcasts");
+    updatePhoneticFromReference();
+
+    notyf.success("Listo ✅");
+  }
+  init();
+
 })();
-
-/* INIT */
-loadPhrase();loadStory();generateSpeak();loadExercise();
 </script>
-
 </body>
 </html>
