@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>English Practice · Premium Final+</title>
+  <title>English Practice · Premium One-File</title>
 
   <!-- CSS externos -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lux/bootstrap.min.css">
@@ -22,15 +22,18 @@
       --ok:#16a34a;
       --bad:#ef4444;
       --warn:#f59e0b;
-      --brand1:#7c3aed;
-      --brand2:#06b6d4;
-      --brand3:#22c55e;
+      --brand1:#7c3aed; /* purple */
+      --brand2:#06b6d4; /* cyan */
+      --brand3:#22c55e; /* green */
+      --glassLight: rgba(255,255,255,.75);
+      --glassDark: rgba(255,255,255,.08);
       --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       --ui:"Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       --title:"Sora","Inter",system-ui,sans-serif;
-      --radius:22px;
+      --radius:18px;
     }
 
+    /* Background premium con gradientes */
     body{
       font-family:var(--ui);
       background:
@@ -53,6 +56,7 @@
     .title{font-family:var(--title);letter-spacing:-.02em;}
     .mono{font-family:var(--mono);}
 
+    /* Header/Hero */
     .hero{
       border-radius:28px;
       padding:22px 22px;
@@ -67,6 +71,7 @@
       box-shadow:0 24px 70px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
     }
 
+    /* Tarjetas de vidrio premium */
     .app-card{
       border:0;
       border-radius:22px;
@@ -198,6 +203,15 @@
       border-color:rgba(255,255,255,.10);
     }
 
+    /* Reproductor minimal */
+    audio{
+      border-radius:12px;
+      outline:none;
+      width:100%;
+      background:transparent;
+    }
+
+    /* Chips */
     .chip{
       display:inline-flex;align-items:center;gap:8px;
       padding:.28rem .6rem;border-radius:999px;font-size:.86rem;font-weight:600;
@@ -205,7 +219,10 @@
       border:1px solid rgba(124,58,237,.18);
     }
 
-    .shine{ position:relative; overflow:hidden; }
+    /* Micro-animación de brillo en botones importantes */
+    .shine{
+      position:relative;overflow:hidden;
+    }
     .shine::after{
       content:""; position:absolute; inset:0; transform:translateX(-120%);
       background:linear-gradient(120deg, transparent 0%, rgba(255,255,255,.35) 20%, transparent 42%);
@@ -213,7 +230,8 @@
     }
     .shine:hover::after{ transform:translateX(120%); }
 
-    .load-more{ display:flex; justify-content:center; margin-top:8px; }
+    /* Sombra al foco */
+    .focus-ring:focus{ box-shadow:0 0 0 .25rem rgba(6,182,212,.25) !important; }
   </style>
 </head>
 
@@ -230,10 +248,10 @@
         </div>
       </div>
       <div class="d-flex gap-2">
-        <button id="themeBtn" class="btn btn-light pill btn-premium" data-tippy-content="Tema claro/oscuro">
+        <button id="themeBtn" class="btn btn-light pill btn-premium focus-ring" data-tippy-content="Tema claro/oscuro">
           <i class="fa-solid fa-moon"></i>
         </button>
-        <button id="helpBtn" class="btn btn-light pill btn-premium" data-tippy-content="Ayuda rápida">
+        <button id="helpBtn" class="btn btn-light pill btn-premium focus-ring" data-tippy-content="Ayuda rápida">
           <i class="fa-regular fa-circle-question"></i>
         </button>
       </div>
@@ -256,7 +274,7 @@
         <div class="soft p-3">
           <div class="fw-semibold">Voz (TTS)</div>
           <div class="tiny">Usa SpeechSynthesis del navegador.</div>
-          <select id="voiceSelect" class="form-select mt-2"></select>
+          <select id="voiceSelect" class="form-select mt-2 focus-ring"></select>
         </div>
 
         <div class="soft p-3 mt-3">
@@ -278,28 +296,28 @@
           <div class="row g-2 mt-2">
             <div class="col-6">
               <label class="tiny fw-semibold">TH</label>
-              <select id="thMode" class="form-select form-select-sm">
+              <select id="thMode" class="form-select form-select-sm focus-ring">
                 <option value="d" selected>TH → “D” (MX)</option>
                 <option value="z">TH → “Z” (ES)</option>
               </select>
             </div>
             <div class="col-6">
               <label class="tiny fw-semibold">R</label>
-              <select id="rMode" class="form-select form-select-sm">
+              <select id="rMode" class="form-select form-select-sm focus-ring">
                 <option value="simple" selected>R simple</option>
                 <option value="marked">R marcada (er/ar)</option>
               </select>
             </div>
           </div>
           <div class="form-check form-switch mt-2">
-            <input class="form-check-input" type="checkbox" role="switch" id="stressMarks" checked>
+            <input class="form-check-input focus-ring" type="checkbox" role="switch" id="stressMarks" checked>
             <label class="form-check-label tiny" for="stressMarks">Marcar acento (á/é/í/ó/ú)</label>
           </div>
         </div>
 
         <div class="tiny mt-3">
           <div class="chip"><i class="fa-solid fa-microphone-lines"></i><span>SpeechRecognition</span></div>
-          <div class="mt-2"><span class="kbd">Tip</span> Usa Live Server si alguna API externa falla temporalmente.</div>
+          <div class="mt-2"><span class="kbd">Tip</span> Si algo externo falla, reintenta o usa <span class="kbd">Live Server</span>.</div>
         </div>
       </div>
     </div>
@@ -312,7 +330,7 @@
         <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
           <div>
             <div class="title fw-bold fs-4"><i class="fa-solid fa-podcast me-2"></i>Podcasts</div>
-            <div class="tiny">iTunes JSONP + AllOrigins RSS (sin CORS). “Ver más” en podcasts y episodios.</div>
+            <div class="tiny">iTunes JSONP + rss2json JSONP (sin CORS).</div>
           </div>
           <div class="chip"><i class="fa-solid fa-bolt"></i>Premium UI</div>
         </div>
@@ -321,7 +339,7 @@
 
         <div class="row g-2">
           <div class="col-md-8">
-            <input id="podQuery" class="form-control form-control-lg" placeholder="Ej: english learning, science, business, news..." value="english learning" />
+            <input id="podQuery" class="form-control form-control-lg focus-ring" placeholder="Ej: english learning, science, business, news..." value="english learning" />
           </div>
           <div class="col-md-4 d-grid">
             <button id="podSearchBtn" class="btn btn-gradient btn-premium btn-lg shine">
@@ -331,9 +349,6 @@
         </div>
 
         <div id="podResults" class="mt-3"></div>
-        <div class="load-more">
-          <button id="morePodsBtn" class="btn btn-outline-primary btn-premium d-none"><i class="fa-solid fa-angles-down me-2"></i>Ver más podcasts</button>
-        </div>
 
         <div id="feedHeader" class="soft p-3 mt-3 d-none">
           <div class="d-flex gap-3 align-items-start">
@@ -346,9 +361,6 @@
         </div>
 
         <div id="episodes" class="mt-3 list-group list-compact"></div>
-        <div class="load-more">
-          <button id="moreEpsBtn" class="btn btn-outline-primary btn-premium d-none"><i class="fa-solid fa-angles-down me-2"></i>Ver más episodios</button>
-        </div>
 
         <div class="soft p-3 mt-3">
           <div class="d-flex justify-content-between align-items-center">
@@ -369,10 +381,10 @@
             <div class="tiny">Internet sin repetir (baraja aleatoria con memoria entre sesiones).</div>
           </div>
           <div class="d-flex gap-2">
-            <button id="getInternetPhraseBtn" class="btn btn-outline-primary btn-premium" data-tippy-content="Traer una frase de Internet">
+            <button id="getInternetPhraseBtn" class="btn btn-outline-primary btn-premium focus-ring" data-tippy-content="Traer una frase de Internet">
               <i class="fa-solid fa-cloud-arrow-down me-2"></i>Internet
             </button>
-            <button id="clearCacheBtn" class="btn btn-outline-secondary btn-premium" data-tippy-content="Borrar caché de frases">
+            <button id="clearCacheBtn" class="btn btn-outline-secondary btn-premium focus-ring" data-tippy-content="Borrar caché de frases">
               <i class="fa-solid fa-broom me-2"></i>Caché
             </button>
           </div>
@@ -382,7 +394,7 @@
 
         <div class="row g-2">
           <div class="col-md-8">
-            <input id="newPhrase" class="form-control form-control-lg" placeholder="Escribe tu frase (corta o larga)..." />
+            <input id="newPhrase" class="form-control form-control-lg focus-ring" placeholder="Escribe tu frase (corta o larga)..." />
           </div>
           <div class="col-md-4 d-grid">
             <button id="addPhraseBtn" class="btn btn-success btn-premium btn-lg">
@@ -393,10 +405,10 @@
 
         <div class="row g-2 mt-2">
           <div class="col-md-8">
-            <input id="phraseSearch" class="form-control" placeholder="Buscar en tus frases..." />
+            <input id="phraseSearch" class="form-control focus-ring" placeholder="Buscar en tus frases..." />
           </div>
           <div class="col-md-4">
-            <select id="tagFilter" class="form-select">
+            <select id="tagFilter" class="form-select focus-ring">
               <option value="">Todos los tags</option>
             </select>
           </div>
@@ -431,7 +443,7 @@
         <hr class="my-3">
 
         <label class="form-label fw-semibold">Frase objetivo</label>
-        <textarea id="referenceText" class="form-control form-control-lg" rows="3" placeholder="Ej: I would like to improve my English pronunciation."></textarea>
+        <textarea id="referenceText" class="form-control form-control-lg focus-ring" rows="3" placeholder="Ej: I would like to improve my English pronunciation."></textarea>
 
         <div class="row g-2 mt-2">
           <div class="col-md-6">
@@ -449,7 +461,7 @@
             <div class="soft p-3 h-100">
               <div class="fw-semibold"><i class="fa-solid fa-wand-magic-sparkles me-2"></i>Acciones</div>
               <div class="d-flex flex-wrap gap-2 mt-2">
-                <button id="ttsBtn" class="btn btn-secondary btn-premium" data-tippy-content="Escuchar con voz del navegador">
+                <button id="ttsBtn" class="btn btn-secondary btn-premium">
                   <i class="fa-solid fa-volume-high me-2"></i>Escuchar
                 </button>
                 <button id="startRecBtn" class="btn btn-gradient btn-premium shine" data-tippy-content="Habla la frase para evaluar">
@@ -503,32 +515,17 @@
   const notyf = new Notyf({ duration: 2600, ripple: true, dismissible: true, position: { x:'right', y:'top' } });
   tippy('[data-tippy-content]', { animation: 'scale', theme: 'light-border' });
 
-  const store = localforage.createInstance({ name: "english_practice_premium_final_plus_v1" });
+  const store = localforage.createInstance({ name: "english_practice_premium_v1" });
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 
   const state = {
-    // podcasts
-    podsAll: [],
-    podsShown: 0,
-    podsPage: 18,
-
-    // episodios
-    epsAll: [],
-    epsShown: 0,
-    epsPage: 12,
-    epsNextUrl: null, // para paginación “infinita” si el feed la expone
-
-    // frases
     phrases: [],
     selectedPhraseId: null,
     phraseFuse: null,
     tags: new Set(),
-
-    // SR/TTS
     recognition: null,
     recognizing: false,
 
-    // deck de frases online
     quotesDeck: [],
     deckIndex: 0,
     usedHashes: new Set()
@@ -557,7 +554,7 @@
     await applyTheme(!document.body.classList.contains("dark"));
   });
   $("helpBtn").addEventListener("click", () => {
-    notyf.open({ type: "info", message: "Podcasts: iTunes (JSONP) + RSS vía AllOrigins (CORS libre). Si el feed publica paginación Atom (link rel='next'), puedes seguir cargando episodios con 'Ver más' sin límite práctico." });
+    notyf.open({ type: "info", message: "Podcasts: iTunes + rss2json via JSONP (sin CORS). Frases: Internet sin repetir, guardado en caché. Tema y guía fonética persistentes." });
   });
 
   /* ---------------- Speech support ---------------- */
@@ -588,33 +585,21 @@
     sel.addEventListener("change", () => store.setItem("tts_voice", sel.value));
   }
   speechSynthesis.onvoiceschanged = loadVoices;
-  setTimeout(loadVoices, 250);
+  loadVoices();
 
   function speak(text){
-    if (!text) return notyf.error("No hay texto para leer.");
-    const ensureVoices = () => new Promise(res => {
-      let tries = 0;
-      const t = setInterval(() => {
-        tries++;
-        if (speechSynthesis.getVoices().length || tries > 15){
-          clearInterval(t); res();
-        }
-      }, 100);
-    });
-    ensureVoices().then(() => {
-      const u = new SpeechSynthesisUtterance(text);
-      const voices = speechSynthesis.getVoices();
-      const chosen = voices.find(v => v.name === $("voiceSelect").value) || voices.find(v => (v.lang||"").toLowerCase().startsWith("en")) || voices[0];
-      if (chosen) u.voice = chosen;
-      u.rate = 1.0; u.pitch = 1.0;
-      try { speechSynthesis.cancel(); } catch {}
-      speechSynthesis.speak(u);
-    });
+    if (!text) return;
+    const u = new SpeechSynthesisUtterance(text);
+    const voices = speechSynthesis.getVoices();
+    const chosen = voices.find(v => v.name === $("voiceSelect").value);
+    if (chosen) u.voice = chosen;
+    u.rate = 1.0; u.pitch = 1.0;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
   }
-  $("ttsBtn").addEventListener("click", () => speak($("referenceText").value.trim()));
 
   /* ---------------- JSONP helper ---------------- */
-  function jsonp(url, { timeout=18000, callbackParam="callback" } = {}) {
+  function jsonp(url, { timeout=16000, callbackParam="callback" } = {}) {
     return new Promise((resolve, reject) => {
       const cbName = "cb_" + Math.random().toString(36).slice(2);
       const sep = url.includes("?") ? "&" : "?";
@@ -637,56 +622,46 @@
     });
   }
 
-  /* ---------------- iTunes search (JSONP) ---------------- */
-  async function searchPodcasts(term){
-    const q = encodeURIComponent(term.trim());
-    const url = `https://itunes.apple.com/search?term=${q}&media=podcast&entity=podcast&limit=200`;
-    const data = await jsonp(url, { callbackParam: "callback" });
-    const raw = (data && data.results) ? data.results : [];
-    const list = raw.filter(x => x.feedUrl).map(p => ({
-      title: p.collectionName || p.trackName || "Podcast",
-      author: p.artistName || "",
-      artwork: p.artworkUrl100 || p.artworkUrl60 || "",
-      feedUrl: p.feedUrl || ""
-    }));
-    const seen = new Set();
-    const uniq = [];
-    for (const it of list){
-      const key = it.feedUrl.trim().toLowerCase();
-      if (seen.has(key)) continue;
-      seen.add(key); uniq.push(it);
-    }
-    return uniq;
-  }
-
-  function renderPodcastsSlice(){
+  /* ---------------- Podcasts (iTunes JSONP + rss2json JSONP) ---------------- */
+  function renderPodcastResults(list){
     const box = $("podResults");
-    if (!state.podsAll.length){
+    if (!list.length){
       box.innerHTML = `<div class="soft p-3 tiny">Sin resultados. Prueba: <span class="kbd">english learning</span> o <span class="kbd">news</span>.</div>`;
-      $("morePodsBtn").classList.add("d-none");
       return;
     }
-    const slice = state.podsAll.slice(0, state.podsShown);
     box.innerHTML = `
       <div class="tiny mb-2">Selecciona un podcast para cargar episodios:</div>
       <div class="list-group list-compact">
-        ${slice.map(p => `
-          <button class="list-group-item text-start" data-feed="${esc(p.feedUrl)}">
-            <div class="d-flex gap-3 align-items-start">
-              <img src="${esc(p.artwork)}" alt="" style="width:64px;height:64px;border-radius:14px;object-fit:cover;" loading="lazy" onerror="this.src='';">
-              <div class="flex-grow-1">
-                <div class="fw-bold">${esc(p.title)}</div>
-                <div class="tiny">${esc(p.author || "")}</div>
-                <div class="tiny mono truncate-2">${esc(p.feedUrl)}</div>
+        ${list.map(p => {
+          const art = p.artworkUrl100 || p.artworkUrl60 || "";
+          const title = p.collectionName || p.trackName || "Podcast";
+          const author = p.artistName || "";
+          const feedUrl = p.feedUrl || "";
+          return `
+            <button class="list-group-item text-start" data-feed="${esc(feedUrl)}">
+              <div class="d-flex gap-3 align-items-start">
+                <img src="${esc(art)}" alt="" style="width:64px;height:64px;border-radius:14px;object-fit:cover;" loading="lazy" onerror="this.src='';">
+                <div class="flex-grow-1">
+                  <div class="fw-bold">${esc(title)}</div>
+                  <div class="tiny">${esc(author)}</div>
+                  <div class="tiny mono truncate-2">${esc(feedUrl)}</div>
+                </div>
+                <div class="align-self-center chip"><i class="fa-solid fa-headphones"></i>Play</div>
               </div>
-              <div class="align-self-center chip"><i class="fa-solid fa-headphones"></i>Play</div>
-            </div>
-          </button>
-        `).join("")}
+            </button>
+          `;
+        }).join("")}
       </div>
     `;
     box.querySelectorAll("button[data-feed]").forEach(btn => btn.addEventListener("click", () => loadEpisodes(btn.dataset.feed)));
-    $("morePodsBtn").classList.toggle("d-none", state.podsShown >= state.podsAll.length);
+  }
+
+  async function searchPodcasts(term){
+    const q = encodeURIComponent(term.trim());
+    const url = `https://itunes.apple.com/search?term=${q}&media=podcast&entity=podcast&limit=18`;
+    const data = await jsonp(url, { callbackParam: "callback" });
+    const results = (data && data.results) ? data.results : [];
+    return results.filter(x => x.feedUrl);
   }
 
   $("podSearchBtn").addEventListener("click", async () => {
@@ -699,13 +674,10 @@
     $("podResults").innerHTML = "";
     $("episodes").innerHTML = "";
     $("feedHeader").classList.add("d-none");
-    $("moreEpsBtn").classList.add("d-none");
 
     try{
       const list = await searchPodcasts(term);
-      state.podsAll = list;
-      state.podsShown = Math.min(state.podsPage, list.length);
-      renderPodcastsSlice();
+      renderPodcastResults(list);
       notyf.success(`Resultados: ${list.length}`);
     } catch (e) {
       notyf.error("No se pudo buscar ahora. Intenta de nuevo.");
@@ -717,195 +689,60 @@
     }
   });
 
-  $("morePodsBtn").addEventListener("click", () => {
-    state.podsShown = Math.min(state.podsShown + state.podsPage, state.podsAll.length);
-    renderPodcastsSlice();
-  });
-
-  /* ---------------- RSS fetch + parse (AllOrigins primero, rss2json fallback) ---------------- */
-  async function fetchRssViaAllOrigins(url){
-    // Intento 1: JSON con contents
-    try{
-      const r = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`, { cache:"no-store" });
-      if (r.ok){
-        const j = await r.json();
-        if (j && typeof j.contents === "string" && j.contents.trim().length) return j.contents;
-      }
-    }catch(e){ /* continúa */ }
-    // Intento 2: RAW directo
-    try{
-      const r = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`, { cache:"no-store" });
-      if (r.ok){ return await r.text(); }
-    }catch(e){ /* continúa */ }
-    return null;
-  }
-
-  function textTrim(n){
-    return (n && n.textContent ? n.textContent : "").trim();
-  }
-
-  function findFirstAttr(el, names=[]){
-    for(const n of names){
-      const v = el.getAttribute(n);
-      if (v) return v;
-    }
-    return null;
-  }
-
-  function parseRss(xmlStr){
-    const doc = new DOMParser().parseFromString(xmlStr, "text/xml");
-    // detectar errores de parseo
-    if (doc.getElementsByTagName("parsererror").length){
-      throw new Error("XML inválido o bloqueado.");
-    }
-
-    // Metadata del feed
-    let title = textTrim(doc.querySelector("channel > title")) || textTrim(doc.querySelector("feed > title")) || "Podcast";
-    let description = textTrim(doc.querySelector("channel > description")) || textTrim(doc.querySelector("feed > subtitle")) || "";
-    let image = "";
-
-    const itunesImg = doc.querySelector("channel > itunes\\:image") || doc.querySelector("itunes\\:image");
-    if (itunesImg){
-      image = itunesImg.getAttribute("href") || "";
-    }
-    if (!image){
-      const imgUrl = textTrim(doc.querySelector("channel > image > url"));
-      if (imgUrl) image = imgUrl;
-    }
-
-    // Items (RSS item o Atom entry)
-    const items = [];
-    const rssItems = Array.from(doc.querySelectorAll("channel > item"));
-    const atomEntries = Array.from(doc.querySelectorAll("feed > entry"));
-
-    if (rssItems.length){
-      for (const it of rssItems){
-        const title = textTrim(it.querySelector("title")) || "(sin título)";
-        // descripción: tomar CDATA si hay
-        let desc = textTrim(it.querySelector("description")) || textTrim(it.querySelector("content\\:encoded")) || "";
-        desc = desc.replace(/<[^>]+>/g, "").trim();
-        const pubDate = textTrim(it.querySelector("pubDate")) || textTrim(it.querySelector("dc\\:date")) || "";
-        // audio: enclosure, media:content, o link a .mp3
-        let audioUrl = "";
-        const enc = it.querySelector("enclosure");
-        if (enc) audioUrl = enc.getAttribute("url") || "";
-        if (!audioUrl){
-          const media = it.querySelector("media\\:content, content");
-          if (media){
-            const type = (media.getAttribute("type")||"").toLowerCase();
-            const url = media.getAttribute("url") || "";
-            if (type.startsWith("audio") || /\.mp3($|\?)/i.test(url) || /\.m4a($|\?)/i.test(url)) audioUrl = url;
-          }
-        }
-        if (!audioUrl){
-          const link = textTrim(it.querySelector("link"));
-          if (/\.mp3($|\?)/i.test(link) || /\.m4a($|\?)/i.test(link)) audioUrl = link;
-        }
-        if (audioUrl){
-          items.push({ title, desc, pubDate, audioUrl });
-        }
-      }
-    } else if (atomEntries.length){
-      for (const en of atomEntries){
-        const title = textTrim(en.querySelector("title")) || "(sin título)";
-        let desc = textTrim(en.querySelector("summary")) || textTrim(en.querySelector("content")) || "";
-        desc = desc.replace(/<[^>]+>/g, "").trim();
-        const pubDate = textTrim(en.querySelector("updated")) || textTrim(en.querySelector("published")) || "";
-        let audioUrl = "";
-        const links = Array.from(en.querySelectorAll("link"));
-        for (const l of links){
-          const rel = (l.getAttribute("rel")||"").toLowerCase();
-          const type = (l.getAttribute("type")||"").toLowerCase();
-          const href = l.getAttribute("href") || "";
-          if ((rel === "enclosure" || type.startsWith("audio")) && href){
-            audioUrl = href; break;
-          }
-        }
-        if (audioUrl){
-          items.push({ title, desc, pubDate, audioUrl });
-        }
-      }
-    }
-
-    // Paginación: buscar <link rel="next" href="..."> en RSS/Atom (cualquier namespace)
-    let nextUrl = null;
-    const allLinks = Array.from(doc.getElementsByTagName("*")).filter(e => (e.localName || "").toLowerCase() === "link");
-    for (const l of allLinks){
-      const rel = (l.getAttribute("rel") || "").toLowerCase();
-      const href = l.getAttribute("href") || "";
-      if (rel === "next" && href){
-        nextUrl = href;
-        break;
-      }
-    }
-
-    return {
-      feed: { title, description, image },
-      items,
-      nextUrl
-    };
-  }
-
-  async function parseViaRss2Json(feedUrl){
-    const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
-    const data = await jsonp(api, { callbackParam: "callback", timeout: 20000 });
-    if (data.status !== "ok") throw new Error(data.message || "rss2json error");
-    const feed = data.feed || {};
-    const items = Array.isArray(data.items) ? data.items : [];
-    const eps = items.map(it => {
-      const title = it.title || "(sin título)";
-      const desc = (it.description || "").replace(/<[^>]+>/g,"").trim();
-      const pubDate = it.pubDate || "";
-      const audioUrl = it.enclosure?.link || it.enclosure?.url || "";
-      return { title, desc, pubDate, audioUrl };
-    }).filter(x => x.audioUrl);
-    return {
-      feed: { title: feed.title || "Podcast", description: (feed.description||"").replace(/<[^>]+>/g,"").trim(), image: feed.image || "" },
-      items: eps,
-      nextUrl: null
-    };
-  }
-
-  async function fetchAndAppendEpisodes(pageUrl, isFirst=false){
-    // Primero AllOrigins
-    let parsed = null;
-    try{
-      const xml = await fetchRssViaAllOrigins(pageUrl);
-      if (!xml) throw new Error("AllOrigins sin contenido.");
-      parsed = parseRss(xml);
-    } catch(e){
-      console.warn("AllOrigins/parse fallo, probando rss2json:", e);
-      // Fallback a rss2json (sin paginación)
-      parsed = await parseViaRss2Json(pageUrl);
-    }
-
-    if (isFirst){
-      // set feed header
-      $("feedArt").src = parsed.feed.image || "";
-      $("feedTitle").textContent = parsed.feed.title || "Podcast";
-      $("feedDesc").textContent = (parsed.feed.description || "").slice(0, 220);
-      $("feedHeader").classList.remove("d-none");
-      state.epsAll = [];
-      state.epsShown = 0;
-    }
-
-    // añadir items
-    state.epsAll = state.epsAll.concat(parsed.items || []);
-    state.epsNextUrl = parsed.nextUrl || null;
-    // mostrar primeros N más
-    state.epsShown = Math.min(state.epsShown + state.epsPage, state.epsAll.length);
-    renderEpisodesSlice();
-  }
-
   async function loadEpisodes(feedUrl){
     if (!feedUrl) return notyf.error("Este podcast no tiene RSS (feedUrl).");
     $("episodes").innerHTML = `<div class="soft p-3 tiny"><i class="fa-solid fa-spinner fa-spin me-2"></i>Cargando episodios…</div>`;
     $("feedHeader").classList.add("d-none");
-    $("moreEpsBtn").classList.add("d-none");
-    state.epsAll = []; state.epsShown = 0; state.epsNextUrl = null;
 
     try{
-      await fetchAndAppendEpisodes(feedUrl, true);
+      const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
+      const data = await jsonp(api, { callbackParam: "callback", timeout: 20000 });
+      if (data.status !== "ok") throw new Error(data.message || "rss2json error");
+      const feed = data.feed || {};
+      const items = Array.isArray(data.items) ? data.items : [];
+
+      $("feedArt").src = feed.image || "";
+      $("feedTitle").textContent = feed.title || "Podcast";
+      $("feedDesc").textContent = (feed.description || "").replace(/<[^>]+>/g,"").trim().slice(0, 220);
+      $("feedHeader").classList.remove("d-none");
+
+      const eps = items.map(it => {
+        const title = it.title || "(sin título)";
+        const desc = (it.description || "").replace(/<[^>]+>/g,"").trim();
+        const pubDate = it.pubDate || "";
+        const audioUrl = it.enclosure?.link || it.enclosure?.url || "";
+        return { title, desc, pubDate, audioUrl };
+      }).filter(x => x.audioUrl);
+
+      if (!eps.length){
+        $("episodes").innerHTML = `<div class="soft p-3 tiny">No encontré audio (enclosure). Prueba otro podcast.</div>`;
+        return;
+      }
+
+      $("episodes").innerHTML = eps.slice(0, 18).map(ep => `
+        <button class="list-group-item text-start" data-audio="${esc(ep.audioUrl)}" data-title="${esc(ep.title)}">
+          <div class="d-flex justify-content-between align-items-start gap-2">
+            <div>
+              <div class="fw-bold">${esc(ep.title)}</div>
+              <div class="tiny">${esc(ep.pubDate ? dayjs(ep.pubDate).format("DD MMM YYYY") : "")}</div>
+              <div class="tiny truncate-2">${esc(ep.desc)}</div>
+            </div>
+            <span class="badge rounded-pill text-bg-primary">Play</span>
+          </div>
+        </button>
+      `).join("");
+
+      $("episodes").querySelectorAll("button[data-audio]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const url = btn.dataset.audio;
+          const title = btn.dataset.title || "";
+          $("nowPlaying").textContent = title;
+          const audio = $("player");
+          audio.src = url;
+          audio.play().catch(()=>{});
+        });
+      });
+
       notyf.success("Episodios cargados.");
     } catch (e) {
       notyf.error("No se pudo cargar el RSS.");
@@ -913,71 +750,6 @@
       console.warn(e);
     }
   }
-
-  function renderEpisodesSlice(){
-    const box = $("episodes");
-    if (!state.epsAll.length){
-      box.innerHTML = `<div class="soft p-3 tiny">No encontré episodios reproducibles.</div>`;
-      $("moreEpsBtn").classList.add("d-none");
-      return;
-    }
-    const slice = state.epsAll.slice(0, state.epsShown);
-    box.innerHTML = slice.map(ep => `
-      <button class="list-group-item text-start" data-audio="${esc(ep.audioUrl)}" data-title="${esc(ep.title)}">
-        <div class="d-flex justify-content-between align-items-start gap-2">
-          <div>
-            <div class="fw-bold">${esc(ep.title)}</div>
-            <div class="tiny">${esc(ep.pubDate ? dayjs(ep.pubDate).format("DD MMM YYYY") : "")}</div>
-            <div class="tiny truncate-2">${esc(ep.desc)}</div>
-          </div>
-          <span class="badge rounded-pill text-bg-primary">Play</span>
-        </div>
-      </button>
-    `).join("");
-
-    box.querySelectorAll("button[data-audio]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const url = btn.dataset.audio;
-        const title = btn.dataset.title || "";
-        $("nowPlaying").textContent = title;
-        const audio = $("player");
-        audio.src = url;
-        audio.play().catch(()=>{});
-      });
-    });
-
-    // Lógica del botón “Ver más episodios”:
-    // - Si aún hay episodios no visibles, mostrar “Ver más”.
-    // - Si ya mostramos todos, pero hay nextUrl, también mostrar para cargar la siguiente página.
-    const hasHidden = state.epsShown < state.epsAll.length;
-    const canFetchNext = !!state.epsNextUrl;
-    $("moreEpsBtn").classList.toggle("d-none", !(hasHidden || canFetchNext));
-  }
-
-  $("moreEpsBtn").addEventListener("click", async () => {
-    const hasHidden = state.epsShown < state.epsAll.length;
-    if (hasHidden){
-      state.epsShown = Math.min(state.epsShown + state.epsPage, state.epsAll.length);
-      renderEpisodesSlice();
-      return;
-    }
-    if (state.epsNextUrl){
-      const btn = $("moreEpsBtn");
-      btn.disabled = true;
-      const prev = btn.innerHTML;
-      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin me-2"></i>Cargando más…`;
-      try{
-        await fetchAndAppendEpisodes(state.epsNextUrl, false);
-        notyf.success("Más episodios cargados.");
-      } catch (e){
-        notyf.error("No se pudo cargar más episodios.");
-        console.warn(e);
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = prev;
-      }
-    }
-  });
 
   /* ---------------- Frases de Internet (sin repetir) ---------------- */
   const FALLBACK_DECK = [
@@ -1301,7 +1073,7 @@
     });
   }
 
-  // Accesos rápidos
+  // Accesos rápidos: Enter en buscar y agregar
   $("podQuery").addEventListener("keydown", (e)=>{ if(e.key==="Enter") $("podSearchBtn").click(); });
   $("newPhrase").addEventListener("keydown", (e)=>{ if(e.key==="Enter") $("addPhraseBtn").click(); });
 
