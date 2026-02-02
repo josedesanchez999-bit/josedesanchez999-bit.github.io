@@ -3,201 +3,100 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>English Practice · 1 HTML · Funcional</title>
+  <title>English Practice · Premium (Final Estable)</title>
 
   <!-- CSS externos -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lux/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Sora:wght@500;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
   <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css">
 
   <style>
     :root{
-      --bg0:#0b1220;
-      --bg1:#0f172a;
-      --muted:#6b7280;
-      --ok:#16a34a;
-      --bad:#ef4444;
-      --warn:#f59e0b;
-      --brand:#4f46e5;
-      --brand2:#22c55e;
+      --bg0:#0a0f1e; --bg1:#0e162b; --muted:#788097;
+      --ok:#16a34a; --bad:#ef4444; --brand1:#7c3aed; --brand2:#06b6d4;
       --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       --ui:"Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       --title:"Sora","Inter",system-ui,sans-serif;
-      --radius:18px;
     }
 
     body{
       font-family:var(--ui);
       background:
-        radial-gradient(1200px 900px at 20% 10%, rgba(79,70,229,.18), transparent 50%),
-        radial-gradient(1000px 700px at 90% 20%, rgba(34,197,94,.14), transparent 50%),
-        linear-gradient(180deg, #f8fafc, #f1f5f9);
-      min-height:100vh;
+        radial-gradient(1200px 900px at 10% 10%, rgba(124,58,237,.14), transparent 50%),
+        radial-gradient(1000px 700px at 95% 20%, rgba(6,182,212,.12), transparent 50%),
+        radial-gradient(1000px 700px at 20% 90%, rgba(34,197,94,.10), transparent 50%),
+        linear-gradient(180deg, #f6f9fc, #eef2f7);
+      min-height:100vh; color:#0f172a;
     }
-
     body.dark{
       background:
-        radial-gradient(1200px 900px at 20% 10%, rgba(79,70,229,.22), transparent 50%),
-        radial-gradient(1000px 700px at 90% 20%, rgba(34,197,94,.18), transparent 50%),
+        radial-gradient(1200px 900px at 10% 10%, rgba(124,58,237,.22), transparent 50%),
+        radial-gradient(1000px 700px at 95% 20%, rgba(6,182,212,.20), transparent 50%),
+        radial-gradient(1000px 700px at 20% 90%, rgba(34,197,94,.16), transparent 50%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
       color:#e5e7eb;
     }
 
     .title{font-family:var(--title);letter-spacing:-.02em;}
     .mono{font-family:var(--mono);}
-
+    .hero{
+      border-radius:28px; padding:22px;
+      background:linear-gradient(120deg, rgba(124,58,237,.10), rgba(6,182,212,.10));
+      border:1px solid rgba(124,58,237,.18);
+      box-shadow:0 22px 60px rgba(15,23,42,.10); backdrop-filter:blur(10px);
+    }
+    body.dark .hero{ background:linear-gradient(120deg, rgba(124,58,237,.18), rgba(6,182,212,.16)); border-color:rgba(255,255,255,.10); }
     .app-card{
-      border:0;
-      border-radius:var(--radius);
-      box-shadow:0 14px 40px rgba(2,6,23,.10);
-      overflow:hidden;
-      background:rgba(255,255,255,.86);
-      backdrop-filter:blur(10px);
-      border:1px solid rgba(255,255,255,.35);
+      border:0; border-radius:22px; box-shadow:0 18px 54px rgba(15,23,42,.12);
+      background:rgba(255,255,255,.75); backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,.45);
     }
-    body.dark .app-card{
-      background:rgba(255,255,255,.06);
-      border-color:rgba(255,255,255,.10);
-      box-shadow:0 18px 50px rgba(0,0,0,.35);
-    }
-
-    .soft{
-      background:rgba(79,70,229,.08);
-      border:1px solid rgba(79,70,229,.10);
-      border-radius:16px;
-    }
-    body.dark .soft{
-      background:rgba(79,70,229,.12);
-      border-color:rgba(255,255,255,.10);
-    }
-
-    .tiny{font-size:.9rem;color:var(--muted);}
-    body.dark .tiny{color:rgba(229,231,235,.75);}
-
-    .pill{border-radius:999px !important;}
-    .btn-premium{border-radius:14px;padding:.65rem .95rem;box-shadow:0 10px 26px rgba(79,70,229,.12);}
-
-    .nav-premium .nav-link{
-      border-radius:14px;
-      padding:.65rem .8rem;
-      font-weight:800;
-      color:#0f172a;
-      background:rgba(15,23,42,.04);
-    }
-    body.dark .nav-premium .nav-link{
-      color:#e5e7eb;
-      background:rgba(255,255,255,.06);
-    }
-    .nav-premium .nav-link.active{
-      background:linear-gradient(90deg, rgba(79,70,229,.92), rgba(34,197,94,.80));
-      color:#fff;
-      box-shadow:0 12px 28px rgba(2,6,23,.15);
-    }
-
-    .list-compact .list-group-item{
-      border:0;
-      border-radius:16px;
-      margin-bottom:10px;
-      background:rgba(15,23,42,.03);
-      transition:transform .12s ease, box-shadow .12s ease;
-    }
+    body.dark .app-card{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.10); }
+    .soft{ background:linear-gradient(180deg, rgba(255,255,255,.64), rgba(255,255,255,.48)); border:1px solid rgba(15,23,42,.06); border-radius:16px; }
+    body.dark .soft{ background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.10); }
+    .tiny{font-size:.9rem;color:var(--muted);} body.dark .tiny{color:rgba(229,231,235,.75);}
+    .nav-premium .nav-link{ border-radius:14px; padding:.7rem .9rem; font-weight:800; background:rgba(15,23,42,.04); border:1px solid rgba(15,23,42,.06); }
+    body.dark .nav-premium .nav-link{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.10); color:#e5e7eb; }
+    .nav-premium .nav-link.active{ background:linear-gradient(90deg, rgba(124,58,237,.90), rgba(6,182,212,.85)); color:#fff; box-shadow:0 14px 34px rgba(15,23,42,.18); border:0; }
+    .btn-premium{ border-radius:16px; padding:.68rem 1rem; font-weight:700; }
+    .btn-gradient{ color:#fff !important; background:linear-gradient(92deg, var(--brand1), var(--brand2)); border:0; }
+    .list-compact .list-group-item{ border:0; border-radius:16px; margin-bottom:10px; background:rgba(15,23,42,.03); }
     body.dark .list-compact .list-group-item{ background:rgba(255,255,255,.06); }
-    .list-compact .list-group-item:hover{
-      transform:translateY(-1px);
-      box-shadow:0 10px 25px rgba(2,6,23,.08);
-    }
-
-    .word-ok{color:var(--ok);font-weight:900;}
-    .word-bad{color:var(--bad);font-weight:900;}
-
-    .kbd{
-      font-family:var(--mono);
-      font-size:.82rem;
-      padding:.12rem .38rem;
-      border-radius:10px;
-      border:1px solid rgba(148,163,184,.45);
-      background:rgba(255,255,255,.85);
-    }
-    body.dark .kbd{
-      background:rgba(255,255,255,.08);
-      border-color:rgba(255,255,255,.12);
-      color:#e5e7eb;
-    }
-
-    .page-pad{padding-top:18px;padding-bottom:24px;}
-
-    .brand-badge{
-      width:40px;height:40px;border-radius:16px;
-      display:flex;align-items:center;justify-content:center;
-      background:linear-gradient(135deg, rgba(79,70,229,.95), rgba(34,197,94,.78));
-      color:#fff;
-      box-shadow:0 14px 30px rgba(79,70,229,.20);
-      flex:0 0 auto;
-    }
-
-    .truncate-2{
-      display:-webkit-box;
-      -webkit-line-clamp:2;
-      -webkit-box-orient:vertical;
-      overflow:hidden;
-    }
-
-    .seg{
-      display:inline-block;
-      padding:.15rem .4rem;
-      margin:.15rem .15rem 0 0;
-      border-radius:999px;
-      background:rgba(79,70,229,.10);
-      border:1px solid rgba(79,70,229,.12);
-      font-family:var(--mono);
-      font-size:.86rem;
-    }
-    body.dark .seg{
-      background:rgba(255,255,255,.08);
-      border-color:rgba(255,255,255,.10);
-    }
+    .seg{ display:inline-block; padding:.18rem .48rem; margin:.18rem .18rem 0 0; border-radius:999px; background:rgba(124,58,237,.10); border:1px solid rgba(124,58,237,.16); font-family:var(--mono); font-size:.86rem; }
+    .word-ok{color:var(--ok);font-weight:900;} .word-bad{color:var(--bad);font-weight:900;}
+    .kbd{ font-family:var(--mono); font-size:.82rem; padding:.12rem .38rem; border-radius:10px; border:1px solid rgba(148,163,184,.45); background:rgba(255,255,255,.85); }
+    .load-more{ display:flex; justify-content:center; margin-top:8px; }
+    .brand-badge{ width:44px;height:44px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg, var(--brand1), var(--brand2));color:#fff; }
   </style>
 </head>
 
 <body>
-<main class="container page-pad">
-  <div class="row g-3">
+<main class="container py-3">
+  <!-- Hero -->
+  <div class="hero mb-3">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+      <div class="d-flex align-items-center gap-3">
+        <div class="brand-badge"><i class="fa-solid fa-sparkles"></i></div>
+        <div>
+          <div class="title fw-bold" style="font-size:1.6rem;">English Practice · Premium</div>
+          <div class="tiny">Podcasts + Frases online sin repetir + Pronunciación · 1 HTML</div>
+        </div>
+      </div>
+      <div class="d-flex gap-2">
+        <button id="themeBtn" class="btn btn-light btn-premium" data-tippy-content="Tema claro/oscuro"><i class="fa-solid fa-moon"></i></button>
+        <button id="helpBtn" class="btn btn-light btn-premium" data-tippy-content="Ayuda rápida"><i class="fa-regular fa-circle-question"></i></button>
+      </div>
+    </div>
+  </div>
 
-    <!-- PANEL IZQUIERDO -->
+  <div class="row g-3">
+    <!-- Lateral -->
     <div class="col-lg-4">
       <div class="app-card p-3">
-        <div class="d-flex justify-content-between align-items-center gap-2">
-          <div class="d-flex align-items-center gap-2">
-            <div class="brand-badge"><i class="fa-solid fa-headphones-simple"></i></div>
-            <div>
-              <div class="title fw-bold">English Practice</div>
-              <div class="tiny">Premium UI · 1 HTML</div>
-            </div>
-          </div>
-
-          <div class="d-flex gap-2">
-            <button id="themeBtn" class="btn btn-sm btn-light pill" data-tippy-content="Cambiar tema">
-              <i class="fa-solid fa-moon"></i>
-            </button>
-            <button id="helpBtn" class="btn btn-sm btn-light pill" data-tippy-content="Ayuda rápida">
-              <i class="fa-regular fa-circle-question"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="d-flex align-items-center justify-content-between mt-2">
-          <div class="tiny">
-            <i class="fa-solid fa-microphone-lines me-1"></i> Soporte de voz (SpeechRecognition)
-          </div>
-          <span id="supportBadge" class="badge rounded-pill text-bg-warning">Detectando…</span>
-        </div>
-
-        <hr class="my-3">
-
         <ul class="nav nav-pills nav-premium flex-column gap-2" id="tabs">
           <li class="nav-item"><button class="nav-link active" data-tab="podcasts"><i class="fa-solid fa-podcast me-2"></i>Podcasts</button></li>
           <li class="nav-item"><button class="nav-link" data-tab="phrases"><i class="fa-solid fa-quote-left me-2"></i>Frases</button></li>
@@ -208,22 +107,23 @@
 
         <div class="soft p-3">
           <div class="fw-semibold">Voz (TTS)</div>
-          <div class="tiny">Escuchar usa SpeechSynthesis del navegador.</div>
+          <div class="tiny">Usa SpeechSynthesis del navegador.</div>
           <select id="voiceSelect" class="form-select mt-2"></select>
         </div>
 
         <div class="soft p-3 mt-3">
-          <div class="fw-semibold">Frase seleccionada</div>
+          <div class="fw-semibold d-flex align-items-center justify-content-between">
+            <span>Frase seleccionada</span>
+            <span id="supportBadge" class="badge rounded-pill text-bg-warning">Mic…</span>
+          </div>
           <div id="selectedPhrasePreview" class="tiny mt-1">Ninguna</div>
           <div class="d-grid mt-2">
-            <button id="useSelectedBtn" class="btn btn-primary btn-premium">
-              <i class="fa-solid fa-arrow-right me-2"></i>Usar en Pronunciación
-            </button>
+            <button id="useSelectedBtn" class="btn btn-gradient btn-premium"><i class="fa-solid fa-arrow-right me-2"></i>Usar en Pronunciación</button>
           </div>
         </div>
 
         <div class="soft p-3 mt-3">
-          <div class="fw-semibold">Pronunciación figurada (config)</div>
+          <div class="fw-semibold">Pronunciación figurada</div>
           <div class="tiny">Ajusta la guía a tu preferencia.</div>
           <div class="row g-2 mt-2">
             <div class="col-6">
@@ -248,22 +148,22 @@
         </div>
 
         <div class="tiny mt-3">
-          <div><span class="kbd">Tip</span> Este archivo funciona incluso con doble clic (file://). Si algo externo falla, vuelve a intentar o usa <span class="kbd">Live Server</span>.</div>
+          <span class="kbd">Tip</span> Abre con doble clic; JSONP evita CORS. Si algo externo falla, reintenta.
         </div>
       </div>
     </div>
 
-    <!-- VISTAS DERECHA -->
+    <!-- Vistas -->
     <div class="col-lg-8">
 
-      <!-- PODCASTS -->
+      <!-- Podcasts -->
       <section id="view-podcasts" class="app-card p-3">
         <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
           <div>
             <div class="title fw-bold fs-4"><i class="fa-solid fa-podcast me-2"></i>Podcasts</div>
-            <div class="tiny">Busca en iTunes (JSONP, sin CORS) y reproduce episodios.</div>
+            <div class="tiny">iTunes JSONP + rss2json JSONP. “Ver más” de 18 en 18.</div>
           </div>
-          <div class="soft px-3 py-2"><span class="tiny"><i class="fa-solid fa-bolt me-1"></i>100% funcional</span></div>
+          <div class="badge text-bg-primary">Premium UI</div>
         </div>
 
         <hr class="my-3">
@@ -273,25 +173,29 @@
             <input id="podQuery" class="form-control form-control-lg" placeholder="Ej: english learning, science, business, news..." value="english learning" />
           </div>
           <div class="col-md-4 d-grid">
-            <button id="podSearchBtn" class="btn btn-primary btn-premium btn-lg">
-              <i class="fa-solid fa-magnifying-glass me-2"></i>Buscar
-            </button>
+            <button id="podSearchBtn" class="btn btn-gradient btn-premium btn-lg"><i class="fa-solid fa-magnifying-glass me-2"></i>Buscar</button>
           </div>
         </div>
 
         <div id="podResults" class="mt-3"></div>
+        <div class="load-more">
+          <button id="morePodsBtn" class="btn btn-outline-primary btn-premium d-none"><i class="fa-solid fa-angles-down me-2"></i>Ver más podcasts</button>
+        </div>
 
         <div id="feedHeader" class="soft p-3 mt-3 d-none">
           <div class="d-flex gap-3 align-items-start">
             <img id="feedArt" src="" alt="" style="width:92px;height:92px;border-radius:18px;object-fit:cover;" loading="lazy">
             <div class="flex-grow-1">
               <div id="feedTitle" class="fw-bold"></div>
-              <div id="feedDesc" class="tiny truncate-2"></div>
+              <div id="feedDesc" class="tiny"></div>
             </div>
           </div>
         </div>
 
         <div id="episodes" class="mt-3 list-group list-compact"></div>
+        <div class="load-more">
+          <button id="moreEpsBtn" class="btn btn-outline-primary btn-premium d-none"><i class="fa-solid fa-angles-down me-2"></i>Ver más episodios</button>
+        </div>
 
         <div class="soft p-3 mt-3">
           <div class="d-flex justify-content-between align-items-center">
@@ -304,20 +208,16 @@
         </div>
       </section>
 
-      <!-- PHRASES -->
+      <!-- Frases -->
       <section id="view-phrases" class="app-card p-3 d-none">
         <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
           <div>
             <div class="title fw-bold fs-4"><i class="fa-solid fa-quote-left me-2"></i>Frases</div>
-            <div class="tiny">Frases de Internet sin repetir (caché y mazo aleatorio con memoria).</div>
+            <div class="tiny">Internet sin repetir (baraja con memoria entre sesiones).</div>
           </div>
           <div class="d-flex gap-2">
-            <button id="getInternetPhraseBtn" class="btn btn-outline-primary btn-premium" data-tippy-content="Traer una frase de Internet">
-              <i class="fa-solid fa-cloud-arrow-down me-2"></i>Internet
-            </button>
-            <button id="clearCacheBtn" class="btn btn-outline-secondary btn-premium" data-tippy-content="Borra caché local de frases">
-              <i class="fa-solid fa-broom me-2"></i>Caché
-            </button>
+            <button id="getInternetPhraseBtn" class="btn btn-outline-primary btn-premium"><i class="fa-solid fa-cloud-arrow-down me-2"></i>Internet</button>
+            <button id="clearCacheBtn" class="btn btn-outline-secondary btn-premium"><i class="fa-solid fa-broom me-2"></i>Caché</button>
           </div>
         </div>
 
@@ -328,9 +228,7 @@
             <input id="newPhrase" class="form-control form-control-lg" placeholder="Escribe tu frase (corta o larga)..." />
           </div>
           <div class="col-md-4 d-grid">
-            <button id="addPhraseBtn" class="btn btn-success btn-premium btn-lg">
-              <i class="fa-solid fa-plus me-2"></i>Agregar
-            </button>
+            <button id="addPhraseBtn" class="btn btn-success btn-premium btn-lg"><i class="fa-solid fa-plus me-2"></i>Agregar</button>
           </div>
         </div>
 
@@ -361,26 +259,26 @@
         <div id="phrasesList" class="mt-3 list-group list-compact"></div>
       </section>
 
-      <!-- PRACTICE -->
+      <!-- Practice -->
       <section id="view-practice" class="app-card p-3 d-none">
         <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
           <div>
             <div class="title fw-bold fs-4"><i class="fa-solid fa-microphone-lines me-2"></i>Pronunciación</div>
-            <div class="tiny">Gratis: SpeechRecognition (aproximado) + TTS.</div>
+            <div class="tiny">SpeechRecognition (aproximado) + TTS.</div>
           </div>
-          <span class="badge rounded-pill text-bg-warning" data-tippy-content="Aproximado: compara texto reconocido vs objetivo.">Aprox.</span>
+          <span class="badge rounded-pill text-bg-warning">Aprox.</span>
         </div>
 
         <hr class="my-3">
 
-        <label class="form-label fw-semibold">Frase objetivo (lo que debes decir)</label>
+        <label class="form-label fw-semibold">Frase objetivo</label>
         <textarea id="referenceText" class="form-control form-control-lg" rows="3" placeholder="Ej: I would like to improve my English pronunciation."></textarea>
 
         <div class="row g-2 mt-2">
           <div class="col-md-6">
             <div class="soft p-3 h-100">
               <div class="fw-semibold"><i class="fa-solid fa-language me-2"></i>Guía al español</div>
-              <div class="tiny">Te ayuda a leer el inglés con sonidos cercanos al español.</div>
+              <div class="tiny">Sonidos cercanos al español.</div>
               <div class="mono mt-2" id="phoneticFromReference">—</div>
               <div class="mt-2">
                 <div class="tiny fw-semibold">Segmentos:</div>
@@ -392,17 +290,11 @@
             <div class="soft p-3 h-100">
               <div class="fw-semibold"><i class="fa-solid fa-wand-magic-sparkles me-2"></i>Acciones</div>
               <div class="d-flex flex-wrap gap-2 mt-2">
-                <button id="ttsBtn" class="btn btn-secondary btn-premium" data-tippy-content="Escuchar con voz del navegador">
-                  <i class="fa-solid fa-volume-high me-2"></i>Escuchar
-                </button>
-                <button id="startRecBtn" class="btn btn-primary btn-premium" data-tippy-content="Habla la frase para evaluar">
-                  <i class="fa-solid fa-microphone me-2"></i>Probar
-                </button>
-                <button id="stopRecBtn" class="btn btn-outline-danger btn-premium d-none">
-                  <i class="fa-solid fa-stop me-2"></i>Detener
-                </button>
+                <button id="ttsBtn" class="btn btn-secondary btn-premium"><i class="fa-solid fa-volume-high me-2"></i>Escuchar</button>
+                <button id="startRecBtn" class="btn btn-gradient btn-premium"><i class="fa-solid fa-microphone me-2"></i>Probar</button>
+                <button id="stopRecBtn" class="btn btn-outline-danger btn-premium d-none"><i class="fa-solid fa-stop me-2"></i>Detener</button>
               </div>
-              <div class="tiny mt-2">Si no funciona el micrófono, prueba Chrome/Edge y permite permisos.</div>
+              <div class="tiny mt-2">Si no funciona el micrófono, usa Chrome/Edge y permite permisos.</div>
             </div>
           </div>
         </div>
@@ -446,153 +338,151 @@
   const notyf = new Notyf({ duration: 2600, ripple: true, dismissible: true, position: { x:'right', y:'top' } });
   tippy('[data-tippy-content]', { animation: 'scale', theme: 'light-border' });
 
-  const store = localforage.createInstance({ name: "english_practice_stable_v1" });
+  const store = localforage.createInstance({ name: "english_practice_premium_final_stable_v1" });
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 
   const state = {
-    phrases: [],
-    selectedPhraseId: null,
-    phraseFuse: null,
-    tags: new Set(),
-    recognition: null,
-    recognizing: false,
+    // podcasts y episodios
+    podsAll: [], podsShown: 0, podsPage: 18,
+    epsAll: [], epsShown: 0, epsPage: 18,
 
-    quotesDeck: [],       // baraja de frases {text, author}
-    deckIndex: 0,         // índice actual
-    usedHashes: new Set() // para no repetir aunque se regenere baraja
+    // frases
+    phrases: [], selectedPhraseId: null, phraseFuse: null, tags: new Set(),
+
+    // SR/TTS
+    recognition: null, recognizing: false,
+
+    // frases online (baraja)
+    quotesDeck: [], deckIndex: 0, usedHashes: new Set()
   };
 
   const esc = (s="") => s.replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;" }[m]));
 
+  /* --------------- Navegación / Tema / Help --------------- */
   function showTab(tab){
     ["podcasts","phrases","practice"].forEach(t => $("view-"+t).classList.toggle("d-none", t !== tab));
     document.querySelectorAll("#tabs .nav-link").forEach(btn => btn.classList.toggle("active", btn.dataset.tab === tab));
   }
-  $("tabs").addEventListener("click", (e) => {
-    const btn = e.target.closest("button[data-tab]");
-    if (!btn) return;
-    showTab(btn.dataset.tab);
-  });
+  $("tabs").addEventListener("click", (e) => { const btn = e.target.closest("button[data-tab]"); if (!btn) return; showTab(btn.dataset.tab); });
 
-  /* ---------------- Tema ---------------- */
   async function applyTheme(isDark){
     document.body.classList.toggle("dark", isDark);
     $("themeBtn").querySelector("i").className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
     await store.setItem("theme_dark", isDark);
   }
-  $("themeBtn").addEventListener("click", async () => {
-    await applyTheme(!document.body.classList.contains("dark"));
-  });
+  $("themeBtn").addEventListener("click", async () => { await applyTheme(!document.body.classList.contains("dark")); });
   $("helpBtn").addEventListener("click", () => {
-    notyf.open({ type: "info", message: "Podcasts via iTunes JSONP, episodios via rss2json JSONP (funciona sin CORS). Frases de Internet sin repetir con caché local." });
+    notyf.open({ type: "info", message: "Podcasts y episodios por JSONP (sin CORS). Usa 'Ver más' para cargar 18 adicionales." });
   });
 
-  /* ---------------- Speech support ---------------- */
+  /* --------------- Speech support --------------- */
   function setupSpeechSupport(){
-    if (SR){
-      $("supportBadge").className = "badge rounded-pill text-bg-success";
-      $("supportBadge").textContent = "Mic OK";
-    } else {
-      $("supportBadge").className = "badge rounded-pill text-bg-danger";
-      $("supportBadge").textContent = "Sin SpeechRecognition";
-    }
+    const ok = !!SR;
+    $("supportBadge").className = "badge rounded-pill " + (ok ? "text-bg-success" : "text-bg-danger");
+    $("supportBadge").textContent = ok ? "Mic OK" : "Sin SR";
   }
 
-  /* ---------------- Voces (TTS) ---------------- */
+  /* --------------- TTS --------------- */
   function loadVoices(){
-    const voices = speechSynthesis.getVoices();
     const sel = $("voiceSelect");
+    const voices = speechSynthesis.getVoices();
     sel.innerHTML = "";
     let list = voices.filter(v => (v.lang || "").toLowerCase().startsWith("en"));
     if (!list.length) list = voices;
     list.forEach(v => {
       const opt = document.createElement("option");
-      opt.value = v.name;
-      opt.textContent = `${v.name} (${v.lang})`;
+      opt.value = v.name; opt.textContent = `${v.name} (${v.lang})`;
       sel.appendChild(opt);
     });
     store.getItem("tts_voice").then(name => { if (name && list.some(v => v.name === name)) sel.value = name; });
-    sel.addEventListener("change", () => store.setItem("tts_voice", sel.value));
+    sel.onchange = () => store.setItem("tts_voice", sel.value);
   }
   speechSynthesis.onvoiceschanged = loadVoices;
-  loadVoices();
+  setTimeout(loadVoices, 300);
 
   function speak(text){
-    if (!text) return;
-    const u = new SpeechSynthesisUtterance(text);
-    const voices = speechSynthesis.getVoices();
-    const chosen = voices.find(v => v.name === $("voiceSelect").value);
-    if (chosen) u.voice = chosen;
-    u.rate = 1.0; u.pitch = 1.0;
-    speechSynthesis.cancel();
-    speechSynthesis.speak(u);
+    if (!text) return notyf.error("No hay texto para leer.");
+    const ready = () => new Promise(r=>{
+      if (speechSynthesis.getVoices().length) return r();
+      const t = setInterval(()=>{ if (speechSynthesis.getVoices().length){ clearInterval(t); r(); } }, 120);
+      setTimeout(()=>{ clearInterval(t); r(); }, 1800);
+    });
+    ready().then(()=>{
+      const u = new SpeechSynthesisUtterance(text);
+      const voices = speechSynthesis.getVoices();
+      const chosen = voices.find(v => v.name === $("voiceSelect").value) || voices.find(v => (v.lang||"").toLowerCase().startsWith("en")) || voices[0];
+      if (chosen) u.voice = chosen;
+      u.rate = 1.0; u.pitch = 1.0;
+      try { speechSynthesis.cancel(); } catch {}
+      speechSynthesis.speak(u);
+    });
   }
   $("ttsBtn").addEventListener("click", () => speak($("referenceText").value.trim()));
 
-  /* ---------------- JSONP helper ---------------- */
-  function jsonp(url, { timeout=16000, callbackParam="callback" } = {}) {
+  /* --------------- JSONP helper --------------- */
+  function jsonp(url, { timeout=18000, callbackParam="callback" } = {}) {
     return new Promise((resolve, reject) => {
       const cbName = "cb_" + Math.random().toString(36).slice(2);
-      const sep = url.includes("?") ? "&" : "?";
-      const full = `${url}${sep}${callbackParam}=${cbName}`;
-      const script = document.createElement("script");
-      let done = false;
-
-      window[cbName] = (data) => { done = true; cleanup(); resolve(data); };
-      const timer = setTimeout(() => { if (done) return; done = true; cleanup(); reject(new Error("JSONP timeout")); }, timeout);
-
-      function cleanup(){
-        clearTimeout(timer);
-        delete window[cbName];
-        script.remove();
-      }
-
-      script.onerror = () => { if (done) return; done = true; cleanup(); reject(new Error("JSONP load error")); };
-      script.src = full;
-      document.head.appendChild(script);
+      const full = `${url}${url.includes("?") ? "&" : "?"}${callbackParam}=${cbName}`;
+      const script = document.createElement("script"); let done=false;
+      window[cbName] = (data) => { done=true; cleanup(); resolve(data); };
+      const timer = setTimeout(()=>{ if(done) return; done=true; cleanup(); reject(new Error("JSONP timeout")); }, timeout);
+      function cleanup(){ clearTimeout(timer); delete window[cbName]; script.remove(); }
+      script.onerror = () => { if(done) return; done=true; cleanup(); reject(new Error("JSONP error")); };
+      script.src = full; document.head.appendChild(script);
     });
   }
 
-  /* ---------------- Podcasts (iTunes JSONP + rss2json JSONP) ---------------- */
-  function renderPodcastResults(list){
+  /* --------------- Podcasts (iTunes JSONP) + “Ver más” --------------- */
+  async function searchPodcasts(term){
+    const q = encodeURIComponent(term.trim());
+    const url = `https://itunes.apple.com/search?term=${q}&media=podcast&entity=podcast&limit=200`;
+    const data = await jsonp(url, { callbackParam: "callback" });
+    const raw = (data && data.results) ? data.results : [];
+    const list = raw.filter(x => x.feedUrl).map(p => ({
+      title: p.collectionName || p.trackName || "Podcast",
+      author: p.artistName || "",
+      artwork: p.artworkUrl100 || p.artworkUrl60 || "",
+      feedUrl: p.feedUrl || ""
+    }));
+    // deduplicar feedUrl
+    const seen = new Set(); const uniq = [];
+    for (const it of list){
+      const k = (it.feedUrl||"").trim().toLowerCase();
+      if (!k || seen.has(k)) continue;
+      seen.add(k); uniq.push(it);
+    }
+    return uniq;
+  }
+
+  function renderPodcastsSlice(){
     const box = $("podResults");
-    if (!list.length){
+    if (!state.podsAll.length){
       box.innerHTML = `<div class="soft p-3 tiny">Sin resultados. Prueba: <span class="kbd">english learning</span> o <span class="kbd">news</span>.</div>`;
+      $("morePodsBtn").classList.add("d-none");
       return;
     }
+    const slice = state.podsAll.slice(0, state.podsShown);
     box.innerHTML = `
       <div class="tiny mb-2">Selecciona un podcast para cargar episodios:</div>
       <div class="list-group list-compact">
-        ${list.map(p => {
-          const art = p.artworkUrl100 || p.artworkUrl60 || "";
-          const title = p.collectionName || p.trackName || "Podcast";
-          const author = p.artistName || "";
-          const feedUrl = p.feedUrl || "";
-          return `
-            <button class="list-group-item text-start" data-feed="${esc(feedUrl)}">
-              <div class="d-flex gap-3 align-items-start">
-                <img src="${esc(art)}" alt="" style="width:64px;height:64px;border-radius:14px;object-fit:cover;" loading="lazy">
-                <div class="flex-grow-1">
-                  <div class="fw-bold">${esc(title)}</div>
-                  <div class="tiny">${esc(author)}</div>
-                  <div class="tiny mono truncate-2">${esc(feedUrl)}</div>
-                </div>
-                <div class="align-self-center"><i class="fa-solid fa-chevron-right"></i></div>
+        ${slice.map(p => `
+          <button class="list-group-item text-start" data-feed="${esc(p.feedUrl)}">
+            <div class="d-flex gap-3 align-items-start">
+              <img src="${esc(p.artwork)}" alt="" style="width:64px;height:64px;border-radius:14px;object-fit:cover;" loading="lazy" onerror="this.src='';">
+              <div class="flex-grow-1">
+                <div class="fw-bold">${esc(p.title)}</div>
+                <div class="tiny">${esc(p.author || "")}</div>
+                <div class="tiny mono">${esc(p.feedUrl)}</div>
               </div>
-            </button>
-          `;
-        }).join("")}
+              <span class="badge text-bg-primary align-self-center">Abrir</span>
+            </div>
+          </button>
+        `).join("")}
       </div>
     `;
-    box.querySelectorAll("button[data-feed]").forEach(btn => btn.addEventListener("click", () => loadEpisodes(btn.dataset.feed)));
-  }
-
-  async function searchPodcasts(term){
-    const q = encodeURIComponent(term.trim());
-    const url = `https://itunes.apple.com/search?term=${q}&media=podcast&entity=podcast&limit=18`;
-    const data = await jsonp(url, { callbackParam: "callback" });
-    const results = (data && data.results) ? data.results : [];
-    return results.filter(x => x.feedUrl);
+    box.querySelectorAll("button[data-feed]").forEach(btn => btn.onclick = () => loadEpisodes(btn.dataset.feed));
+    $("morePodsBtn").classList.toggle("d-none", state.podsShown >= state.podsAll.length);
   }
 
   $("podSearchBtn").addEventListener("click", async () => {
@@ -605,30 +495,44 @@
     $("podResults").innerHTML = "";
     $("episodes").innerHTML = "";
     $("feedHeader").classList.add("d-none");
+    $("moreEpsBtn").classList.add("d-none");
 
     try{
       const list = await searchPodcasts(term);
-      renderPodcastResults(list);
+      state.podsAll = list;
+      state.podsShown = Math.min(state.podsPage, list.length);
+      renderPodcastsSlice();
       notyf.success(`Resultados: ${list.length}`);
     } catch (e) {
-      notyf.error("No se pudo buscar ahora. Intenta de nuevo.");
-      $("podResults").innerHTML = `<div class="soft p-3 tiny">Error al buscar (temporal).</div>`;
       console.warn(e);
+      notyf.error("No se pudo buscar ahora.");
+      $("podResults").innerHTML = `<div class="soft p-3 tiny">Error temporal al buscar.</div>`;
     } finally {
       $("podSearchBtn").disabled = false;
       $("podSearchBtn").innerHTML = `<i class="fa-solid fa-magnifying-glass me-2"></i>Buscar`;
     }
   });
 
+  $("morePodsBtn").addEventListener("click", () => {
+    state.podsShown = Math.min(state.podsShown + state.podsPage, state.podsAll.length);
+    renderPodcastsSlice();
+  });
+
+  /* --------------- Episodios (rss2json JSONP) + “Ver más” --------------- */
   async function loadEpisodes(feedUrl){
     if (!feedUrl) return notyf.error("Este podcast no tiene RSS (feedUrl).");
+
     $("episodes").innerHTML = `<div class="soft p-3 tiny"><i class="fa-solid fa-spinner fa-spin me-2"></i>Cargando episodios…</div>`;
     $("feedHeader").classList.add("d-none");
+    $("moreEpsBtn").classList.add("d-none");
+    state.epsAll = []; state.epsShown = 0;
 
     try{
-      const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
+      // Pedimos el máximo que permite rss2json en una sola llamada (count=100)
+      const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}&count=100`;
       const data = await jsonp(api, { callbackParam: "callback", timeout: 20000 });
       if (data.status !== "ok") throw new Error(data.message || "rss2json error");
+
       const feed = data.feed || {};
       const items = Array.isArray(data.items) ? data.items : [];
 
@@ -640,51 +544,68 @@
       const eps = items.map(it => {
         const title = it.title || "(sin título)";
         const desc = (it.description || "").replace(/<[^>]+>/g,"").trim();
-        const pubDate = it.pubDate || "";
+        const pubDate = it.pubDate || it.pubDate_raw || "";
         const audioUrl = it.enclosure?.link || it.enclosure?.url || "";
         return { title, desc, pubDate, audioUrl };
       }).filter(x => x.audioUrl);
 
       if (!eps.length){
-        $("episodes").innerHTML = `<div class="soft p-3 tiny">No encontré audio (enclosure). Prueba otro podcast.</div>`;
+        $("episodes").innerHTML = `<div class="soft p-3 tiny">No encontré episodios reproducibles.</div>`;
         return;
       }
 
-      $("episodes").innerHTML = eps.slice(0, 18).map(ep => `
-        <button class="list-group-item text-start" data-audio="${esc(ep.audioUrl)}" data-title="${esc(ep.title)}">
-          <div class="d-flex justify-content-between align-items-start gap-2">
-            <div>
-              <div class="fw-bold">${esc(ep.title)}</div>
-              <div class="tiny">${esc(ep.pubDate ? dayjs(ep.pubDate).format("DD MMM YYYY") : "")}</div>
-              <div class="tiny truncate-2">${esc(ep.desc)}</div>
-            </div>
-            <span class="badge rounded-pill text-bg-primary">Play</span>
-          </div>
-        </button>
-      `).join("");
-
-      // Reproducir con <audio> nativo
-      $("episodes").querySelectorAll("button[data-audio]").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const url = btn.dataset.audio;
-          const title = btn.dataset.title || "";
-          $("nowPlaying").textContent = title;
-          const audio = $("player");
-          audio.src = url;
-          audio.play().catch(()=>{});
-        });
-      });
-
+      state.epsAll = eps;
+      state.epsShown = Math.min(state.epsPage, eps.length);
+      renderEpisodesSlice();
       notyf.success("Episodios cargados.");
     } catch (e) {
-      notyf.error("No se pudo cargar el RSS.");
-      $("episodes").innerHTML = `<div class="soft p-3 tiny">Error cargando episodios. Intenta con otro podcast.</div>`;
       console.warn(e);
+      notyf.error("No se pudo cargar el RSS (rss2json).");
+      $("episodes").innerHTML = `<div class="soft p-3 tiny">Error cargando episodios. Prueba con otro podcast.</div>`;
     }
   }
 
-  /* ---------------- Frases de Internet: sin repetir ---------------- */
-  // Fallback grande (no se repite hasta agotar)
+  function renderEpisodesSlice(){
+    const box = $("episodes");
+    if (!state.epsAll.length){
+      box.innerHTML = `<div class="soft p-3 tiny">No hay episodios para mostrar.</div>`;
+      $("moreEpsBtn").classList.add("d-none");
+      return;
+    }
+    const slice = state.epsAll.slice(0, state.epsShown);
+    box.innerHTML = slice.map(ep => `
+      <button class="list-group-item text-start" data-audio="${esc(ep.audioUrl)}" data-title="${esc(ep.title)}">
+        <div class="d-flex justify-content-between align-items-start gap-2">
+          <div>
+            <div class="fw-bold">${esc(ep.title)}</div>
+            <div class="tiny">${esc(ep.pubDate ? dayjs(ep.pubDate).format("DD MMM YYYY") : "")}</div>
+            <div class="tiny truncate-2">${esc(ep.desc)}</div>
+          </div>
+          <span class="badge rounded-pill text-bg-primary">Play</span>
+        </div>
+      </button>
+    `).join("");
+
+    box.querySelectorAll("button[data-audio]").forEach(btn => {
+      btn.onclick = () => {
+        const url = btn.dataset.audio;
+        const title = btn.dataset.title || "";
+        $("nowPlaying").textContent = title;
+        const audio = $("player");
+        audio.src = url;
+        audio.play().catch(()=>{});
+      };
+    });
+
+    $("moreEpsBtn").classList.toggle("d-none", state.epsShown >= state.epsAll.length);
+  }
+
+  $("moreEpsBtn").addEventListener("click", () => {
+    state.epsShown = Math.min(state.epsShown + state.epsPage, state.epsAll.length);
+    renderEpisodesSlice();
+  });
+
+  /* --------------- Frases online sin repetir --------------- */
   const FALLBACK_DECK = [
     "Small progress is still progress. — Unknown",
     "The secret of getting ahead is getting started. — Mark Twain",
@@ -696,72 +617,29 @@
     "Action is the foundational key to all success. — Pablo Picasso",
     "Quality is not an act, it is a habit. — Aristotle",
     "Dream big and dare to fail. — Norman Vaughan",
-    "The best way out is always through. — Robert Frost",
     "Either you run the day or the day runs you. — Jim Rohn",
     "Don’t watch the clock; do what it does. Keep going. — Sam Levenson",
-    "Do one thing every day that scares you. — Eleanor Roosevelt",
-    "What you do today can improve all your tomorrows. — Ralph Marston",
-    "Everything you can imagine is real. — Pablo Picasso",
-    "Act as if what you do makes a difference. It does. — William James",
-    "The future depends on what you do today. — Mahatma Gandhi",
-    "Turn your wounds into wisdom. — Oprah Winfrey",
-    "No pressure, no diamonds. — Thomas Carlyle",
-    "Make each day your masterpiece. — John Wooden",
-    "A year from now you may wish you had started today. — Karen Lamb",
-    "If it matters to you, you’ll find a way. — Unknown",
-    "Slow progress is better than no progress. — Unknown",
-    "Learn from yesterday, live for today, hope for tomorrow. — Albert Einstein",
-    "Keep going. Be all in. — Bryan Hutchinson",
-    "The best time to plant a tree was 20 years ago. The second best time is now. — Chinese Proverb",
-    "You miss 100% of the shots you don’t take. — Wayne Gretzky",
-    "Stay hungry, stay foolish. — Steve Jobs",
-    "Do it with passion or not at all. — Rosa Nouchette Carey",
-    "Hope is a waking dream. — Aristotle",
-    "Great things never came from comfort zones. — Unknown",
-    "Doubt kills more dreams than failure ever will. — Suzy Kassem",
     "Start where you are. Use what you have. Do what you can. — Arthur Ashe",
-    "Keep your face always toward the sunshine—and shadows will fall behind you. — Walt Whitman",
-    "Work hard in silence, let your success be your noise. — Frank Ocean",
     "Dreams don’t work unless you do. — John C. Maxwell",
     "The only way to do great work is to love what you do. — Steve Jobs",
-    "Done is better than perfect. — Sheryl Sandberg",
     "Focus on being productive instead of busy. — Tim Ferriss",
     "If you get tired, learn to rest, not to quit. — Banksy",
     "Discipline is destiny. — Ryan Holiday",
     "You are what you do, not what you say you’ll do. — Carl Jung",
     "A little progress each day adds up to big results. — Unknown",
     "Courage is grace under pressure. — Ernest Hemingway",
-    "The hard days are what make you stronger. — Aly Raisman",
-    "Don’t let yesterday take up too much of today. — Will Rogers",
     "Win the morning, win the day. — Tim Ferriss",
     "Your limitation—it’s only your imagination. — Unknown",
     "Do the hard things. — Unknown"
   ];
-
-  function sha1Like(s){
-    // hash simple para deduplicar uso entre sesiones (no criptográfico)
-    let h = 0, i = 0, len = s.length;
-    while (i < len) { h = (h << 5) - h + s.charCodeAt(i++) | 0; }
-    return String(h);
-  }
-
-  function shuffle(array){
-    for (let i=array.length-1;i>0;i--){
-      const j = Math.floor(Math.random()*(i+1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
+  const sha1Like = s => { let h=0; for(let i=0;i<s.length;i++){ h=(h<<5)-h+s.charCodeAt(i)|0;} return String(h); };
+  const shuffle = arr => { for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; };
 
   async function loadDeckFromStore(){
-    const deck = await store.getItem("quotes_deck");
-    const idx = await store.getItem("quotes_deck_index");
-    const used = await store.getItem("quotes_used_hashes");
-    state.quotesDeck = Array.isArray(deck) ? deck : [];
-    state.deckIndex = Number.isInteger(idx) ? idx : 0;
-    state.usedHashes = new Set(Array.isArray(used) ? used : []);
+    state.quotesDeck = (await store.getItem("quotes_deck")) || [];
+    state.deckIndex = (await store.getItem("quotes_deck_index")) || 0;
+    state.usedHashes = new Set((await store.getItem("quotes_used_hashes")) || []);
   }
-
   async function saveDeck(){
     await store.setItem("quotes_deck", state.quotesDeck);
     await store.setItem("quotes_deck_index", state.deckIndex);
@@ -769,72 +647,48 @@
   }
 
   async function providerQuotable(){
-    const url = "https://api.quotable.io/quotes/random?limit=60&tags=famous-quotes|wisdom|inspirational";
-    const r = await fetch(url, { cache:"no-store" });
-    if (!r.ok) throw new Error("Quotable HTTP " + r.status);
+    const r = await fetch("https://api.quotable.io/quotes/random?limit=60&tags=famous-quotes|wisdom|inspirational", { cache:"no-store" });
+    if (!r.ok) throw new Error("Quotable");
     const arr = await r.json();
-    return (Array.isArray(arr) ? arr : []).map(x => ({
-      text: (x.content || "").trim(),
-      author: (x.author || "").trim()
-    })).filter(x => x.text.length >= 10 && x.text.length <= 200);
+    return (Array.isArray(arr)?arr:[]).map(x=>({ text:(x.content||"").trim(), author:(x.author||"").trim() }))
+      .filter(x => x.text.length >= 10 && x.text.length <= 200);
   }
   async function providerTypeFit(){
-    const url = "https://type.fit/api/quotes";
-    const r = await fetch(url, { cache:"no-store" });
-    if (!r.ok) throw new Error("type.fit HTTP " + r.status);
+    const r = await fetch("https://type.fit/api/quotes", { cache:"no-store" });
+    if (!r.ok) throw new Error("type.fit");
     const arr = await r.json();
-    return (Array.isArray(arr) ? arr : []).map(x => ({
-      text: (x.text || "").trim(),
-      author: (x.author || "").trim()
-    })).filter(x => x.text.length >= 10 && x.text.length <= 200).slice(0, 600);
+    return (Array.isArray(arr)?arr:[]).slice(0,600).map(x=>({ text:(x.text||"").trim(), author:(x.author||"").trim() }))
+      .filter(x => x.text.length >= 10 && x.text.length <= 200);
   }
 
   async function buildNewDeck(){
     let combined = [];
     try{
-      const [q1, q2] = await Promise.allSettled([providerQuotable(), providerTypeFit()]);
-      if (q1.status === "fulfilled") combined = combined.concat(q1.value);
-      if (q2.status === "fulfilled") combined = combined.concat(q2.value);
-    } catch {}
+      const [a,b] = await Promise.allSettled([providerQuotable(), providerTypeFit()]);
+      if (a.status==="fulfilled") combined = combined.concat(a.value);
+      if (b.status==="fulfilled") combined = combined.concat(b.value);
+    }catch{}
     if (!combined.length){
-      // fallback local
-      combined = FALLBACK_DECK.map(t => {
-        const parts = t.split(" — ");
-        return { text: parts[0], author: parts[1] || "" };
-      });
+      combined = FALLBACK_DECK.map(t=>{ const [text,author=""] = t.split(" — "); return { text, author }; });
     }
-    // dedup por texto y eliminar usados
-    const seen = new Set();
-    const cleaned = [];
+    const seen = new Set(); const cleaned = [];
     for (const q of combined){
-      const key = q.text.trim().toLowerCase();
-      if (seen.has(key)) continue;
-      seen.add(key);
-      const h = sha1Like(key);
-      if (state.usedHashes.has(h)) continue; // no volver a mostrar
+      const key = q.text.trim().toLowerCase(); if (seen.has(key)) continue; seen.add(key);
+      const h = sha1Like(key); if (state.usedHashes.has(h)) continue;
       cleaned.push(q);
     }
     shuffle(cleaned);
-    state.quotesDeck = cleaned;
-    state.deckIndex = 0;
+    state.quotesDeck = cleaned; state.deckIndex = 0;
     await saveDeck();
   }
 
   async function getNextQuote(){
-    // si no hay baraja o agotada, generar nueva
     if (!state.quotesDeck.length || state.deckIndex >= state.quotesDeck.length){
       await buildNewDeck();
-      // si aún está vacía, liberar "usados" parcialmente para no estancarse
-      if (!state.quotesDeck.length){
-        state.usedHashes = new Set();
-        await buildNewDeck();
-      }
+      if (!state.quotesDeck.length){ state.usedHashes = new Set(); await buildNewDeck(); }
     }
-    const q = state.quotesDeck[state.deckIndex++];
-    if (!q) return null;
-    // marcar como usado
-    const h = sha1Like(q.text.trim().toLowerCase());
-    state.usedHashes.add(h);
+    const q = state.quotesDeck[state.deckIndex++]; if (!q) return null;
+    state.usedHashes.add(sha1Like(q.text.trim().toLowerCase()));
     await saveDeck();
     return q;
   }
@@ -843,129 +697,93 @@
     try{
       $("getInternetPhraseBtn").disabled = true;
       $("getInternetPhraseBtn").innerHTML = `<i class="fa-solid fa-spinner fa-spin me-2"></i>Cargando…`;
-
       const q = await getNextQuote();
-      if (!q) throw new Error("No hay frases disponibles ahora.");
-
+      if (!q) throw new Error("Sin frases disponibles");
       const text = q.author ? `${q.text} — ${q.author}` : q.text;
       state.phrases.unshift({ id: crypto.randomUUID(), text, createdAt: Date.now(), tags:["internet"], source:"internet" });
-      await savePhrases();
-      rebuildTags(); buildFuse(); renderTagFilter();
-      renderPhrases(); renderSelectedPreview();
-      notyf.success("Frase agregada (sin repetir).");
-    } catch (err){
-      notyf.error("Error: " + (err?.message || err));
-    } finally{
+      await savePhrases(); rebuildTags(); buildFuse(); renderTagFilter(); renderPhrases(); renderSelectedPreview();
+      notyf.success("Frase agregada.");
+    } catch(e){ notyf.error("Error al traer frase."); }
+    finally{
       $("getInternetPhraseBtn").disabled = false;
       $("getInternetPhraseBtn").innerHTML = `<i class="fa-solid fa-cloud-arrow-down me-2"></i>Internet`;
     }
   });
 
   $("clearCacheBtn").addEventListener("click", async () => {
-    await store.removeItem("quotes_deck");
-    await store.removeItem("quotes_deck_index");
-    await store.removeItem("quotes_used_hashes");
-    state.quotesDeck = [];
-    state.deckIndex = 0;
-    state.usedHashes = new Set();
+    await store.removeItem("quotes_deck"); await store.removeItem("quotes_deck_index"); await store.removeItem("quotes_used_hashes");
+    state.quotesDeck=[]; state.deckIndex=0; state.usedHashes=new Set();
     notyf.success("Caché de frases limpiada.");
   });
 
-  /* ---------------- Phrases CRUD + búsqueda ---------------- */
+  /* --------------- Phrases CRUD --------------- */
   function rebuildTags(){
     state.tags = new Set();
     state.phrases.forEach(p => (p.tags || []).forEach(t => state.tags.add(t)));
   }
-
   function buildFuse(){
-    state.phraseFuse = new Fuse(state.phrases, {
-      keys: ["text", "tags", "source"],
-      threshold: 0.35,
-      ignoreLocation: true,
-      includeScore: true
-    });
+    state.phraseFuse = new Fuse(state.phrases, { keys:["text","tags","source"], threshold:0.35, ignoreLocation:true, includeScore:true });
   }
-
   function renderTagFilter(){
-    const sel = $("tagFilter");
-    const prev = sel.value;
-    sel.innerHTML = `<option value="">Todos los tags</option>` +
-      Array.from(state.tags).sort().map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join("");
+    const sel = $("tagFilter"); const prev = sel.value;
+    sel.innerHTML = `<option value="">Todos los tags</option>` + Array.from(state.tags).sort().map(t=>`<option value="${esc(t)}">${esc(t)}</option>`).join("");
     sel.value = prev || "";
   }
-
   async function loadPhrases(){
-    const data = await store.getItem("phrases");
-    state.phrases = Array.isArray(data) ? data : [];
-    state.selectedPhraseId = await store.getItem("selectedPhraseId") || null;
-
+    state.phrases = (await store.getItem("phrases")) || [];
+    state.selectedPhraseId = (await store.getItem("selectedPhraseId")) || null;
     if (!state.phrases.length){
       state.phrases = [
-        { id: crypto.randomUUID(), text: "I would like to improve my English pronunciation.", createdAt: Date.now(), tags:["starter"], source:"starter" },
-        { id: crypto.randomUUID(), text: "Could you please repeat that more slowly?", createdAt: Date.now(), tags:["starter"], source:"starter" },
-        { id: crypto.randomUUID(), text: "What do you recommend I practice today?", createdAt: Date.now(), tags:["daily"], source:"starter" },
+        { id: crypto.randomUUID(), text:"I would like to improve my English pronunciation.", createdAt: Date.now(), tags:["starter"], source:"starter" },
+        { id: crypto.randomUUID(), text:"Could you please repeat that more slowly?", createdAt: Date.now(), tags:["starter"], source:"starter" },
+        { id: crypto.randomUUID(), text:"What do you recommend I practice today?", createdAt: Date.now(), tags:["daily"], source:"starter" },
       ];
       await store.setItem("phrases", state.phrases);
     }
-
-    rebuildTags(); buildFuse(); renderTagFilter();
-    renderPhrases(); renderSelectedPreview();
+    rebuildTags(); buildFuse(); renderTagFilter(); renderPhrases(); renderSelectedPreview();
   }
-
-  async function savePhrases(){
-    await store.setItem("phrases", state.phrases);
-  }
-
-  function getSelected(){
-    return state.phrases.find(x => x.id === state.selectedPhraseId) || null;
-  }
+  async function savePhrases(){ await store.setItem("phrases", state.phrases); }
+  function getSelected(){ return state.phrases.find(x => x.id === state.selectedPhraseId) || null; }
 
   function renderSelectedPreview(){
     const p = getSelected();
     $("selectedPhrasePreview").textContent = p ? p.text : "Ninguna";
-    $("phoneticPreview").textContent = p ? englishToSpanishPhonetic(p.text) : "—";
-    $("segmentsPreview").innerHTML = p ? makeSegments(englishToSpanishPhonetic(p.text)) : "—";
+    const ph = p ? englishToSpanishPhonetic(p.text) : "—";
+    $("phoneticPreview").textContent = ph;
+    $("segmentsPreview").innerHTML = makeSegments(ph);
   }
 
   function renderPhrases(){
     const box = $("phrasesList");
-    const query = $("phraseSearch").value.trim();
+    const q = $("phraseSearch").value.trim();
     const tag = $("tagFilter").value || "";
-
     let list = state.phrases.slice();
-    if (query && state.phraseFuse) list = state.phraseFuse.search(query).map(r => r.item);
-    if (tag) list = list.filter(p => (p.tags || []).includes(tag));
-
-    if (!list.length){
-      box.innerHTML = `<div class="soft p-3 tiny">No hay coincidencias. Prueba otra búsqueda.</div>`;
-      return;
-    }
+    if (q && state.phraseFuse) list = state.phraseFuse.search(q).map(r=>r.item);
+    if (tag) list = list.filter(p => (p.tags||[]).includes(tag));
+    if (!list.length){ box.innerHTML = `<div class="soft p-3 tiny">No hay coincidencias.</div>`; return; }
 
     box.innerHTML = list.map(p => {
       const isSel = p.id === state.selectedPhraseId;
-      const tags = (p.tags || []).map(t => `<span class="badge rounded-pill text-bg-secondary me-1">${esc(t)}</span>`).join("") || `<span class="tiny">sin tags</span>`;
+      const tags = (p.tags||[]).map(t=>`<span class="badge rounded-pill text-bg-secondary me-1">${esc(t)}</span>`).join("") || `<span class="tiny">sin tags</span>`;
       const phon = englishToSpanishPhonetic(p.text);
-
       return `
         <div class="list-group-item">
           <div class="d-flex justify-content-between gap-2">
             <div class="flex-grow-1">
               <div class="fw-bold ${isSel ? 'text-success' : ''}">${esc(p.text)}</div>
               <div class="tiny mt-1">${tags}</div>
-              <div class="tiny">${dayjs(p.createdAt).format("DD MMM YYYY • HH:mm")} · <span class="kbd">${esc(p.source || "custom")}</span></div>
-
+              <div class="tiny">${dayjs(p.createdAt).format("DD MMM YYYY • HH:mm")} · <span class="kbd">${esc(p.source||"custom")}</span></div>
               <div class="soft p-2 mt-2">
                 <div class="tiny fw-semibold">Pronunciación figurada:</div>
                 <div class="mono">${esc(phon)}</div>
                 <div class="mt-1">${makeSegments(phon)}</div>
               </div>
             </div>
-
             <div class="btn-group btn-group-sm align-self-start">
-              <button class="btn ${isSel ? 'btn-success' : 'btn-outline-success'}" data-act="select" data-id="${p.id}">${isSel ? 'OK' : 'Seleccionar'}</button>
-              <button class="btn btn-outline-secondary" data-act="speak" data-id="${p.id}" title="Escuchar"><i class="fa-solid fa-volume-high"></i></button>
-              <button class="btn btn-outline-primary" data-act="tag" data-id="${p.id}" title="Tags"><i class="fa-solid fa-tags"></i></button>
-              <button class="btn btn-outline-danger" data-act="del" data-id="${p.id}" title="Borrar"><i class="fa-solid fa-trash"></i></button>
+              <button class="btn ${isSel?'btn-success':'btn-outline-success'}" data-act="select" data-id="${p.id}">${isSel?'OK':'Seleccionar'}</button>
+              <button class="btn btn-outline-secondary" data-act="speak" data-id="${p.id}"><i class="fa-solid fa-volume-high"></i></button>
+              <button class="btn btn-outline-primary" data-act="tag" data-id="${p.id}"><i class="fa-solid fa-tags"></i></button>
+              <button class="btn btn-outline-danger" data-act="del" data-id="${p.id}"><i class="fa-solid fa-trash"></i></button>
             </div>
           </div>
         </div>
@@ -973,181 +791,88 @@
     }).join("");
 
     box.querySelectorAll("button[data-act]").forEach(btn => {
-      btn.addEventListener("click", async () => {
-        const id = btn.dataset.id;
-        const act = btn.dataset.act;
-        const item = state.phrases.find(x => x.id === id);
+      btn.onclick = async () => {
+        const id = btn.dataset.id; const act = btn.dataset.act; const item = state.phrases.find(x=>x.id===id);
         if (!id) return;
-
-        if (act === "select"){
-          state.selectedPhraseId = id;
-          await store.setItem("selectedPhraseId", id);
-          renderPhrases(); renderSelectedPreview();
-          notyf.success("Frase seleccionada.");
+        if (act==="select"){
+          state.selectedPhraseId = id; await store.setItem("selectedPhraseId", id);
+          renderPhrases(); renderSelectedPreview(); notyf.success("Frase seleccionada.");
         }
-
-        if (act === "speak" && item) speak(item.text);
-
-        if (act === "del"){
-          state.phrases = state.phrases.filter(x => x.id !== id);
-          if (state.selectedPhraseId === id){
-            state.selectedPhraseId = null;
-            await store.removeItem("selectedPhraseId");
-          }
-          await savePhrases();
-          rebuildTags(); buildFuse(); renderTagFilter();
-          renderPhrases(); renderSelectedPreview();
-          notyf.success("Eliminada.");
+        if (act==="speak" && item){ speak(item.text); }
+        if (act==="del"){
+          state.phrases = state.phrases.filter(x=>x.id!==id);
+          if (state.selectedPhraseId===id){ state.selectedPhraseId=null; await store.removeItem("selectedPhraseId"); }
+          await savePhrases(); rebuildTags(); buildFuse(); renderTagFilter(); renderPhrases(); renderSelectedPreview(); notyf.success("Eliminada.");
         }
-
-        if (act === "tag" && item){
-          const t = prompt("Tags (separados por coma). Ej: daily, travel, work", (item.tags || []).join(", "));
-          if (t === null) return;
-          const tags = t.split(",").map(x => x.trim().toLowerCase()).filter(Boolean).slice(0,8);
+        if (act==="tag" && item){
+          const t = prompt("Tags (separados por coma). Ej: daily, travel, work", (item.tags||[]).join(", "));
+          if (t===null) return;
+          const tags = t.split(",").map(x=>x.trim().toLowerCase()).filter(Boolean).slice(0,8);
           item.tags = Array.from(new Set(tags));
-          await savePhrases();
-          rebuildTags(); buildFuse(); renderTagFilter();
-          renderPhrases(); renderSelectedPreview();
-          notyf.success("Tags actualizados.");
+          await savePhrases(); rebuildTags(); buildFuse(); renderTagFilter(); renderPhrases(); renderSelectedPreview(); notyf.success("Tags actualizados.");
         }
-      });
+      };
     });
   }
 
-  $("addPhraseBtn").addEventListener("click", async () => {
+  $("addPhraseBtn").onclick = async () => {
     const t = $("newPhrase").value.trim();
     if (!t) return notyf.error("Escribe una frase.");
     state.phrases.unshift({ id: crypto.randomUUID(), text: t, createdAt: Date.now(), tags:["custom"], source:"custom" });
-    $("newPhrase").value = "";
-    await savePhrases();
-    rebuildTags(); buildFuse(); renderTagFilter();
-    renderPhrases();
-    notyf.success("Frase agregada.");
-  });
+    $("newPhrase").value = ""; await savePhrases();
+    rebuildTags(); buildFuse(); renderTagFilter(); renderPhrases(); notyf.success("Frase agregada.");
+  };
+  $("phraseSearch").oninput = renderPhrases;
+  $("tagFilter").onchange = renderPhrases;
+  $("useSelectedBtn").onclick = () => {
+    const p = getSelected(); if (!p) return notyf.error("Primero selecciona una frase.");
+    $("referenceText").value = p.text; updatePhoneticFromReference(); showTab("practice"); notyf.success("Frase enviada.");
+  };
+  $("podQuery").addEventListener("keydown", e=>{ if(e.key==="Enter") $("podSearchBtn").click(); });
+  $("newPhrase").addEventListener("keydown", e=>{ if(e.key==="Enter") $("addPhraseBtn").click(); });
 
-  $("phraseSearch").addEventListener("input", () => renderPhrases());
-  $("tagFilter").addEventListener("change", () => renderPhrases());
-
-  $("useSelectedBtn").addEventListener("click", () => {
-    const p = getSelected();
-    if (!p) return notyf.error("Primero selecciona una frase.");
-    $("referenceText").value = p.text;
-    updatePhoneticFromReference();
-    showTab("practice");
-    notyf.success("Frase enviada a Pronunciación.");
-  });
-
-  /* ---------------- Pronunciación (SR) ---------------- */
+  /* --------------- SR --------------- */
   function normalizeWords(text){
     return text.toLowerCase().replace(/[^a-z0-9\s']/g," ").replace(/\s+/g," ").trim().split(" ").filter(Boolean);
   }
-  function levenshtein(a,b){
-    const n=a.length,m=b.length;
-    if(!n) return m; if(!m) return n;
-    const dp=Array.from({length:n+1},()=>Array(m+1).fill(0));
-    for(let i=0;i<=n;i++) dp[i][0]=i;
-    for(let j=0;j<=m;j++) dp[0][j]=j;
-    for(let i=1;i<=n;i++){
-      for(let j=1;j<=m;j++){
-        const cost=a[i-1]===b[j-1]?0:1;
-        dp[i][j]=Math.min(dp[i-1][j]+1,dp[i][j-1]+1,dp[i-1][j-1]+cost);
-      }
-    }
-    return dp[n][m];
-  }
-  function similarityPct(ref,said){
-    const a=ref.trim().toLowerCase(), b=said.trim().toLowerCase();
-    if(!a&&!b) return 100;
-    if(!a||!b) return 0;
-    const dist=levenshtein(a,b);
-    const maxLen=Math.max(a.length,b.length);
-    return Math.max(0,Math.min(100,Math.round((1-dist/maxLen)*100)));
-  }
+  function levenshtein(a,b){ const n=a.length,m=b.length; if(!n) return m; if(!m) return n; const dp=Array.from({length:n+1},()=>Array(m+1).fill(0)); for(let i=0;i<=n;i++) dp[i][0]=i; for(let j=0;j<=m;j++) dp[0][j]=j; for(let i=1;i<=n;i++){ for(let j=1;j<=m;j++){ const c=a[i-1]===b[j-1]?0:1; dp[i][j]=Math.min(dp[i-1][j]+1,dp[i][j-1]+1,dp[i-1][j-1]+c);} } return dp[n][m]; }
+  function similarityPct(ref,said){ const a=ref.trim().toLowerCase(), b=said.trim().toLowerCase(); if(!a&&!b) return 100; if(!a||!b) return 0; const d=levenshtein(a,b), L=Math.max(a.length,b.length); return Math.max(0,Math.min(100,Math.round((1-d/L)*100))); }
   function highlightByWords(reference,recognized){
-    const ref=normalizeWords(reference);
-    const rec=normalizeWords(recognized);
-    let ptr=0;
-    const out=[];
-    for(const w of ref){
-      let found=false;
-      for(let k=ptr;k<rec.length;k++){
-        if(rec[k]===w){ found=true; ptr=k+1; break; }
-      }
-      out.push(found?`<span class="word-ok">${esc(w)}</span>`:`<span class="word-bad">${esc(w)}</span>`);
-    }
+    const ref=normalizeWords(reference), rec=normalizeWords(recognized); let ptr=0, out=[];
+    for(const w of ref){ let found=false; for(let k=ptr;k<rec.length;k++){ if(rec[k]===w){ found=true; ptr=k+1; break; } } out.push(found?`<span class="word-ok">${esc(w)}</span>`:`<span class="word-bad">${esc(w)}</span>`); }
     return out.join(" ");
   }
 
   function startRecognition(){
-    if(!SR) return notyf.error("Tu navegador no soporta SpeechRecognition. Usa Chrome/Edge.");
-    const reference=$("referenceText").value.trim();
-    if(!reference) return notyf.error("Escribe una frase objetivo.");
-
-    const rec=new SR();
-    rec.lang="en-US";
-    rec.interimResults=true;
-    rec.continuous=false;
-
-    state.recognition=rec;
-    state.recognizing=true;
-
-    $("startRecBtn").classList.add("d-none");
-    $("stopRecBtn").classList.remove("d-none");
-    $("recognizedText").textContent="Escuchando… habla ahora.";
-    $("highlighted").textContent="—";
-    $("scorePct").textContent="—";
-
+    if(!SR) return notyf.error("Tu navegador no soporta SpeechRecognition.");
+    const reference=$("referenceText").value.trim(); if(!reference) return notyf.error("Escribe una frase objetivo.");
+    const rec=new SR(); rec.lang="en-US"; rec.interimResults=true; rec.continuous=false;
+    state.recognition=rec; state.recognizing=true;
+    $("startRecBtn").classList.add("d-none"); $("stopRecBtn").classList.remove("d-none");
+    $("recognizedText").textContent="Escuchando…"; $("highlighted").textContent="—"; $("scorePct").textContent="—";
     let finalText="";
 
     rec.onresult=(event)=>{
-      let interim="";
-      for(let i=event.resultIndex;i<event.results.length;i++){
-        const t=event.results[i][0].transcript;
-        if(event.results[i].isFinal) finalText+=t+" ";
-        else interim+=t;
-      }
+      let interim=""; for(let i=event.resultIndex;i<event.results.length;i++){ const t=event.results[i][0].transcript; if(event.results[i].isFinal) finalText+=t+" "; else interim+=t; }
       const shown=(finalText+interim).trim();
       $("recognizedText").textContent=shown||"…";
       $("scorePct").textContent=similarityPct(reference,shown)+"%";
       $("highlighted").innerHTML=highlightByWords(reference,shown);
     };
-
-    rec.onerror=(e)=>{
-      stopRecognition();
-      notyf.error("Error mic/reconocimiento: " + (e.error || "desconocido"));
-    };
-
-    rec.onend=()=>{
-      if(!state.recognizing) return;
-      stopRecognition();
-      notyf.success("Evaluación terminada.");
-    };
-
-    rec.start();
-    notyf.open({ type:"info", message:"🎙️ Habla la frase completa." });
+    rec.onerror=(e)=>{ stopRecognition(); notyf.error("Error de mic/reconocimiento."); };
+    rec.onend=()=>{ if(!state.recognizing) return; stopRecognition(); notyf.success("Evaluación terminada."); };
+    rec.start(); notyf.open({ type:"info", message:"🎙️ Habla la frase completa." });
   }
-
   function stopRecognition(){
-    if(state.recognition){
-      try{ state.recognition.stop(); }catch{}
-    }
-    state.recognition=null;
-    state.recognizing=false;
-    $("startRecBtn").classList.remove("d-none");
-    $("stopRecBtn").classList.add("d-none");
+    if(state.recognition){ try{ state.recognition.stop(); }catch{} }
+    state.recognition=null; state.recognizing=false;
+    $("startRecBtn").classList.remove("d-none"); $("stopRecBtn").classList.add("d-none");
   }
+  $("startRecBtn").onclick = startRecognition;
+  $("stopRecBtn").onclick = stopRecognition;
 
-  $("startRecBtn").addEventListener("click", startRecognition);
-  $("stopRecBtn").addEventListener("click", stopRecognition);
-
-  /* ---------------- Pronunciación figurada ---------------- */
-  function cfg(){
-    return {
-      th: $("thMode").value,
-      r: $("rMode").value,
-      stress: $("stressMarks").checked
-    };
-  }
+  /* --------------- Pronunciación figurada --------------- */
+  function cfg(){ return { th:$("thMode").value, r:$("rMode").value, stress:$("stressMarks").checked }; }
   async function saveCfg(){ await store.setItem("phonetic_cfg", cfg()); }
   ["thMode","rMode","stressMarks"].forEach(id => $(id).addEventListener("change", async ()=>{ await saveCfg(); renderPhrases(); renderSelectedPreview(); updatePhoneticFromReference(); }));
 
@@ -1155,83 +880,47 @@
     const words=(text||"").replace(/[“”]/g,'"').replace(/[‘’]/g,"'").split(/\s+/).filter(Boolean);
     return words.map(w=>wordToPhonetic(w,cfg())).join(" ");
   }
-
   function wordToPhonetic(word,opt){
-    const m=word.match(/^(.+?)([.,!?;:]*)$/);
-    let core=m?m[1]:word;
-    const punct=m?m[2]:"";
-    const lower=core.toLowerCase();
-
-    const dict={
-      "the": opt.th==="z" ? "ze" : "de",
-      "this": opt.th==="z" ? "zis" : "dis",
-      "that": opt.th==="z" ? "zat" : "dat",
-      "these": opt.th==="z" ? "ziiz" : "diiz",
-      "those": opt.th==="z" ? "zóuz" : "dóuz",
-      "you":"yuu","your":"yor","are":"ar","to":"tú","of":"ov","for":"for","and":"and","with":"wíd",
-      "what":"wát","when":"wen","where":"wer","why":"wái","how":"jáu",
-      "i":"ái","my":"mái","we":"wí",
-      "they": opt.th==="z" ? "zéi" : "dei",
-      "it":"it","is":"iz","was":"wos","were":"wer",
-      "please":"plíiz","english":"ínglish","pronunciation":"pronánsiéishon","repeat":"ripíit","slowly":"slóuli","today":"tudéi"
-    };
+    const m=word.match(/^(.+?)([.,!?;:]*)$/); let core=m?m[1]:word; const punct=m?m[2]:""; const lower=core.toLowerCase();
+    const dict={ "the":opt.th==="z"?"ze":"de","this":opt.th==="z"?"zis":"dis","that":opt.th==="z"?"zat":"dat","these":opt.th==="z"?"ziiz":"diiz","those":opt.th==="z"?"zóuz":"dóuz",
+      "you":"yuu","your":"yor","are":"ar","to":"tú","of":"ov","for":"for","and":"and","with":"wíd","what":"wát","when":"wen","where":"wer","why":"wái","how":"jáu",
+      "i":"ái","my":"mái","we":"wí","they":opt.th==="z"?"zéi":"dei","it":"it","is":"iz","was":"wos","were":"wer","please":"plíiz","english":"ínglish","pronunciation":"pronánsiéishon","repeat":"ripíit","slowly":"slóuli","today":"tudéi" };
     if(dict[lower]) return dict[lower]+punct;
-
     let x=lower;
-
     x=x.replace(/n't\b/g,"nt").replace(/'re\b/g," ar").replace(/'ll\b/g,"l").replace(/'ve\b/g,"v").replace(/'d\b/g,"d").replace(/'m\b/g,"m");
     x=x.replace(/ing\b/g,"in").replace(/tion\b/g,"shon").replace(/sion\b/g,"shon");
     x=x.replace(/ph/g,"f").replace(/ght/g,"t").replace(/kn/g,"n").replace(/wr/g,"r").replace(/wh/g,"w").replace(/qu/g,"kw");
     x=x.replace(/ch/g,"ch").replace(/sh/g,"sh");
     x=x.replace(/th/g, opt.th==="z" ? "z" : "d");
-
     x=x.replace(/ee/g,"ii").replace(/ea/g,"ii").replace(/oo/g,"uu");
     x=x.replace(/ou/g,"au").replace(/ow/g,"au").replace(/ai/g,"ei").replace(/ay/g,"ei").replace(/igh/g,"ai").replace(/ie/g,"ai").replace(/oa/g,"óu");
-
     x=x.replace(/ce/g,"s").replace(/ci/g,"si").replace(/cy/g,"si");
     x=x.replace(/ge/g,"y").replace(/gi/g,"yi").replace(/gy/g,"yi");
-
     x=x.replace(/ck/g,"k").replace(/c/g,"k");
     x=x.replace(/j/g,"y");
     x=x.replace(/y\b/g,"i");
     x=x.replace(/e\b/g,"");
-
-    if(opt.r==="marked"){
-      x=x.replace(/er\b/g,"er").replace(/ar\b/g,"ar").replace(/or\b/g,"or");
-    }
-
+    if(opt.r==="marked"){ x=x.replace(/er\b/g,"er").replace(/ar\b/g,"ar").replace(/or\b/g,"or"); }
     x=x.replace(/(.)\1+/g,"$1$1");
     if(opt.stress) x=addStressMark(x);
-
     if(/^[A-ZÁÉÍÓÚÑ]/.test(core)) x=x.charAt(0).toUpperCase()+x.slice(1);
     return x+punct;
   }
-
   function addStressMark(w){
-    const vowels="aeiou", pos=[];
-    for(let i=0;i<w.length;i++) if(vowels.includes(w[i])) pos.push(i);
-    if(pos.length<=1) return w;
-    const idx=pos[Math.max(0,pos.length-2)];
-    const map={a:"á",e:"é",i:"í",o:"ó",u:"ú"};
-    const ch=w[idx];
-    return map[ch] ? (w.slice(0,idx)+map[ch]+w.slice(idx+1)) : w;
+    const vowels="aeiou"; const pos=[]; for(let i=0;i<w.length;i++) if(vowels.includes(w[i])) pos.push(i);
+    if(pos.length<=1) return w; const idx=pos[Math.max(0,pos.length-2)];
+    const map={a:"á",e:"é",i:"í",o:"ó",u:"ú"}; const ch=w[idx]; return map[ch] ? (w.slice(0,idx)+map[ch]+w.slice(idx+1)) : w;
   }
-
   function makeSegments(phon){
-    if(!phon||phon==="—") return "—";
-    const tokens=phon.split(/\s+/).filter(Boolean);
-    return tokens.slice(0,24).map(t=>`<span class="seg">${esc(t)}</span>`).join("") || "—";
+    if(!phon||phon==="—") return "—"; return phon.split(/\s+/).filter(Boolean).slice(0,24).map(t=>`<span class="seg">${esc(t)}</span>`).join("") || "—";
   }
-
   function updatePhoneticFromReference(){
-    const t=$("referenceText").value.trim();
-    const ph=t ? englishToSpanishPhonetic(t) : "—";
-    $("phoneticFromReference").textContent=ph;
-    $("segmentsFromReference").innerHTML=makeSegments(ph);
+    const t=$("referenceText").value.trim(); const ph=t ? englishToSpanishPhonetic(t) : "—";
+    $("phoneticFromReference").textContent=ph; $("segmentsFromReference").innerHTML=makeSegments(ph);
   }
   $("referenceText").addEventListener("input", updatePhoneticFromReference);
 
-  /* ---------------- Init ---------------- */
+  /* --------------- Init --------------- */
   async function init(){
     const dark = !!(await store.getItem("theme_dark"));
     document.body.classList.toggle("dark", dark);
@@ -1241,18 +930,11 @@
     await loadPhrases();
     await loadDeckFromStore();
 
-    renderPhrases();
-    renderSelectedPreview();
-    showTab("podcasts");
-    updatePhoneticFromReference();
-
-    // trigger una búsqueda inicial de ejemplo
-    $("podSearchBtn").click();
-
+    renderPhrases(); renderSelectedPreview(); showTab("podcasts"); updatePhoneticFromReference();
+    $("podSearchBtn").click(); // búsqueda inicial
     notyf.success("Listo ✅");
   }
   init();
-
 })();
 </script>
 </body>
