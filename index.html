@@ -3,100 +3,185 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>English Practice · Premium (Final Estable)</title>
+  <title>English Practice · Definitivo </title>
 
-  <!-- CSS externos -->
+  <!-- CSS externos (CORRECTO: con <link>) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lux/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Sora:wght@500;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
   <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css">
 
   <style>
     :root{
-      --bg0:#0a0f1e; --bg1:#0e162b; --muted:#788097;
-      --ok:#16a34a; --bad:#ef4444; --brand1:#7c3aed; --brand2:#06b6d4;
+      --bg0:#0b1220; --bg1:#0f172a; --muted:#6b7280;
+      --ok:#16a34a; --bad:#ef4444; --warn:#f59e0b;
+      --brand:#4f46e5; --brand2:#22c55e;
       --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       --ui:"Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       --title:"Sora","Inter",system-ui,sans-serif;
+      --radius:18px;
     }
-
     body{
       font-family:var(--ui);
       background:
-        radial-gradient(1200px 900px at 10% 10%, rgba(124,58,237,.14), transparent 50%),
-        radial-gradient(1000px 700px at 95% 20%, rgba(6,182,212,.12), transparent 50%),
-        radial-gradient(1000px 700px at 20% 90%, rgba(34,197,94,.10), transparent 50%),
-        linear-gradient(180deg, #f6f9fc, #eef2f7);
-      min-height:100vh; color:#0f172a;
+        radial-gradient(1200px 900px at 20% 10%, rgba(79,70,229,.18), transparent 50%),
+        radial-gradient(1000px 700px at 90% 20%, rgba(34,197,94,.14), transparent 50%),
+        linear-gradient(180deg, #f8fafc, #f1f5f9);
+      min-height:100vh;
     }
     body.dark{
       background:
-        radial-gradient(1200px 900px at 10% 10%, rgba(124,58,237,.22), transparent 50%),
-        radial-gradient(1000px 700px at 95% 20%, rgba(6,182,212,.20), transparent 50%),
-        radial-gradient(1000px 700px at 20% 90%, rgba(34,197,94,.16), transparent 50%),
+        radial-gradient(1200px 900px at 20% 10%, rgba(79,70,229,.22), transparent 50%),
+        radial-gradient(1000px 700px at 90% 20%, rgba(34,197,94,.18), transparent 50%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
       color:#e5e7eb;
     }
 
-    .title{font-family:var(--title);letter-spacing:-.02em;}
-    .mono{font-family:var(--mono);}
-    .hero{
-      border-radius:28px; padding:22px;
-      background:linear-gradient(120deg, rgba(124,58,237,.10), rgba(6,182,212,.10));
-      border:1px solid rgba(124,58,237,.18);
-      box-shadow:0 22px 60px rgba(15,23,42,.10); backdrop-filter:blur(10px);
-    }
-    body.dark .hero{ background:linear-gradient(120deg, rgba(124,58,237,.18), rgba(6,182,212,.16)); border-color:rgba(255,255,255,.10); }
+    .title{ font-family:var(--title); letter-spacing:-.02em; }
+    .mono{ font-family:var(--mono); }
+    .tiny{ font-size:.92rem; color:var(--muted); }
+    body.dark .tiny{ color:rgba(229,231,235,.75); }
+
     .app-card{
-      border:0; border-radius:22px; box-shadow:0 18px 54px rgba(15,23,42,.12);
-      background:rgba(255,255,255,.75); backdrop-filter:blur(10px);
-      border:1px solid rgba(255,255,255,.45);
+      border:0; border-radius:var(--radius);
+      box-shadow:0 14px 40px rgba(2,6,23,.10);
+      overflow:hidden;
+      background:rgba(255,255,255,.86);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,.35);
     }
-    body.dark .app-card{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.10); }
-    .soft{ background:linear-gradient(180deg, rgba(255,255,255,.64), rgba(255,255,255,.48)); border:1px solid rgba(15,23,42,.06); border-radius:16px; }
-    body.dark .soft{ background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.10); }
-    .tiny{font-size:.9rem;color:var(--muted);} body.dark .tiny{color:rgba(229,231,235,.75);}
-    .nav-premium .nav-link{ border-radius:14px; padding:.7rem .9rem; font-weight:800; background:rgba(15,23,42,.04); border:1px solid rgba(15,23,42,.06); }
-    body.dark .nav-premium .nav-link{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.10); color:#e5e7eb; }
-    .nav-premium .nav-link.active{ background:linear-gradient(90deg, rgba(124,58,237,.90), rgba(6,182,212,.85)); color:#fff; box-shadow:0 14px 34px rgba(15,23,42,.18); border:0; }
-    .btn-premium{ border-radius:16px; padding:.68rem 1rem; font-weight:700; }
-    .btn-gradient{ color:#fff !important; background:linear-gradient(92deg, var(--brand1), var(--brand2)); border:0; }
-    .list-compact .list-group-item{ border:0; border-radius:16px; margin-bottom:10px; background:rgba(15,23,42,.03); }
+    body.dark .app-card{
+      background:rgba(255,255,255,.06);
+      border-color:rgba(255,255,255,.10);
+      box-shadow:0 18px 50px rgba(0,0,0,.35);
+    }
+
+    .soft{
+      background:rgba(79,70,229,.08);
+      border:1px solid rgba(79,70,229,.10);
+      border-radius:16px;
+    }
+    body.dark .soft{
+      background:rgba(79,70,229,.12);
+      border-color:rgba(255,255,255,.10);
+    }
+
+    .pill{ border-radius:999px !important; }
+    .btn-premium{ border-radius:14px; padding:.65rem .95rem; box-shadow:0 10px 26px rgba(79,70,229,.12); }
+
+    .nav-premium .nav-link{
+      border-radius:14px;
+      padding:.65rem .8rem;
+      font-weight:800;
+      color:#0f172a;
+      background:rgba(15,23,42,.04);
+    }
+    body.dark .nav-premium .nav-link{ color:#e5e7eb; background:rgba(255,255,255,.06); }
+    .nav-premium .nav-link.active{
+      background:linear-gradient(90deg, rgba(79,70,229,.92), rgba(34,197,94,.80));
+      color:#fff;
+      box-shadow:0 12px 28px rgba(2,6,23,.15);
+    }
+
+    .list-compact .list-group-item{
+      border:0;
+      border-radius:16px;
+      margin-bottom:10px;
+      background:rgba(15,23,42,.03);
+      transition:transform .12s ease, box-shadow .12s ease;
+    }
     body.dark .list-compact .list-group-item{ background:rgba(255,255,255,.06); }
-    .seg{ display:inline-block; padding:.18rem .48rem; margin:.18rem .18rem 0 0; border-radius:999px; background:rgba(124,58,237,.10); border:1px solid rgba(124,58,237,.16); font-family:var(--mono); font-size:.86rem; }
-    .word-ok{color:var(--ok);font-weight:900;} .word-bad{color:var(--bad);font-weight:900;}
-    .kbd{ font-family:var(--mono); font-size:.82rem; padding:.12rem .38rem; border-radius:10px; border:1px solid rgba(148,163,184,.45); background:rgba(255,255,255,.85); }
-    .load-more{ display:flex; justify-content:center; margin-top:8px; }
-    .brand-badge{ width:44px;height:44px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg, var(--brand1), var(--brand2));color:#fff; }
+    .list-compact .list-group-item:hover{ transform:translateY(-1px); box-shadow:0 10px 25px rgba(2,6,23,.08); }
+
+    .brand-badge{
+      width:40px;height:40px;border-radius:16px;
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg, rgba(79,70,229,.95), rgba(34,197,94,.78));
+      color:#fff;
+      box-shadow:0 14px 30px rgba(79,70,229,.20);
+      flex:0 0 auto;
+    }
+
+    .truncate-2{
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+
+    .topbar{
+      position:sticky; top:0; z-index:100;
+      background:rgba(255,255,255,.65);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,.35);
+      border-radius:18px;
+    }
+    body.dark .topbar{ background:rgba(15,23,42,.55); border-color:rgba(255,255,255,.10); }
+
+    .skeleton{
+      border-radius:16px;
+      height:86px;
+      background:linear-gradient(90deg, rgba(148,163,184,.18), rgba(148,163,184,.28), rgba(148,163,184,.18));
+      background-size:200% 100%;
+      animation: shimmer 1.1s infinite;
+      margin-bottom:10px;
+    }
+    body.dark .skeleton{
+      background:linear-gradient(90deg, rgba(255,255,255,.06), rgba(255,255,255,.12), rgba(255,255,255,.06));
+      background-size:200% 100%;
+    }
+    @keyframes shimmer{ 0%{ background-position:200% 0; } 100%{ background-position:-200% 0; } }
+
+    .pagination .page-link{ border-radius:12px; margin:0 3px; font-weight:700; }
+    .pagination .page-item.active .page-link{ background:linear-gradient(90deg, rgba(79,70,229,.92), rgba(34,197,94,.80)); border-color:transparent; }
+    body.dark .pagination .page-link{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.10); color:#e5e7eb; }
+    body.dark .pagination .page-item.active .page-link{ color:#fff; }
+
+    .meta-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+
+    .seg{ display:inline-block; padding:.15rem .4rem; margin:.15rem .15rem 0 0; border-radius:999px;
+          background:rgba(79,70,229,.10); border:1px solid rgba(79,70,229,.12); font-family:var(--mono); font-size:.86rem; }
+    body.dark .seg{ background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.10); }
+
+    .hint-badge{ font-weight:800; background:rgba(15,23,42,.06); border:1px solid rgba(15,23,42,.06); }
+    body.dark .hint-badge{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.08); color:#e5e7eb; }
+
+    .word-ok{ color:var(--ok); font-weight:900; }
+    .word-bad{ color:var(--bad); font-weight:900; }
   </style>
 </head>
 
 <body>
 <main class="container py-3">
-  <!-- Hero -->
-  <div class="hero mb-3">
-    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
-      <div class="d-flex align-items-center gap-3">
-        <div class="brand-badge"><i class="fa-solid fa-sparkles"></i></div>
+
+  <div class="topbar app-card p-3 mb-3">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+      <div class="d-flex align-items-center gap-2">
+        <div class="brand-badge"><i class="fa-solid fa-headphones-simple"></i></div>
         <div>
-          <div class="title fw-bold" style="font-size:1.6rem;">English Practice · Premium</div>
-          <div class="tiny">Podcasts + Frases online sin repetir + Pronunciación · 1 HTML</div>
+          <div class="title fw-bold">English Practice</div>
+          <div class="tiny"></div>
         </div>
       </div>
       <div class="d-flex gap-2">
-        <button id="themeBtn" class="btn btn-light btn-premium" data-tippy-content="Tema claro/oscuro"><i class="fa-solid fa-moon"></i></button>
-        <button id="helpBtn" class="btn btn-light btn-premium" data-tippy-content="Ayuda rápida"><i class="fa-regular fa-circle-question"></i></button>
+        <button id="themeBtn" class="btn btn-sm btn-light pill" data-tippy-content="Cambiar tema"><i class="fa-solid fa-moon"></i></button>
+        <button id="helpBtn" class="btn btn-sm btn-light pill" data-tippy-content="Ayuda rápida"><i class="fa-regular fa-circle-question"></i></button>
       </div>
+    </div>
+    <div class="d-flex align-items-center justify-content-between mt-2 flex-wrap gap-2">
+      <div class="tiny"><i class="fa-solid fa-microphone-lines me-1"></i></div>
+      <span id="supportBadge" class="badge rounded-pill text-bg-warning">Detectando…</span>
     </div>
   </div>
 
   <div class="row g-3">
-    <!-- Lateral -->
+
     <div class="col-lg-4">
       <div class="app-card p-3">
+
         <ul class="nav nav-pills nav-premium flex-column gap-2" id="tabs">
           <li class="nav-item"><button class="nav-link active" data-tab="podcasts"><i class="fa-solid fa-podcast me-2"></i>Podcasts</button></li>
           <li class="nav-item"><button class="nav-link" data-tab="phrases"><i class="fa-solid fa-quote-left me-2"></i>Frases</button></li>
@@ -107,24 +192,36 @@
 
         <div class="soft p-3">
           <div class="fw-semibold">Voz (TTS)</div>
-          <div class="tiny">Usa SpeechSynthesis del navegador.</div>
+          <div class="tiny">Escuchar usa SpeechSynthesis del navegador.</div>
           <select id="voiceSelect" class="form-select mt-2"></select>
+          <div id="voiceHint" class="tiny mt-2">Cargando voces…</div>
         </div>
 
         <div class="soft p-3 mt-3">
-          <div class="fw-semibold d-flex align-items-center justify-content-between">
-            <span>Frase seleccionada</span>
-            <span id="supportBadge" class="badge rounded-pill text-bg-warning">Mic…</span>
+          <div class="fw-semibold d-flex justify-content-between align-items-center">
+            <span></span>
+            <span class="badge rounded-pill hint-badge" id="epProviderBadge">Auto</span>
           </div>
+          <div class="tiny"></div>
+          <label class="tiny fw-semibold mt-2">Proveedor fallback</label>
+          <select id="rssFallback" class="form-select form-select-sm">
+            <option value="vercel" selected>RSS→JSON (sin key)</option>
+            <option value="rss2json">rss2json (puede limitar)</option>
+          </select>
+        </div>
+
+        <div class="soft p-3 mt-3">
+          <div class="fw-semibold">Frase seleccionada</div>
           <div id="selectedPhrasePreview" class="tiny mt-1">Ninguna</div>
           <div class="d-grid mt-2">
-            <button id="useSelectedBtn" class="btn btn-gradient btn-premium"><i class="fa-solid fa-arrow-right me-2"></i>Usar en Pronunciación</button>
+            <button id="useSelectedBtn" class="btn btn-primary btn-premium"><i class="fa-solid fa-arrow-right me-2"></i>Usar en Pronunciación</button>
           </div>
         </div>
 
         <div class="soft p-3 mt-3">
-          <div class="fw-semibold">Pronunciación figurada</div>
-          <div class="tiny">Ajusta la guía a tu preferencia.</div>
+          <div class="fw-semibold">Pronunciación figurada (config)</div>
+          <div class="tiny">W→U, H→J, TH→D/Z, y diccionario ampliado.</div>
+
           <div class="row g-2 mt-2">
             <div class="col-6">
               <label class="tiny fw-semibold">TH</label>
@@ -137,65 +234,96 @@
               <label class="tiny fw-semibold">R</label>
               <select id="rMode" class="form-select form-select-sm">
                 <option value="simple" selected>R simple</option>
-                <option value="marked">R marcada (er/ar)</option>
+                <option value="marked">R marcada (er/ar/or)</option>
               </select>
             </div>
           </div>
+
           <div class="form-check form-switch mt-2">
             <input class="form-check-input" type="checkbox" role="switch" id="stressMarks" checked>
             <label class="form-check-label tiny" for="stressMarks">Marcar acento (á/é/í/ó/ú)</label>
           </div>
+
+          <div class="form-check form-switch mt-2">
+            <input class="form-check-input" type="checkbox" role="switch" id="mxWMode" checked>
+            <label class="form-check-label tiny" for="mxWMode">Modo W→U (uás/uórl/uók)</label>
+          </div>
         </div>
 
-        <div class="tiny mt-3">
-          <span class="kbd">Tip</span> Abre con doble clic; JSONP evita CORS. Si algo externo falla, reintenta.
-        </div>
       </div>
     </div>
 
-    <!-- Vistas -->
     <div class="col-lg-8">
 
-      <!-- Podcasts -->
+      <!-- PODCASTS -->
       <section id="view-podcasts" class="app-card p-3">
         <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
           <div>
             <div class="title fw-bold fs-4"><i class="fa-solid fa-podcast me-2"></i>Podcasts</div>
-            <div class="tiny">iTunes JSONP + rss2json JSONP. “Ver más” de 18 en 18.</div>
+            <div class="tiny">Busca en iTunes (JSONP) y carga episodios sin API key.</div>
           </div>
-          <div class="badge text-bg-primary">Premium UI</div>
+          <span class="badge rounded-pill text-bg-success">Pro</span>
         </div>
 
         <hr class="my-3">
 
         <div class="row g-2">
-          <div class="col-md-8">
-            <input id="podQuery" class="form-control form-control-lg" placeholder="Ej: english learning, science, business, news..." value="english learning" />
+          <div class="col-md-7">
+            <input id="podQuery" class="form-control form-control-lg" placeholder="Ej: english learning, science, news..." value="english learning" />
           </div>
-          <div class="col-md-4 d-grid">
-            <button id="podSearchBtn" class="btn btn-gradient btn-premium btn-lg"><i class="fa-solid fa-magnifying-glass me-2"></i>Buscar</button>
+          <div class="col-md-3">
+            <select id="podFetchLimit" class="form-select form-select-lg">
+              <option value="30">30</option>
+              <option value="60" selected>60</option>
+              <option value="100">100</option>
+              <option value="150">150</option>
+              <option value="200">200</option>
+            </select>
+          </div>
+          <div class="col-md-2 d-grid">
+            <button id="podSearchBtn" class="btn btn-primary btn-premium btn-lg"><i class="fa-solid fa-magnifying-glass me-2"></i>Buscar</button>
+          </div>
+        </div>
+
+        <div class="row g-2 mt-2">
+          <div class="col-md-6">
+            <div class="soft p-2 meta-row">
+              <div class="tiny"><i class="fa-solid fa-layer-group me-1"></i>Podcasts por página</div>
+              <select id="podPageSize" class="form-select form-select-sm w-auto">
+                <option value="8">8</option>
+                <option value="12" selected>12</option>
+                <option value="16">16</option>
+                <option value="20">20</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="soft p-2 meta-row">
+              <div class="tiny"><i class="fa-solid fa-layer-group me-1"></i>Episodios por página</div>
+              <select id="epPageSize" class="form-select form-select-sm w-auto">
+                <option value="10">10</option>
+                <option value="20" selected>20</option>
+                <option value="30">30</option>
+                <option value="50">50</option>
+              </select>
+            </div>
           </div>
         </div>
 
         <div id="podResults" class="mt-3"></div>
-        <div class="load-more">
-          <button id="morePodsBtn" class="btn btn-outline-primary btn-premium d-none"><i class="fa-solid fa-angles-down me-2"></i>Ver más podcasts</button>
-        </div>
 
         <div id="feedHeader" class="soft p-3 mt-3 d-none">
           <div class="d-flex gap-3 align-items-start">
             <img id="feedArt" src="" alt="" style="width:92px;height:92px;border-radius:18px;object-fit:cover;" loading="lazy">
             <div class="flex-grow-1">
               <div id="feedTitle" class="fw-bold"></div>
-              <div id="feedDesc" class="tiny"></div>
+              <div id="feedDesc" class="tiny truncate-2"></div>
+              <div class="tiny mt-1"><span class="badge rounded-pill text-bg-secondary" id="feedCount">0 eps</span></div>
             </div>
           </div>
         </div>
 
-        <div id="episodes" class="mt-3 list-group list-compact"></div>
-        <div class="load-more">
-          <button id="moreEpsBtn" class="btn btn-outline-primary btn-premium d-none"><i class="fa-solid fa-angles-down me-2"></i>Ver más episodios</button>
-        </div>
+        <div id="episodes" class="mt-3"></div>
 
         <div class="soft p-3 mt-3">
           <div class="d-flex justify-content-between align-items-center">
@@ -208,12 +336,12 @@
         </div>
       </section>
 
-      <!-- Frases -->
+      <!-- PHRASES -->
       <section id="view-phrases" class="app-card p-3 d-none">
         <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
           <div>
             <div class="title fw-bold fs-4"><i class="fa-solid fa-quote-left me-2"></i>Frases</div>
-            <div class="tiny">Internet sin repetir (baraja con memoria entre sesiones).</div>
+            <div class="tiny">Tus frases + Internet (sin repetir) + preview figurado.</div>
           </div>
           <div class="d-flex gap-2">
             <button id="getInternetPhraseBtn" class="btn btn-outline-primary btn-premium"><i class="fa-solid fa-cloud-arrow-down me-2"></i>Internet</button>
@@ -224,47 +352,31 @@
         <hr class="my-3">
 
         <div class="row g-2">
-          <div class="col-md-8">
-            <input id="newPhrase" class="form-control form-control-lg" placeholder="Escribe tu frase (corta o larga)..." />
-          </div>
-          <div class="col-md-4 d-grid">
-            <button id="addPhraseBtn" class="btn btn-success btn-premium btn-lg"><i class="fa-solid fa-plus me-2"></i>Agregar</button>
-          </div>
+          <div class="col-md-8"><input id="newPhrase" class="form-control form-control-lg" placeholder="Escribe una frase..." /></div>
+          <div class="col-md-4 d-grid"><button id="addPhraseBtn" class="btn btn-success btn-premium btn-lg"><i class="fa-solid fa-plus me-2"></i>Agregar</button></div>
         </div>
 
         <div class="row g-2 mt-2">
-          <div class="col-md-8">
-            <input id="phraseSearch" class="form-control" placeholder="Buscar en tus frases..." />
-          </div>
-          <div class="col-md-4">
-            <select id="tagFilter" class="form-select">
-              <option value="">Todos los tags</option>
-            </select>
-          </div>
+          <div class="col-md-8"><input id="phraseSearch" class="form-control" placeholder="Buscar en tus frases..." /></div>
+          <div class="col-md-4 d-grid"><button id="clearPhrasesBtn" class="btn btn-outline-danger btn-premium"><i class="fa-solid fa-trash me-2"></i>Limpiar lista</button></div>
         </div>
 
         <div class="soft p-3 mt-3">
           <div class="fw-semibold"><i class="fa-solid fa-spell-check me-2"></i>Pronunciación figurada (preview)</div>
           <div class="tiny">Selecciona una frase para ver guía y segmentos.</div>
-          <div class="mt-2">
-            <div class="tiny fw-semibold">Guía:</div>
-            <div id="phoneticPreview" class="mono">—</div>
-          </div>
-          <div class="mt-2">
-            <div class="tiny fw-semibold">Segmentos:</div>
-            <div id="segmentsPreview">—</div>
-          </div>
+          <div class="mt-2"><div class="tiny fw-semibold">Guía:</div><div id="phoneticPreview" class="mono">—</div></div>
+          <div class="mt-2"><div class="tiny fw-semibold">Segmentos:</div><div id="segmentsPreview">—</div></div>
         </div>
 
         <div id="phrasesList" class="mt-3 list-group list-compact"></div>
       </section>
 
-      <!-- Practice -->
+      <!-- PRACTICE -->
       <section id="view-practice" class="app-card p-3 d-none">
         <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
           <div>
             <div class="title fw-bold fs-4"><i class="fa-solid fa-microphone-lines me-2"></i>Pronunciación</div>
-            <div class="tiny">SpeechRecognition (aproximado) + TTS.</div>
+            <div class="tiny">SpeechRecognition (aprox) + TTS + guía figurada.</div>
           </div>
           <span class="badge rounded-pill text-bg-warning">Aprox.</span>
         </div>
@@ -272,18 +384,15 @@
         <hr class="my-3">
 
         <label class="form-label fw-semibold">Frase objetivo</label>
-        <textarea id="referenceText" class="form-control form-control-lg" rows="3" placeholder="Ej: I would like to improve my English pronunciation."></textarea>
+        <textarea id="referenceText" class="form-control form-control-lg" rows="3" placeholder="Ej: Daniel had always dreamed of exploring the world."></textarea>
 
         <div class="row g-2 mt-2">
           <div class="col-md-6">
             <div class="soft p-3 h-100">
               <div class="fw-semibold"><i class="fa-solid fa-language me-2"></i>Guía al español</div>
-              <div class="tiny">Sonidos cercanos al español.</div>
+              <div class="tiny">Estilo Daniel (W→U, H→J, TH→D/Z).</div>
               <div class="mono mt-2" id="phoneticFromReference">—</div>
-              <div class="mt-2">
-                <div class="tiny fw-semibold">Segmentos:</div>
-                <div id="segmentsFromReference">—</div>
-              </div>
+              <div class="mt-2"><div class="tiny fw-semibold">Segmentos:</div><div id="segmentsFromReference">—</div></div>
             </div>
           </div>
           <div class="col-md-6">
@@ -291,27 +400,17 @@
               <div class="fw-semibold"><i class="fa-solid fa-wand-magic-sparkles me-2"></i>Acciones</div>
               <div class="d-flex flex-wrap gap-2 mt-2">
                 <button id="ttsBtn" class="btn btn-secondary btn-premium"><i class="fa-solid fa-volume-high me-2"></i>Escuchar</button>
-                <button id="startRecBtn" class="btn btn-gradient btn-premium"><i class="fa-solid fa-microphone me-2"></i>Probar</button>
+                <button id="startRecBtn" class="btn btn-primary btn-premium"><i class="fa-solid fa-microphone me-2"></i>Probar</button>
                 <button id="stopRecBtn" class="btn btn-outline-danger btn-premium d-none"><i class="fa-solid fa-stop me-2"></i>Detener</button>
               </div>
-              <div class="tiny mt-2">Si no funciona el micrófono, usa Chrome/Edge y permite permisos.</div>
+              <div class="tiny mt-2">Si no funciona el micrófono, prueba Chrome/Edge y permite permisos.</div>
             </div>
           </div>
         </div>
 
         <div class="row g-2 mt-3">
-          <div class="col-md-4">
-            <div class="soft p-3">
-              <div class="tiny">Porcentaje</div>
-              <div id="scorePct" class="title fw-bold" style="font-size:2.2rem;">—</div>
-            </div>
-          </div>
-          <div class="col-md-8">
-            <div class="soft p-3">
-              <div class="tiny">Lo que el navegador entendió</div>
-              <div id="recognizedText" class="mono mt-1">—</div>
-            </div>
-          </div>
+          <div class="col-md-4"><div class="soft p-3"><div class="tiny">Porcentaje</div><div id="scorePct" class="title fw-bold" style="font-size:2.2rem;">—</div></div></div>
+          <div class="col-md-8"><div class="soft p-3"><div class="tiny">Lo que el navegador entendió</div><div id="recognizedText" class="mono mt-1">—</div></div></div>
         </div>
 
         <div class="soft p-3 mt-3">
@@ -324,616 +423,1138 @@
   </div>
 </main>
 
-<!-- JS externos -->
+<!-- JS externos (CORRECTO: con <script src>) -->
 <script src="https://cdn.jsdelivr.net/npm/localforage@1.10.0/dist/localforage.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 <script src="https://unpkg.com/@popperjs/core@2"></script>
 <script src="https://unpkg.com/tippy.js@6"></script>
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
 
 <script>
 (() => {
   const $ = (id) => document.getElementById(id);
-  const notyf = new Notyf({ duration: 2600, ripple: true, dismissible: true, position: { x:'right', y:'top' } });
-  tippy('[data-tippy-content]', { animation: 'scale', theme: 'light-border' });
 
-  const store = localforage.createInstance({ name: "english_practice_premium_final_stable_v1" });
+  // Si algo externo no cargó, evita que la app muera sin avisar
+  function assertLibs(){
+    const missing = [];
+    if(typeof localforage === 'undefined') missing.push('localforage');
+    if(typeof Notyf === 'undefined') missing.push('Notyf');
+    if(typeof tippy === 'undefined') missing.push('tippy');
+    if(typeof dayjs === 'undefined') missing.push('dayjs');
+    if(missing.length){
+      alert('Faltan librerías: ' + missing.join(', ') + '.\nRevisa que abriste el HTML con internet y que los <script src> no fueron modificados.');
+      return false;
+    }
+    return true;
+  }
+  if(!assertLibs()) return;
+
+  const notyf = new Notyf({ duration: 2600, ripple: true, dismissible: true, position:{x:'right', y:'top'} });
+  tippy('[data-tippy-content]', { animation:'scale', theme:'light-border' });
+
+  const store = localforage.createInstance({ name: 'english_practice_definitivo_ok' });
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 
+  // Escape HTML seguro
+  const esc = (s="") => String(s).replace(/[&<>"']/g, ch => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'
+  }[ch]));
+
+  function stripHtml(html=""){
+    const div = document.createElement('div');
+    div.innerHTML = String(html);
+    return (div.textContent || div.innerText || '').trim();
+  }
+
   const state = {
-    // podcasts y episodios
-    podsAll: [], podsShown: 0, podsPage: 18,
-    epsAll: [], epsShown: 0, epsPage: 18,
-
-    // frases
-    phrases: [], selectedPhraseId: null, phraseFuse: null, tags: new Set(),
-
-    // SR/TTS
-    recognition: null, recognizing: false,
-
-    // frases online (baraja)
-    quotesDeck: [], deckIndex: 0, usedHashes: new Set()
+    podcastsAll: [], podPage: 1, podPageSize: 12,
+    episodesAll: [], epPage: 1, epPageSize: 20,
+    epCache: new Map(),
+    phrases: [], selectedPhraseId: null,
+    quotesDeck: [], deckIndex: 0, usedHashes: new Set(),
+    recognition: null, recognizing: false
   };
 
-  const esc = (s="") => s.replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;" }[m]));
-
-  /* --------------- Navegación / Tema / Help --------------- */
+  // Tabs
   function showTab(tab){
-    ["podcasts","phrases","practice"].forEach(t => $("view-"+t).classList.toggle("d-none", t !== tab));
-    document.querySelectorAll("#tabs .nav-link").forEach(btn => btn.classList.toggle("active", btn.dataset.tab === tab));
+    ['podcasts','phrases','practice'].forEach(t => $('view-'+t).classList.toggle('d-none', t !== tab));
+    document.querySelectorAll('#tabs .nav-link').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tab));
   }
-  $("tabs").addEventListener("click", (e) => { const btn = e.target.closest("button[data-tab]"); if (!btn) return; showTab(btn.dataset.tab); });
-
-  async function applyTheme(isDark){
-    document.body.classList.toggle("dark", isDark);
-    $("themeBtn").querySelector("i").className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
-    await store.setItem("theme_dark", isDark);
-  }
-  $("themeBtn").addEventListener("click", async () => { await applyTheme(!document.body.classList.contains("dark")); });
-  $("helpBtn").addEventListener("click", () => {
-    notyf.open({ type: "info", message: "Podcasts y episodios por JSONP (sin CORS). Usa 'Ver más' para cargar 18 adicionales." });
+  $('tabs').addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-tab]');
+    if(!btn) return;
+    showTab(btn.dataset.tab);
   });
 
-  /* --------------- Speech support --------------- */
+  // Theme
+  async function applyTheme(isDark){
+    document.body.classList.toggle('dark', isDark);
+    $('themeBtn').querySelector('i').className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    await store.setItem('theme_dark', isDark);
+  }
+  $('themeBtn').addEventListener('click', async () => applyTheme(!document.body.classList.contains('dark')));
+
+  $('helpBtn').addEventListener('click', () => {
+    notyf.open({ type:'info', message:'Si no se cargan episodios: algunos feeds bloquean CORS. Este archivo intenta RSS directo y un convertidor RSS→JSON sin key; rss2json público puede limitar a 10.' });
+  });
+
   function setupSpeechSupport(){
-    const ok = !!SR;
-    $("supportBadge").className = "badge rounded-pill " + (ok ? "text-bg-success" : "text-bg-danger");
-    $("supportBadge").textContent = ok ? "Mic OK" : "Sin SR";
+    if(SR){ $('supportBadge').className='badge rounded-pill text-bg-success'; $('supportBadge').textContent='Mic OK'; }
+    else { $('supportBadge').className='badge rounded-pill text-bg-danger'; $('supportBadge').textContent='Sin SpeechRecognition'; }
   }
 
-  /* --------------- TTS --------------- */
+  // TTS voices
   function loadVoices(){
-    const sel = $("voiceSelect");
     const voices = speechSynthesis.getVoices();
-    sel.innerHTML = "";
-    let list = voices.filter(v => (v.lang || "").toLowerCase().startsWith("en"));
-    if (!list.length) list = voices;
+    const sel = $('voiceSelect');
+    sel.innerHTML = '';
+    let list = voices.filter(v => (v.lang||'').toLowerCase().startsWith('en'));
+    if(!list.length) list = voices;
     list.forEach(v => {
-      const opt = document.createElement("option");
-      opt.value = v.name; opt.textContent = `${v.name} (${v.lang})`;
+      const opt = document.createElement('option');
+      opt.value = v.name;
+      opt.textContent = `${v.name} (${v.lang})`;
       sel.appendChild(opt);
     });
-    store.getItem("tts_voice").then(name => { if (name && list.some(v => v.name === name)) sel.value = name; });
-    sel.onchange = () => store.setItem("tts_voice", sel.value);
+    $('voiceHint').textContent = list.length ? `Voces disponibles: ${list.length}` : 'Cargando voces…';
+    store.getItem('tts_voice').then(name => { if(name && list.some(v=>v.name===name)) sel.value=name; });
+    sel.onchange = () => store.setItem('tts_voice', sel.value);
   }
   speechSynthesis.onvoiceschanged = loadVoices;
-  setTimeout(loadVoices, 300);
+  loadVoices(); setTimeout(loadVoices, 700); setTimeout(loadVoices, 1600);
 
   function speak(text){
-    if (!text) return notyf.error("No hay texto para leer.");
-    const ready = () => new Promise(r=>{
-      if (speechSynthesis.getVoices().length) return r();
-      const t = setInterval(()=>{ if (speechSynthesis.getVoices().length){ clearInterval(t); r(); } }, 120);
-      setTimeout(()=>{ clearInterval(t); r(); }, 1800);
-    });
-    ready().then(()=>{
-      const u = new SpeechSynthesisUtterance(text);
-      const voices = speechSynthesis.getVoices();
-      const chosen = voices.find(v => v.name === $("voiceSelect").value) || voices.find(v => (v.lang||"").toLowerCase().startsWith("en")) || voices[0];
-      if (chosen) u.voice = chosen;
-      u.rate = 1.0; u.pitch = 1.0;
-      try { speechSynthesis.cancel(); } catch {}
-      speechSynthesis.speak(u);
-    });
+    if(!text) return;
+    const u = new SpeechSynthesisUtterance(text);
+    const voices = speechSynthesis.getVoices();
+    const chosen = voices.find(v => v.name === $('voiceSelect').value);
+    if(chosen) u.voice = chosen;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
   }
-  $("ttsBtn").addEventListener("click", () => speak($("referenceText").value.trim()));
 
-  /* --------------- JSONP helper --------------- */
-  function jsonp(url, { timeout=18000, callbackParam="callback" } = {}) {
+  // JSONP helper
+  function jsonp(url, { timeout=16000, callbackParam='callback' } = {}){
     return new Promise((resolve, reject) => {
-      const cbName = "cb_" + Math.random().toString(36).slice(2);
-      const full = `${url}${url.includes("?") ? "&" : "?"}${callbackParam}=${cbName}`;
-      const script = document.createElement("script"); let done=false;
-      window[cbName] = (data) => { done=true; cleanup(); resolve(data); };
-      const timer = setTimeout(()=>{ if(done) return; done=true; cleanup(); reject(new Error("JSONP timeout")); }, timeout);
-      function cleanup(){ clearTimeout(timer); delete window[cbName]; script.remove(); }
-      script.onerror = () => { if(done) return; done=true; cleanup(); reject(new Error("JSONP error")); };
-      script.src = full; document.head.appendChild(script);
+      const cbName = 'cb_' + Math.random().toString(36).slice(2);
+      const sep = url.includes('?') ? '&' : '?';
+      const full = `${url}${sep}${callbackParam}=${cbName}`;
+      const script = document.createElement('script');
+      let done = false;
+
+      window[cbName] = (data) => { done = true; cleanup(); resolve(data); };
+      const timer = setTimeout(() => { if(done) return; done = true; cleanup(); reject(new Error('JSONP timeout')); }, timeout);
+
+      function cleanup(){
+        clearTimeout(timer);
+        try{ delete window[cbName]; }catch(_){ }
+        script.remove();
+      }
+
+      script.onerror = () => { if(done) return; done = true; cleanup(); reject(new Error('JSONP load error')); };
+      script.src = full;
+      document.head.appendChild(script);
     });
   }
 
-  /* --------------- Podcasts (iTunes JSONP) + “Ver más” --------------- */
+  // Pagination
+  function buildPageModel(current, total){
+    const pages = [];
+    const clamp = (n) => Math.max(1, Math.min(total, n));
+    const windowStart = clamp(current - 2);
+    const windowEnd = clamp(current + 2);
+    pages.push(1);
+    if(windowStart > 2) pages.push('…');
+    for(let p=windowStart; p<=windowEnd; p++) if(p!==1 && p!==total) pages.push(p);
+    if(windowEnd < total-1) pages.push('…');
+    if(total>1) pages.push(total);
+    const cleaned=[];
+    for(const it of pages){ if(cleaned.length && cleaned[cleaned.length-1]===it) continue; cleaned.push(it); }
+    return cleaned;
+  }
+  function renderPagination(container, current, total){
+    container.innerHTML = '';
+    if(total<=1) return;
+    const ul = document.createElement('ul');
+    ul.className = 'pagination pagination-sm mb-0';
+    const mk = (label, page, disabled=false, active=false) => {
+      const li = document.createElement('li');
+      li.className = 'page-item' + (disabled?' disabled':'') + (active?' active':'');
+      const a = document.createElement('a');
+      a.className = 'page-link'; a.href='#'; a.textContent=label; a.dataset.page=String(page);
+      li.appendChild(a);
+      return li;
+    };
+    ul.appendChild(mk('«', 1, current===1));
+    ul.appendChild(mk('‹', current-1, current===1));
+    buildPageModel(current,total).forEach(it => {
+      if(it==='…'){
+        const li=document.createElement('li'); li.className='page-item disabled'; li.innerHTML='<span class="page-link">…</span>'; ul.appendChild(li);
+      } else ul.appendChild(mk(String(it), it, false, it===current));
+    });
+    ul.appendChild(mk('›', current+1, current===total));
+    ul.appendChild(mk('»', total, current===total));
+    container.appendChild(ul);
+  }
+  function scrollIntoViewSafe(el){ try{ el.scrollIntoView({behavior:'smooth', block:'start'}); }catch(_){ } }
+
+  // Podcasts
+  function renderPodcastSkeleton(){
+    $('podResults').innerHTML = `<div class="tiny mb-2">Buscando podcasts…</div>` +
+      `<div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>`;
+  }
+
   async function searchPodcasts(term){
     const q = encodeURIComponent(term.trim());
-    const url = `https://itunes.apple.com/search?term=${q}&media=podcast&entity=podcast&limit=200`;
-    const data = await jsonp(url, { callbackParam: "callback" });
-    const raw = (data && data.results) ? data.results : [];
-    const list = raw.filter(x => x.feedUrl).map(p => ({
-      title: p.collectionName || p.trackName || "Podcast",
-      author: p.artistName || "",
-      artwork: p.artworkUrl100 || p.artworkUrl60 || "",
-      feedUrl: p.feedUrl || ""
-    }));
-    // deduplicar feedUrl
-    const seen = new Set(); const uniq = [];
-    for (const it of list){
-      const k = (it.feedUrl||"").trim().toLowerCase();
-      if (!k || seen.has(k)) continue;
-      seen.add(k); uniq.push(it);
-    }
-    return uniq;
+    const limit = parseInt($('podFetchLimit').value,10)||60;
+    const url = `https://itunes.apple.com/search?term=${q}&media=podcast&entity=podcast&limit=${limit}`;
+    const data = await jsonp(url, { callbackParam:'callback' });
+    const results = (data && data.results) ? data.results : [];
+    return results.filter(x => x.feedUrl);
   }
 
-  function renderPodcastsSlice(){
-    const box = $("podResults");
-    if (!state.podsAll.length){
-      box.innerHTML = `<div class="soft p-3 tiny">Sin resultados. Prueba: <span class="kbd">english learning</span> o <span class="kbd">news</span>.</div>`;
-      $("morePodsBtn").classList.add("d-none");
-      return;
-    }
-    const slice = state.podsAll.slice(0, state.podsShown);
+  function renderPodcastsPage(){
+    const box = $('podResults');
+    const total = state.podcastsAll.length;
+    const pageSize = state.podPageSize;
+    const totalPages = Math.max(1, Math.ceil(total/pageSize));
+    state.podPage = Math.max(1, Math.min(totalPages, state.podPage));
+    const start=(state.podPage-1)*pageSize;
+    const end=Math.min(total, start+pageSize);
+    const slice = state.podcastsAll.slice(start,end);
+
     box.innerHTML = `
-      <div class="tiny mb-2">Selecciona un podcast para cargar episodios:</div>
-      <div class="list-group list-compact">
-        ${slice.map(p => `
-          <button class="list-group-item text-start" data-feed="${esc(p.feedUrl)}">
-            <div class="d-flex gap-3 align-items-start">
-              <img src="${esc(p.artwork)}" alt="" style="width:64px;height:64px;border-radius:14px;object-fit:cover;" loading="lazy" onerror="this.src='';">
-              <div class="flex-grow-1">
-                <div class="fw-bold">${esc(p.title)}</div>
-                <div class="tiny">${esc(p.author || "")}</div>
-                <div class="tiny mono">${esc(p.feedUrl)}</div>
-              </div>
-              <span class="badge text-bg-primary align-self-center">Abrir</span>
-            </div>
-          </button>
-        `).join("")}
+      <div class="soft p-3">
+        <div class="meta-row">
+          <div>
+            <div class="fw-semibold">Resultados</div>
+            <div class="tiny">Mostrando <b>${start+1}</b>–<b>${end}</b> de <b>${total}</b> · Página <b>${state.podPage}</b>/<b>${totalPages}</b></div>
+          </div>
+          <div id="podPaginationTop"></div>
+        </div>
+      </div>
+      <div class="list-group list-compact mt-3" id="podList"></div>
+      <div class="soft p-3 mt-3">
+        <div class="meta-row">
+          <div class="tiny">Solo una página visible </div>
+          <div id="podPaginationBottom"></div>
+        </div>
       </div>
     `;
-    box.querySelectorAll("button[data-feed]").forEach(btn => btn.onclick = () => loadEpisodes(btn.dataset.feed));
-    $("morePodsBtn").classList.toggle("d-none", state.podsShown >= state.podsAll.length);
+
+    const listBox = $('podList');
+    const frag = document.createDocumentFragment();
+    slice.forEach(p => {
+      const art = p.artworkUrl100 || p.artworkUrl60 || '';
+      const title = p.collectionName || p.trackName || 'Podcast';
+      const author = p.artistName || '';
+      const feedUrl = p.feedUrl || '';
+
+      const btn = document.createElement('button');
+      btn.className='list-group-item text-start';
+      btn.dataset.feed = feedUrl;
+
+      btn.innerHTML = `
+        <div class="d-flex gap-3 align-items-start">
+          <img src="${esc(art)}" alt="" loading="lazy" style="width:64px;height:64px;border-radius:14px;object-fit:cover;">
+          <div class="flex-grow-1">
+            <div class="fw-bold">${esc(title)}</div>
+            <div class="tiny">${esc(author)}</div>
+            <div class="tiny mono truncate-2">${esc(feedUrl)}</div>
+          </div>
+          <div class="align-self-center"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+      `;
+      frag.appendChild(btn);
+    });
+    listBox.appendChild(frag);
+
+    renderPagination($('podPaginationTop'), state.podPage, totalPages);
+    renderPagination($('podPaginationBottom'), state.podPage, totalPages);
+
+    listBox.onclick = (e) => {
+      const btn = e.target.closest('button[data-feed]');
+      if(!btn) return;
+      loadEpisodes(btn.dataset.feed);
+    };
+
+    const onPaginate = (e) => {
+      const a = e.target.closest('a[data-page]');
+      if(!a) return;
+      e.preventDefault();
+      const next = parseInt(a.dataset.page,10);
+      if(Number.isFinite(next)){
+        state.podPage = Math.max(1, Math.min(totalPages, next));
+        renderPodcastsPage();
+        scrollIntoViewSafe(box);
+      }
+    };
+    $('podPaginationTop').onclick = onPaginate;
+    $('podPaginationBottom').onclick = onPaginate;
   }
 
-  $("podSearchBtn").addEventListener("click", async () => {
-    const term = $("podQuery").value.trim();
-    if (!term) return notyf.error("Escribe algo para buscar.");
+  async function doPodcastSearch(){
+    const term = $('podQuery').value.trim();
+    if(!term) return notyf.error('Escribe algo para buscar.');
 
-    $("podSearchBtn").disabled = true;
-    $("podSearchBtn").innerHTML = `<i class="fa-solid fa-spinner fa-spin me-2"></i>Buscando…`;
+    $('podSearchBtn').disabled=true;
+    $('podSearchBtn').innerHTML='<i class="fa-solid fa-spinner fa-spin me-2"></i>Buscando…';
 
-    $("podResults").innerHTML = "";
-    $("episodes").innerHTML = "";
-    $("feedHeader").classList.add("d-none");
-    $("moreEpsBtn").classList.add("d-none");
+    $('episodes').innerHTML='';
+    $('feedHeader').classList.add('d-none');
+    renderPodcastSkeleton();
 
     try{
       const list = await searchPodcasts(term);
-      state.podsAll = list;
-      state.podsShown = Math.min(state.podsPage, list.length);
-      renderPodcastsSlice();
-      notyf.success(`Resultados: ${list.length}`);
-    } catch (e) {
-      console.warn(e);
-      notyf.error("No se pudo buscar ahora.");
-      $("podResults").innerHTML = `<div class="soft p-3 tiny">Error temporal al buscar.</div>`;
-    } finally {
-      $("podSearchBtn").disabled = false;
-      $("podSearchBtn").innerHTML = `<i class="fa-solid fa-magnifying-glass me-2"></i>Buscar`;
-    }
-  });
-
-  $("morePodsBtn").addEventListener("click", () => {
-    state.podsShown = Math.min(state.podsShown + state.podsPage, state.podsAll.length);
-    renderPodcastsSlice();
-  });
-
-  /* --------------- Episodios (rss2json JSONP) + “Ver más” --------------- */
-  async function loadEpisodes(feedUrl){
-    if (!feedUrl) return notyf.error("Este podcast no tiene RSS (feedUrl).");
-
-    $("episodes").innerHTML = `<div class="soft p-3 tiny"><i class="fa-solid fa-spinner fa-spin me-2"></i>Cargando episodios…</div>`;
-    $("feedHeader").classList.add("d-none");
-    $("moreEpsBtn").classList.add("d-none");
-    state.epsAll = []; state.epsShown = 0;
-
-    try{
-      // Pedimos el máximo que permite rss2json en una sola llamada (count=100)
-      const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}&count=100`;
-      const data = await jsonp(api, { callbackParam: "callback", timeout: 20000 });
-      if (data.status !== "ok") throw new Error(data.message || "rss2json error");
-
-      const feed = data.feed || {};
-      const items = Array.isArray(data.items) ? data.items : [];
-
-      $("feedArt").src = feed.image || "";
-      $("feedTitle").textContent = feed.title || "Podcast";
-      $("feedDesc").textContent = (feed.description || "").replace(/<[^>]+>/g,"").trim().slice(0, 220);
-      $("feedHeader").classList.remove("d-none");
-
-      const eps = items.map(it => {
-        const title = it.title || "(sin título)";
-        const desc = (it.description || "").replace(/<[^>]+>/g,"").trim();
-        const pubDate = it.pubDate || it.pubDate_raw || "";
-        const audioUrl = it.enclosure?.link || it.enclosure?.url || "";
-        return { title, desc, pubDate, audioUrl };
-      }).filter(x => x.audioUrl);
-
-      if (!eps.length){
-        $("episodes").innerHTML = `<div class="soft p-3 tiny">No encontré episodios reproducibles.</div>`;
+      if(!list.length){
+        $('podResults').innerHTML = `<div class="soft p-3 tiny">Sin resultados. Prueba “english learning” o “news”.</div>`;
         return;
       }
-
-      state.epsAll = eps;
-      state.epsShown = Math.min(state.epsPage, eps.length);
-      renderEpisodesSlice();
-      notyf.success("Episodios cargados.");
-    } catch (e) {
+      state.podcastsAll = list;
+      state.podPage = 1;
+      renderPodcastsPage();
+      notyf.success(`Resultados: ${list.length}`);
+    }catch(e){
       console.warn(e);
-      notyf.error("No se pudo cargar el RSS (rss2json).");
-      $("episodes").innerHTML = `<div class="soft p-3 tiny">Error cargando episodios. Prueba con otro podcast.</div>`;
+      $('podResults').innerHTML = `<div class="soft p-3 tiny">Error al buscar. Intenta de nuevo.</div>`;
+      notyf.error('No se pudo buscar ahora.');
+    }finally{
+      $('podSearchBtn').disabled=false;
+      $('podSearchBtn').innerHTML='<i class="fa-solid fa-magnifying-glass me-2"></i>Buscar';
     }
   }
 
-  function renderEpisodesSlice(){
-    const box = $("episodes");
-    if (!state.epsAll.length){
-      box.innerHTML = `<div class="soft p-3 tiny">No hay episodios para mostrar.</div>`;
-      $("moreEpsBtn").classList.add("d-none");
+  $('podSearchBtn').addEventListener('click', doPodcastSearch);
+  $('podQuery').addEventListener('keydown', (e) => { if(e.key==='Enter') doPodcastSearch(); });
+  $('podPageSize').addEventListener('change', () => {
+    state.podPageSize = parseInt($('podPageSize').value,10)||12;
+    state.podPage = 1;
+    if(state.podcastsAll.length) renderPodcastsPage();
+  });
+
+  $('epPageSize').addEventListener('change', () => {
+    state.epPageSize = parseInt($('epPageSize').value,10)||20;
+    state.epPage = 1;
+    if(state.episodesAll.length) renderEpisodesPage();
+  });
+
+  $('rssFallback').addEventListener('change', async () => {
+    await store.setItem('rss_fallback', $('rssFallback').value);
+    notyf.success('Proveedor guardado.');
+  });
+
+  function setProviderBadge(text){ $('epProviderBadge').textContent = text; }
+
+  // Episodios: sin API key
+  async function fetchRssDirect(feedUrl){
+    const res = await fetch(feedUrl, { cache:'no-store' });
+    if(!res.ok) throw new Error('RSS directo HTTP '+res.status);
+    const xml = await res.text();
+    const doc = new DOMParser().parseFromString(xml, 'text/xml');
+    const items = Array.from(doc.querySelectorAll('item'));
+    const entries = Array.from(doc.querySelectorAll('entry'));
+    const out=[];
+
+    if(items.length){
+      for(const it of items){
+        const title=(it.querySelector('title')?.textContent||'(sin título)').trim();
+        const pubDate=(it.querySelector('pubDate')?.textContent||'').trim();
+        const desc=stripHtml((it.querySelector('description')?.textContent||it.querySelector('content\\:encoded')?.textContent||'').trim());
+        let audioUrl = it.querySelector('enclosure')?.getAttribute('url')||'';
+        if(!audioUrl){
+          const links = Array.from(it.querySelectorAll('link')).map(x => (x.textContent||'').trim());
+          audioUrl = links.find(l => l.endsWith('.mp3') || l.includes('audio')) || '';
+        }
+        if(audioUrl) out.push({title, desc, pubDate, audioUrl});
+      }
+    } else if(entries.length){
+      for(const en of entries){
+        const title=(en.querySelector('title')?.textContent||'(sin título)').trim();
+        const pubDate=(en.querySelector('updated')?.textContent||en.querySelector('published')?.textContent||'').trim();
+        const desc=stripHtml((en.querySelector('summary')?.textContent||en.querySelector('content')?.textContent||'').trim());
+        let audioUrl='';
+        const links = Array.from(en.querySelectorAll('link'));
+        for(const l of links){
+          const rel=l.getAttribute('rel')||'';
+          const type=l.getAttribute('type')||'';
+          const href=l.getAttribute('href')||'';
+          if(href && (type.includes('audio') || rel==='enclosure')){ audioUrl=href; break; }
+        }
+        if(audioUrl) out.push({title, desc, pubDate, audioUrl});
+      }
+    } else {
+      throw new Error('RSS directo: formato no reconocido');
+    }
+    return out;
+  }
+
+  async function fetchViaRssToJson(feedUrl){
+    const apiUrl = `https://rss-to-json-serverless-api.vercel.app/convert?url=${encodeURIComponent(feedUrl)}`;
+    const res = await fetch(apiUrl, { cache:'no-store' });
+    if(!res.ok) throw new Error('RSS→JSON HTTP '+res.status);
+    const data = await res.json();
+    const items = data?.items || data?.feed?.items || data?.data?.items || data?.rss?.items || data?.channel?.item || [];
+    const out=[];
+    for(const it of items){
+      const title=(it.title || it?.title?.['#text'] || '(sin título)').toString().trim();
+      const pubDate=(it.pubDate || it.published || it.updated || '').toString().trim();
+      const desc=stripHtml((it.description || it.summary || it.content || '').toString());
+      let audioUrl='';
+      if(typeof it.enclosure==='string') audioUrl=it.enclosure;
+      if(!audioUrl && it.enclosure && typeof it.enclosure==='object') audioUrl = it.enclosure.url || it.enclosure.link || '';
+      if(!audioUrl && Array.isArray(it.enclosure) && it.enclosure.length) audioUrl = it.enclosure[0]?.url || it.enclosure[0]?.link || '';
+      if(!audioUrl && it.link){
+        const link = (typeof it.link==='string') ? it.link : (it.link.href || '');
+        if(link && (link.includes('.mp3') || link.includes('audio'))) audioUrl = link;
+      }
+      if(audioUrl) out.push({title, desc, pubDate, audioUrl});
+    }
+    return out;
+  }
+
+  async function fetchViaRss2Json(feedUrl){
+    const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}&callback=callback`;
+    const data = await jsonp(api, { callbackParam:'callback', timeout: 22000 });
+    if(data.status !== 'ok') throw new Error(data.message || 'rss2json error');
+    const items = Array.isArray(data.items) ? data.items : [];
+    const out=[];
+    for(const it of items){
+      const title=(it.title||'(sin título)').trim();
+      const pubDate=(it.pubDate||'').trim();
+      const desc=stripHtml(it.description||'');
+      const audioUrl = it.enclosure?.link || it.enclosure?.url || '';
+      if(audioUrl) out.push({title, desc, pubDate, audioUrl});
+    }
+    return out;
+  }
+
+  function renderEpisodeSkeleton(){
+    $('episodes').innerHTML = `<div class="tiny mb-2">Cargando episodios…</div>`+
+      `<div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>`;
+  }
+
+  async function loadEpisodes(feedUrl){
+    if(!feedUrl) return notyf.error('Este podcast no tiene RSS (feedUrl).');
+
+    if(state.epCache.has(feedUrl)){
+      state.episodesAll = state.epCache.get(feedUrl);
+      state.epPage = 1;
+      $('feedCount').textContent = `${state.episodesAll.length} eps`;
+      $('feedHeader').classList.remove('d-none');
+      renderEpisodesPage();
       return;
     }
-    const slice = state.epsAll.slice(0, state.epsShown);
-    box.innerHTML = slice.map(ep => `
-      <button class="list-group-item text-start" data-audio="${esc(ep.audioUrl)}" data-title="${esc(ep.title)}">
+
+    renderEpisodeSkeleton();
+    $('feedHeader').classList.add('d-none');
+    setProviderBadge('Auto');
+
+    try{
+      // Intento RSS directo
+      try{
+        const eps = await fetchRssDirect(feedUrl);
+        if(eps.length){
+          setProviderBadge('RSS');
+          state.episodesAll = eps;
+          state.epCache.set(feedUrl, eps);
+          state.epPage = 1;
+          $('feedTitle').textContent = 'Podcast';
+          $('feedDesc').textContent = 'Cargado por RSS directo (si el feed permite CORS).';
+          $('feedCount').textContent = `${eps.length} eps`;
+          $('feedHeader').classList.remove('d-none');
+          renderEpisodesPage();
+          notyf.success(`Episodios (RSS): ${eps.length}`);
+          return;
+        }
+      }catch(_){ }
+
+      const fallback = (await store.getItem('rss_fallback')) || $('rssFallback').value || 'vercel';
+
+      if(fallback === 'vercel'){
+        setProviderBadge('RSS→JSON');
+        const eps = await fetchViaRssToJson(feedUrl);
+        if(!eps.length) throw new Error('RSS→JSON no devolvió episodios');
+        state.episodesAll = eps;
+        state.epCache.set(feedUrl, eps);
+        state.epPage = 1;
+        $('feedTitle').textContent = 'Podcast';
+        $('feedDesc').textContent = 'Cargado por RSS→JSON sin key.';
+        $('feedCount').textContent = `${eps.length} eps`;
+        $('feedHeader').classList.remove('d-none');
+        renderEpisodesPage();
+        notyf.success(`Episodios (RSS→JSON): ${eps.length}`);
+        return;
+      }
+
+      setProviderBadge('rss2json');
+      const eps2 = await fetchViaRss2Json(feedUrl);
+      state.episodesAll = eps2;
+      state.epCache.set(feedUrl, eps2);
+      state.epPage = 1;
+      $('feedTitle').textContent = 'Podcast';
+      $('feedDesc').textContent = 'Fallback rss2json (puede limitar en modo público).';
+      $('feedCount').textContent = `${eps2.length} eps`;
+      $('feedHeader').classList.remove('d-none');
+      renderEpisodesPage();
+      if(eps2.length <= 10) notyf.open({ type:'warning', message:'rss2json en modo público suele devolver 10 episodios por defecto.' });
+      else notyf.success(`Episodios (rss2json): ${eps2.length}`);
+
+    }catch(e){
+      console.warn(e);
+      $('episodes').innerHTML = `<div class="soft p-3 tiny">No pude cargar episodios de este feed. Cambia el proveedor en la izquierda o prueba otro podcast.</div>`;
+      notyf.error('No se pudo cargar el RSS.');
+      setProviderBadge('Error');
+    }
+  }
+
+  function renderEpisodesPage(){
+    const box = $('episodes');
+    const total = state.episodesAll.length;
+    const pageSize = state.epPageSize;
+    const totalPages = Math.max(1, Math.ceil(total/pageSize));
+    state.epPage = Math.max(1, Math.min(totalPages, state.epPage));
+
+    const start=(state.epPage-1)*pageSize;
+    const end=Math.min(total, start+pageSize);
+    const slice = state.episodesAll.slice(start,end);
+
+    box.innerHTML = `
+      <div class="soft p-3">
+        <div class="meta-row">
+          <div>
+            <div class="fw-semibold">Episodios</div>
+            <div class="tiny">Mostrando <b>${start+1}</b>–<b>${end}</b> de <b>${total}</b> · Página <b>${state.epPage}</b>/<b>${totalPages}</b></div>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <input id="epGoto" type="number" min="1" class="form-control form-control-sm" style="width:110px" placeholder="Página">
+            <button id="epGotoBtn" class="btn btn-sm btn-outline-primary">Ir</button>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end mt-2" id="epPaginationTop"></div>
+      </div>
+      <div class="list-group list-compact mt-3" id="epList"></div>
+      <div class="soft p-3 mt-3">
+        <div class="meta-row">
+          <div class="tiny">Paginación numérica (sin acumular).</div>
+          <div id="epPaginationBottom"></div>
+        </div>
+      </div>
+    `;
+
+    const listBox = $('epList');
+    const frag = document.createDocumentFragment();
+    slice.forEach(ep => {
+      const btn = document.createElement('button');
+      btn.className = 'list-group-item text-start';
+      btn.dataset.audio = ep.audioUrl;
+      btn.dataset.title = ep.title;
+      btn.innerHTML = `
         <div class="d-flex justify-content-between align-items-start gap-2">
           <div>
             <div class="fw-bold">${esc(ep.title)}</div>
-            <div class="tiny">${esc(ep.pubDate ? dayjs(ep.pubDate).format("DD MMM YYYY") : "")}</div>
+            <div class="tiny">${esc(ep.pubDate ? dayjs(ep.pubDate).format('DD MMM YYYY') : '')}</div>
             <div class="tiny truncate-2">${esc(ep.desc)}</div>
           </div>
           <span class="badge rounded-pill text-bg-primary">Play</span>
         </div>
-      </button>
-    `).join("");
-
-    box.querySelectorAll("button[data-audio]").forEach(btn => {
-      btn.onclick = () => {
-        const url = btn.dataset.audio;
-        const title = btn.dataset.title || "";
-        $("nowPlaying").textContent = title;
-        const audio = $("player");
-        audio.src = url;
-        audio.play().catch(()=>{});
-      };
+      `;
+      frag.appendChild(btn);
     });
+    listBox.appendChild(frag);
 
-    $("moreEpsBtn").classList.toggle("d-none", state.epsShown >= state.epsAll.length);
+    listBox.onclick = (e) => {
+      const btn = e.target.closest('button[data-audio]');
+      if(!btn) return;
+      const url = btn.dataset.audio;
+      const title = btn.dataset.title || '';
+      $('nowPlaying').textContent = title;
+      const audio = $('player');
+      audio.src = url;
+      audio.play().catch(()=>{});
+    };
+
+    renderPagination($('epPaginationTop'), state.epPage, totalPages);
+    renderPagination($('epPaginationBottom'), state.epPage, totalPages);
+
+    const onPaginate = (e) => {
+      const a = e.target.closest('a[data-page]');
+      if(!a) return;
+      e.preventDefault();
+      const next = parseInt(a.dataset.page,10);
+      if(Number.isFinite(next)){
+        state.epPage = Math.max(1, Math.min(totalPages, next));
+        renderEpisodesPage();
+        scrollIntoViewSafe(box);
+      }
+    };
+    $('epPaginationTop').onclick = onPaginate;
+    $('epPaginationBottom').onclick = onPaginate;
+
+    $('epGotoBtn').onclick = () => {
+      const p = parseInt($('epGoto').value,10);
+      if(!Number.isFinite(p)) return;
+      state.epPage = Math.max(1, Math.min(totalPages, p));
+      renderEpisodesPage();
+      scrollIntoViewSafe(box);
+    };
   }
 
-  $("moreEpsBtn").addEventListener("click", () => {
-    state.epsShown = Math.min(state.epsShown + state.epsPage, state.epsAll.length);
-    renderEpisodesSlice();
-  });
+  // Pronunciación figurada (ampliada)
+  function cfgPh(){
+    return {
+      th: $('thMode').value,
+      r: $('rMode').value,
+      stress: $('stressMarks').checked,
+      mxW: $('mxWMode').checked
+    };
+  }
 
-  /* --------------- Frases online sin repetir --------------- */
+  function capLike(original, mapped){
+    if(/^[A-ZÁÉÍÓÚÑ]/.test(original)) return mapped.charAt(0).toUpperCase() + mapped.slice(1);
+    return mapped;
+  }
+
+  function addStressMarkSmart(w){
+    if(/[áéíóú]/i.test(w)) return w;
+    const vowels='aeiou';
+    const pos=[];
+    for(let i=0;i<w.length;i++) if(vowels.includes(w[i])) pos.push(i);
+    if(pos.length<=1) return w;
+    const idx = pos[Math.max(0, pos.length-2)];
+    const map = {a:'á',e:'é',i:'í',o:'ó',u:'ú'};
+    const ch = w[idx];
+    return map[ch] ? (w.slice(0,idx)+map[ch]+w.slice(idx+1)) : w;
+  }
+
+  function buildHighPriorityDict(opt){
+    const thd = (opt.th==='z') ? 'z' : 'd';
+    return {
+      'he':'ji','him':'jim','his':'jis','himself':'jimself',
+      'she':'shi','her':'jer','herself':'jerself',
+      'who':'ju','you':'yu','your':'yor',
+      'i':'ai','i\'m':'aim','i\'ll':'ail','i’ll':'ail','i\'ve':'aiv','i’ve':'aiv','i\'d':'aid','i’d':'aid',
+      'we':'uí','us':'as','our':'áur',
+      'the': thd==='z' ? 'ze' : 'de',
+      'this': thd==='z' ? 'zis' : 'dis',
+      'that': thd==='z' ? 'zat' : 'dat',
+      'these': thd==='z' ? 'ziiz' : 'diiz',
+      'those': thd==='z' ? 'zóuz' : 'dóuz',
+      'they': thd==='z' ? 'zéi' : 'dei',
+      'to':'tu','of':'ov','and':'and','because':'bicós',
+
+      // Daniel style: ejemplos
+      'daniel':'dániel','had':'jad','always':'ólueis','dreamed':'drímd','dream':'drím',
+      'leaving':'lívin','exploring':'explórin','world':'uórl',
+      'was':'uás','woke':'uók','would':'wud','good':'gud','morning':'mórnin','today':'tudéi',
+      'english':'ínglish','language':'lánguich','languages':'lánguichis',
+      'town':'taun','small':'smól','mountains':'máuntins','surrounded':'sarráunded',
+      'tourist':'túrist','tourists':'túrists','station':'stéishon','train':'tréin',
+      'follow':'fólou','learning':'lérnin','learn':'lern',
+      'practice':'práktis','practicing':'práktisin','practiced':'práktist',
+      'speaking':'spíkin','spoke':'spók',
+      'different':'dífrent','people':'pípol','chance':'cháns',
+      'early':'érli',
+
+      // Segundo texto
+      'imagined':'imáyind','walking':'uókin','walked':'uókt','through':'thru','streets':'stríts',
+      'london':'lóndon','paris':'parís','eiffel':'éifel','tower':'táuer',
+      'new':'niu','york':'yórk','city':'síti',
+      'passion':'páshon','grew':'grú','stronger':'strónguer','every':'évri','day':'déi',
+      'knew':'niu','help':'jelp','connect':'conéct','everywhere':'évriuéer',
+      'summer':'sómer','decided':'disáidid','take':'teik','first':'ferst','toward':'tuuórd',
+      'packed':'pákt','goodbye':'gudbái','family':'fáemili','took':'tuk','bus':'bas','capital':'cápital',
+      'old':'óuld','where':'juér','going':'góuin','traveler':'tráveler',
+      'brave':'breiv','decision':'disíshon','never':'néver','knowledge':'nóledj','key':'kí','freedom':'frídom',
+      'when':'juén','arrived':'arraivd','amazed':'améizd','tall':'tol','buildings':'bíldins','busy':'bísi','sound':'sáund',
+      'cafe':'café','politely':'poláitli','waiter':'uéiter','afternoon':'aftérnun','could':'cud','coffee':'cófi',
+      'coming':'cómin','right':'rait','later':'leiter','visited':'vísited','central':'céntral','library':'láibreri',
+      'aloud':'aláud','woman':'úoman','sitting':'sítin','nearby':'nírbai','heard':'jerd',
+      'pronunciation':'prononsiéishon','very':'véri','soon':'sun','fluently':'flúentli',
+      'weeks':'uíks','passed':'pássed','continued':'contíniud','even':'íven','wrote':'róut',
+      'journey':'jórni','begun':'bigán','simple':'símpol','determination':'diterminéishon','turned':'térnd',
+      'into':'íntu','reality':'riáliti','years':'íers','finally':'fáinali','abroad':'abróud','stood':'stud',
+      'front':'frónt','looked':'lúkt','along':'alóng','river':'ríver','thames':'téms','welcomed':'uélcomd','warmly':'uórmli'
+    };
+  }
+
+  function wordToPhonetic(word, opt){
+    const m = word.match(/^(.+?)([.,!?;:]*)$/);
+    let core = m ? m[1] : word;
+    const punct = m ? m[2] : '';
+    const originalCore = core;
+
+    core = core.replace(/[“”]/g,'"').replace(/[‘’]/g,"'");
+    const lower = core.toLowerCase();
+
+    const dict = buildHighPriorityDict(opt);
+    if(dict[lower]) return capLike(originalCore, dict[lower]) + punct;
+
+    let x = lower;
+
+    // contracciones
+    x = x.replace(/n't\b/g,'nt')
+         .replace(/'re\b/g,' ar')
+         .replace(/'ll\b/g,'l')
+         .replace(/'ve\b/g,'v')
+         .replace(/'d\b/g,'d')
+         .replace(/'m\b/g,'m');
+
+    // H inicial -> J (tu estilo)
+    x = x.replace(/^h/,'j');
+
+    // W -> U (modo MX)
+    if(opt.mxW){
+      x = x.replace(/^wor/g,'uór')
+           .replace(/^wo/g,'uó')
+           .replace(/^wa/g,'uá')
+           .replace(/^we/g,'uí')
+           .replace(/^wi/g,'uí')
+           .replace(/w/g,'u');
+    }
+
+    // TH -> D/Z
+    x = x.replace(/th/g, opt.th==='z' ? 'z' : 'd');
+
+    // sufijos
+    x = x.replace(/ing\b/g,'in')
+         .replace(/tion\b/g,'shon')
+         .replace(/sion\b/g,'shon');
+
+    // consonantes
+    x = x.replace(/ph/g,'f')
+         .replace(/ght/g,'t')
+         .replace(/kn/g,'n')
+         .replace(/wr/g,'r')
+         .replace(/qu/g,'kw')
+         .replace(/ck/g,'k')
+         .replace(/c/g,'k')
+         .replace(/j/g,'y');
+
+    // vocales
+    x = x.replace(/oo/g,'u')
+         .replace(/ee/g,'ii').replace(/ea/g,'ii')
+         .replace(/ow/g,'au').replace(/ou/g,'au')
+         .replace(/igh/g,'ai').replace(/ie/g,'ai')
+         .replace(/ai/g,'ei').replace(/ay/g,'ei');
+
+    // -ed heurística
+    if(/ed\b/.test(x)){
+      const stem = x.slice(0,-2);
+      if(/[td]$/.test(stem)) x = stem + 'id';
+      else x = stem + 'd';
+    }
+
+    // quitar e final
+    x = x.replace(/e\b/g,'');
+
+    // reduce dobles
+    x = x.replace(/(.)\1+/g,'$1$1');
+
+    if(opt.r==='marked') x = x.replace(/er\b/g,'er').replace(/ar\b/g,'ar').replace(/or\b/g,'or');
+
+    if(opt.stress) x = addStressMarkSmart(x);
+
+    x = capLike(originalCore, x);
+    return x + punct;
+  }
+
+  function englishToSpanishPhonetic(text){
+    const words = (text||'')
+      .replace(/[“”]/g,'"')
+      .replace(/[‘’]/g,"'")
+      .split(/\s+/)
+      .filter(Boolean);
+    const opt = cfgPh();
+    return words.map(w => wordToPhonetic(w,opt)).join(' ');
+  }
+
+  function makeSegmentsHtml(phon){
+    if(!phon || phon==='—') return '—';
+    const tokens = phon.split(/\s+/).filter(Boolean);
+    if(!tokens.length) return '—';
+    return tokens.slice(0,28).map(t => `<span class="seg">${esc(t)}</span>`).join('');
+  }
+
+  function updatePhoneticFromReference(){
+    const t = $('referenceText').value.trim();
+    const ph = t ? englishToSpanishPhonetic(t) : '—';
+    $('phoneticFromReference').textContent = ph;
+    $('segmentsFromReference').innerHTML = makeSegmentsHtml(ph);
+  }
+  $('referenceText').addEventListener('input', updatePhoneticFromReference);
+
+  // Practice SR
+  function normalizeWords(text){
+    return text.toLowerCase().replace(/[^a-z0-9\s']/g,' ').replace(/\s+/g,' ').trim().split(' ').filter(Boolean);
+  }
+  function levenshtein(a,b){
+    const n=a.length,m=b.length;
+    if(!n) return m; if(!m) return n;
+    const dp=Array.from({length:n+1},()=>Array(m+1).fill(0));
+    for(let i=0;i<=n;i++) dp[i][0]=i;
+    for(let j=0;j<=m;j++) dp[0][j]=j;
+    for(let i=1;i<=n;i++) for(let j=1;j<=m;j++){
+      const cost=a[i-1]===b[j-1]?0:1;
+      dp[i][j]=Math.min(dp[i-1][j]+1, dp[i][j-1]+1, dp[i-1][j-1]+cost);
+    }
+    return dp[n][m];
+  }
+  function similarityPct(ref, said){
+    const a=ref.trim().toLowerCase(), b=said.trim().toLowerCase();
+    if(!a && !b) return 100;
+    if(!a || !b) return 0;
+    const dist=levenshtein(a,b);
+    const maxLen=Math.max(a.length,b.length);
+    return Math.max(0, Math.min(100, Math.round((1 - dist/maxLen)*100)));
+  }
+  function highlightByWords(reference, recognized){
+    const ref=normalizeWords(reference);
+    const rec=normalizeWords(recognized);
+    let ptr=0;
+    const out=[];
+    for(const w of ref){
+      let found=false;
+      for(let k=ptr;k<rec.length;k++) if(rec[k]===w){ found=true; ptr=k+1; break; }
+      out.push(found ? `<span class="word-ok">${esc(w)}</span>` : `<span class="word-bad">${esc(w)}</span>`);
+    }
+    return out.join(' ');
+  }
+
+  function startRecognition(){
+    if(!SR) return notyf.error('Tu navegador no soporta SpeechRecognition. Usa Chrome/Edge.');
+    const reference = $('referenceText').value.trim();
+    if(!reference) return notyf.error('Escribe una frase objetivo.');
+
+    const rec = new SR();
+    rec.lang='en-US';
+    rec.interimResults=true;
+    rec.continuous=false;
+
+    state.recognition=rec;
+    state.recognizing=true;
+
+    $('startRecBtn').classList.add('d-none');
+    $('stopRecBtn').classList.remove('d-none');
+    $('recognizedText').textContent='Escuchando…';
+    $('highlighted').textContent='—';
+    $('scorePct').textContent='—';
+
+    let finalText='';
+    rec.onresult = (event) => {
+      let interim='';
+      for(let i=event.resultIndex;i<event.results.length;i++){
+        const t=event.results[i][0].transcript;
+        if(event.results[i].isFinal) finalText += t + ' ';
+        else interim += t;
+      }
+      const shown=(finalText+interim).trim();
+      $('recognizedText').textContent = shown || '…';
+      $('scorePct').textContent = similarityPct(reference, shown) + '%';
+      $('highlighted').innerHTML = highlightByWords(reference, shown);
+    };
+
+    rec.onerror = (e) => { stopRecognition(); notyf.error('Error mic/reconocimiento: ' + (e.error || 'desconocido')); };
+    rec.onend = () => { if(!state.recognizing) return; stopRecognition(); notyf.success('Evaluación terminada.'); };
+
+    rec.start();
+    notyf.open({ type:'info', message:'🎙️ Habla la frase completa.' });
+  }
+
+  function stopRecognition(){
+    if(state.recognition){ try{ state.recognition.stop(); }catch(_){ } }
+    state.recognition=null;
+    state.recognizing=false;
+    $('startRecBtn').classList.remove('d-none');
+    $('stopRecBtn').classList.add('d-none');
+  }
+
+  $('startRecBtn').addEventListener('click', startRecognition);
+  $('stopRecBtn').addEventListener('click', stopRecognition);
+  $('ttsBtn').addEventListener('click', () => speak($('referenceText').value.trim()));
+
+  // Phrases + Internet deck
   const FALLBACK_DECK = [
-    "Small progress is still progress. — Unknown",
-    "The secret of getting ahead is getting started. — Mark Twain",
-    "If you want to go fast, go alone. If you want to go far, go together. — African Proverb",
-    "Success is the sum of small efforts, repeated day in and day out. — Robert Collier",
-    "What we think, we become. — Buddha",
-    "Well done is better than well said. — Benjamin Franklin",
-    "It always seems impossible until it’s done. — Nelson Mandela",
-    "Action is the foundational key to all success. — Pablo Picasso",
-    "Quality is not an act, it is a habit. — Aristotle",
-    "Dream big and dare to fail. — Norman Vaughan",
-    "Either you run the day or the day runs you. — Jim Rohn",
-    "Don’t watch the clock; do what it does. Keep going. — Sam Levenson",
-    "Start where you are. Use what you have. Do what you can. — Arthur Ashe",
-    "Dreams don’t work unless you do. — John C. Maxwell",
-    "The only way to do great work is to love what you do. — Steve Jobs",
-    "Focus on being productive instead of busy. — Tim Ferriss",
-    "If you get tired, learn to rest, not to quit. — Banksy",
-    "Discipline is destiny. — Ryan Holiday",
-    "You are what you do, not what you say you’ll do. — Carl Jung",
-    "A little progress each day adds up to big results. — Unknown",
-    "Courage is grace under pressure. — Ernest Hemingway",
-    "Win the morning, win the day. — Tim Ferriss",
-    "Your limitation—it’s only your imagination. — Unknown",
-    "Do the hard things. — Unknown"
+    'Small progress is still progress. — Unknown',
+    'The secret of getting ahead is getting started. — Mark Twain',
+    'Success is the sum of small efforts, repeated day in and day out. — Robert Collier',
+    'Well done is better than well said. — Benjamin Franklin',
+    'It always seems impossible until it’s done. — Nelson Mandela',
+    'The best time to plant a tree was 20 years ago. The second best time is now. — Chinese Proverb',
+    'You miss 100% of the shots you don’t take. — Wayne Gretzky',
+    'Stay hungry, stay foolish. — Steve Jobs'
   ];
-  const sha1Like = s => { let h=0; for(let i=0;i<s.length;i++){ h=(h<<5)-h+s.charCodeAt(i)|0;} return String(h); };
-  const shuffle = arr => { for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; };
+
+  function sha1Like(s){ let h=0,i=0; while(i<s.length){ h=(h<<5)-h+s.charCodeAt(i++)|0; } return String(h); }
+  function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
 
   async function loadDeckFromStore(){
-    state.quotesDeck = (await store.getItem("quotes_deck")) || [];
-    state.deckIndex = (await store.getItem("quotes_deck_index")) || 0;
-    state.usedHashes = new Set((await store.getItem("quotes_used_hashes")) || []);
+    const deck = await store.getItem('quotes_deck');
+    const idx = await store.getItem('quotes_deck_index');
+    const used = await store.getItem('quotes_used_hashes');
+    state.quotesDeck = Array.isArray(deck) ? deck : [];
+    state.deckIndex = Number.isInteger(idx) ? idx : 0;
+    state.usedHashes = new Set(Array.isArray(used) ? used : []);
   }
   async function saveDeck(){
-    await store.setItem("quotes_deck", state.quotesDeck);
-    await store.setItem("quotes_deck_index", state.deckIndex);
-    await store.setItem("quotes_used_hashes", Array.from(state.usedHashes));
+    await store.setItem('quotes_deck', state.quotesDeck);
+    await store.setItem('quotes_deck_index', state.deckIndex);
+    await store.setItem('quotes_used_hashes', Array.from(state.usedHashes));
   }
 
   async function providerQuotable(){
-    const r = await fetch("https://api.quotable.io/quotes/random?limit=60&tags=famous-quotes|wisdom|inspirational", { cache:"no-store" });
-    if (!r.ok) throw new Error("Quotable");
+    const url = 'https://api.quotable.io/quotes/random?limit=50&tags=famous-quotes|wisdom|inspirational';
+    const r = await fetch(url, { cache:'no-store' });
+    if(!r.ok) throw new Error('Quotable HTTP '+r.status);
     const arr = await r.json();
-    return (Array.isArray(arr)?arr:[]).map(x=>({ text:(x.content||"").trim(), author:(x.author||"").trim() }))
-      .filter(x => x.text.length >= 10 && x.text.length <= 200);
+    return (Array.isArray(arr)?arr:[]).map(x => ({ text:(x.content||'').trim(), author:(x.author||'').trim() }))
+      .filter(x => x.text.length>=10 && x.text.length<=220);
   }
+
   async function providerTypeFit(){
-    const r = await fetch("https://type.fit/api/quotes", { cache:"no-store" });
-    if (!r.ok) throw new Error("type.fit");
+    const url = 'https://type.fit/api/quotes';
+    const r = await fetch(url, { cache:'no-store' });
+    if(!r.ok) throw new Error('type.fit HTTP '+r.status);
     const arr = await r.json();
-    return (Array.isArray(arr)?arr:[]).slice(0,600).map(x=>({ text:(x.text||"").trim(), author:(x.author||"").trim() }))
-      .filter(x => x.text.length >= 10 && x.text.length <= 200);
+    return (Array.isArray(arr)?arr:[]).map(x => ({ text:(x.text||'').trim(), author:(x.author||'').trim() }))
+      .filter(x => x.text.length>=10 && x.text.length<=220).slice(0,400);
   }
 
   async function buildNewDeck(){
-    let combined = [];
-    try{
-      const [a,b] = await Promise.allSettled([providerQuotable(), providerTypeFit()]);
-      if (a.status==="fulfilled") combined = combined.concat(a.value);
-      if (b.status==="fulfilled") combined = combined.concat(b.value);
-    }catch{}
-    if (!combined.length){
-      combined = FALLBACK_DECK.map(t=>{ const [text,author=""] = t.split(" — "); return { text, author }; });
+    let combined=[];
+    const [q1,q2] = await Promise.allSettled([providerQuotable(), providerTypeFit()]);
+    if(q1.status==='fulfilled') combined=combined.concat(q1.value);
+    if(q2.status==='fulfilled') combined=combined.concat(q2.value);
+
+    if(!combined.length){
+      combined = FALLBACK_DECK.map(t => {
+        const parts=t.split(' — ');
+        return { text: parts[0], author: parts[1] || '' };
+      });
     }
-    const seen = new Set(); const cleaned = [];
-    for (const q of combined){
-      const key = q.text.trim().toLowerCase(); if (seen.has(key)) continue; seen.add(key);
-      const h = sha1Like(key); if (state.usedHashes.has(h)) continue;
+
+    const seen=new Set();
+    const cleaned=[];
+    for(const q of combined){
+      const key=q.text.trim().toLowerCase();
+      if(seen.has(key)) continue;
+      seen.add(key);
+      const h=sha1Like(key);
+      if(state.usedHashes.has(h)) continue;
       cleaned.push(q);
     }
     shuffle(cleaned);
-    state.quotesDeck = cleaned; state.deckIndex = 0;
+    state.quotesDeck=cleaned;
+    state.deckIndex=0;
     await saveDeck();
   }
 
   async function getNextQuote(){
-    if (!state.quotesDeck.length || state.deckIndex >= state.quotesDeck.length){
+    if(!state.quotesDeck.length || state.deckIndex >= state.quotesDeck.length){
       await buildNewDeck();
-      if (!state.quotesDeck.length){ state.usedHashes = new Set(); await buildNewDeck(); }
+      if(!state.quotesDeck.length){
+        state.usedHashes = new Set();
+        await buildNewDeck();
+      }
     }
-    const q = state.quotesDeck[state.deckIndex++]; if (!q) return null;
+    const q = state.quotesDeck[state.deckIndex++];
+    if(!q) return null;
     state.usedHashes.add(sha1Like(q.text.trim().toLowerCase()));
     await saveDeck();
     return q;
   }
 
-  $("getInternetPhraseBtn").addEventListener("click", async () => {
-    try{
-      $("getInternetPhraseBtn").disabled = true;
-      $("getInternetPhraseBtn").innerHTML = `<i class="fa-solid fa-spinner fa-spin me-2"></i>Cargando…`;
-      const q = await getNextQuote();
-      if (!q) throw new Error("Sin frases disponibles");
-      const text = q.author ? `${q.text} — ${q.author}` : q.text;
-      state.phrases.unshift({ id: crypto.randomUUID(), text, createdAt: Date.now(), tags:["internet"], source:"internet" });
-      await savePhrases(); rebuildTags(); buildFuse(); renderTagFilter(); renderPhrases(); renderSelectedPreview();
-      notyf.success("Frase agregada.");
-    } catch(e){ notyf.error("Error al traer frase."); }
-    finally{
-      $("getInternetPhraseBtn").disabled = false;
-      $("getInternetPhraseBtn").innerHTML = `<i class="fa-solid fa-cloud-arrow-down me-2"></i>Internet`;
-    }
-  });
-
-  $("clearCacheBtn").addEventListener("click", async () => {
-    await store.removeItem("quotes_deck"); await store.removeItem("quotes_deck_index"); await store.removeItem("quotes_used_hashes");
-    state.quotesDeck=[]; state.deckIndex=0; state.usedHashes=new Set();
-    notyf.success("Caché de frases limpiada.");
-  });
-
-  /* --------------- Phrases CRUD --------------- */
-  function rebuildTags(){
-    state.tags = new Set();
-    state.phrases.forEach(p => (p.tags || []).forEach(t => state.tags.add(t)));
-  }
-  function buildFuse(){
-    state.phraseFuse = new Fuse(state.phrases, { keys:["text","tags","source"], threshold:0.35, ignoreLocation:true, includeScore:true });
-  }
-  function renderTagFilter(){
-    const sel = $("tagFilter"); const prev = sel.value;
-    sel.innerHTML = `<option value="">Todos los tags</option>` + Array.from(state.tags).sort().map(t=>`<option value="${esc(t)}">${esc(t)}</option>`).join("");
-    sel.value = prev || "";
-  }
   async function loadPhrases(){
-    state.phrases = (await store.getItem("phrases")) || [];
-    state.selectedPhraseId = (await store.getItem("selectedPhraseId")) || null;
-    if (!state.phrases.length){
+    const data = await store.getItem('phrases');
+    state.phrases = Array.isArray(data) ? data : [];
+    state.selectedPhraseId = (await store.getItem('selectedPhraseId')) || null;
+
+    if(!state.phrases.length){
       state.phrases = [
-        { id: crypto.randomUUID(), text:"I would like to improve my English pronunciation.", createdAt: Date.now(), tags:["starter"], source:"starter" },
-        { id: crypto.randomUUID(), text:"Could you please repeat that more slowly?", createdAt: Date.now(), tags:["starter"], source:"starter" },
-        { id: crypto.randomUUID(), text:"What do you recommend I practice today?", createdAt: Date.now(), tags:["daily"], source:"starter" },
+        { id: crypto.randomUUID(), text:'Daniel had always dreamed of exploring the world.', createdAt: Date.now(), source:'starter' },
+        { id: crypto.randomUUID(), text:'He imagined himself walking through the streets of London.', createdAt: Date.now(), source:'starter' },
+        { id: crypto.randomUUID(), text:'A young woman sitting nearby heard him and said: Your pronunciation is very good.', createdAt: Date.now(), source:'starter' }
       ];
-      await store.setItem("phrases", state.phrases);
+      await store.setItem('phrases', state.phrases);
     }
-    rebuildTags(); buildFuse(); renderTagFilter(); renderPhrases(); renderSelectedPreview();
+    renderPhrases();
+    renderSelectedPreview();
   }
-  async function savePhrases(){ await store.setItem("phrases", state.phrases); }
+
+  async function savePhrases(){ await store.setItem('phrases', state.phrases); }
+
   function getSelected(){ return state.phrases.find(x => x.id === state.selectedPhraseId) || null; }
 
   function renderSelectedPreview(){
     const p = getSelected();
-    $("selectedPhrasePreview").textContent = p ? p.text : "Ninguna";
-    const ph = p ? englishToSpanishPhonetic(p.text) : "—";
-    $("phoneticPreview").textContent = ph;
-    $("segmentsPreview").innerHTML = makeSegments(ph);
+    $('selectedPhrasePreview').textContent = p ? p.text : 'Ninguna';
+    $('phoneticPreview').textContent = p ? englishToSpanishPhonetic(p.text) : '—';
+    $('segmentsPreview').innerHTML = p ? makeSegmentsHtml(englishToSpanishPhonetic(p.text)) : '—';
   }
 
   function renderPhrases(){
-    const box = $("phrasesList");
-    const q = $("phraseSearch").value.trim();
-    const tag = $("tagFilter").value || "";
+    const box = $('phrasesList');
+    const query = $('phraseSearch').value.trim().toLowerCase();
     let list = state.phrases.slice();
-    if (q && state.phraseFuse) list = state.phraseFuse.search(q).map(r=>r.item);
-    if (tag) list = list.filter(p => (p.tags||[]).includes(tag));
-    if (!list.length){ box.innerHTML = `<div class="soft p-3 tiny">No hay coincidencias.</div>`; return; }
+    if(query) list = list.filter(p => (p.text||'').toLowerCase().includes(query));
 
-    box.innerHTML = list.map(p => {
-      const isSel = p.id === state.selectedPhraseId;
-      const tags = (p.tags||[]).map(t=>`<span class="badge rounded-pill text-bg-secondary me-1">${esc(t)}</span>`).join("") || `<span class="tiny">sin tags</span>`;
+    if(!list.length){
+      box.innerHTML = `<div class="soft p-3 tiny">No hay coincidencias.</div>`;
+      return;
+    }
+
+    box.innerHTML = list.slice(0,120).map(p => {
+      const sel = p.id === state.selectedPhraseId;
       const phon = englishToSpanishPhonetic(p.text);
       return `
         <div class="list-group-item">
           <div class="d-flex justify-content-between gap-2">
             <div class="flex-grow-1">
-              <div class="fw-bold ${isSel ? 'text-success' : ''}">${esc(p.text)}</div>
-              <div class="tiny mt-1">${tags}</div>
-              <div class="tiny">${dayjs(p.createdAt).format("DD MMM YYYY • HH:mm")} · <span class="kbd">${esc(p.source||"custom")}</span></div>
+              <div class="fw-bold ${sel?'text-success':''}">${esc(p.text)}</div>
+              <div class="tiny">${dayjs(p.createdAt).format('DD MMM YYYY • HH:mm')} · <span class="badge rounded-pill text-bg-secondary">${esc(p.source||'custom')}</span></div>
               <div class="soft p-2 mt-2">
                 <div class="tiny fw-semibold">Pronunciación figurada:</div>
                 <div class="mono">${esc(phon)}</div>
-                <div class="mt-1">${makeSegments(phon)}</div>
+                <div class="mt-1">${makeSegmentsHtml(phon)}</div>
               </div>
             </div>
             <div class="btn-group btn-group-sm align-self-start">
-              <button class="btn ${isSel?'btn-success':'btn-outline-success'}" data-act="select" data-id="${p.id}">${isSel?'OK':'Seleccionar'}</button>
-              <button class="btn btn-outline-secondary" data-act="speak" data-id="${p.id}"><i class="fa-solid fa-volume-high"></i></button>
-              <button class="btn btn-outline-primary" data-act="tag" data-id="${p.id}"><i class="fa-solid fa-tags"></i></button>
-              <button class="btn btn-outline-danger" data-act="del" data-id="${p.id}"><i class="fa-solid fa-trash"></i></button>
+              <button class="btn ${sel?'btn-success':'btn-outline-success'}" data-act="select" data-id="${p.id}">${sel?'OK':'Seleccionar'}</button>
+              <button class="btn btn-outline-secondary" data-act="speak" data-id="${p.id}" title="Escuchar"><i class="fa-solid fa-volume-high"></i></button>
+              <button class="btn btn-outline-danger" data-act="del" data-id="${p.id}" title="Borrar"><i class="fa-solid fa-trash"></i></button>
             </div>
           </div>
         </div>
       `;
-    }).join("");
+    }).join('');
 
-    box.querySelectorAll("button[data-act]").forEach(btn => {
-      btn.onclick = async () => {
-        const id = btn.dataset.id; const act = btn.dataset.act; const item = state.phrases.find(x=>x.id===id);
-        if (!id) return;
-        if (act==="select"){
-          state.selectedPhraseId = id; await store.setItem("selectedPhraseId", id);
-          renderPhrases(); renderSelectedPreview(); notyf.success("Frase seleccionada.");
+    box.onclick = async (e) => {
+      const btn = e.target.closest('button[data-act]');
+      if(!btn) return;
+      const id = btn.dataset.id;
+      const act = btn.dataset.act;
+      const item = state.phrases.find(x => x.id === id);
+
+      if(act==='select'){
+        state.selectedPhraseId = id;
+        await store.setItem('selectedPhraseId', id);
+        renderPhrases();
+        renderSelectedPreview();
+        notyf.success('Frase seleccionada.');
+      }
+      if(act==='speak' && item) speak(item.text);
+      if(act==='del'){
+        state.phrases = state.phrases.filter(x => x.id !== id);
+        if(state.selectedPhraseId === id){
+          state.selectedPhraseId = null;
+          await store.removeItem('selectedPhraseId');
         }
-        if (act==="speak" && item){ speak(item.text); }
-        if (act==="del"){
-          state.phrases = state.phrases.filter(x=>x.id!==id);
-          if (state.selectedPhraseId===id){ state.selectedPhraseId=null; await store.removeItem("selectedPhraseId"); }
-          await savePhrases(); rebuildTags(); buildFuse(); renderTagFilter(); renderPhrases(); renderSelectedPreview(); notyf.success("Eliminada.");
-        }
-        if (act==="tag" && item){
-          const t = prompt("Tags (separados por coma). Ej: daily, travel, work", (item.tags||[]).join(", "));
-          if (t===null) return;
-          const tags = t.split(",").map(x=>x.trim().toLowerCase()).filter(Boolean).slice(0,8);
-          item.tags = Array.from(new Set(tags));
-          await savePhrases(); rebuildTags(); buildFuse(); renderTagFilter(); renderPhrases(); renderSelectedPreview(); notyf.success("Tags actualizados.");
-        }
-      };
-    });
-  }
-
-  $("addPhraseBtn").onclick = async () => {
-    const t = $("newPhrase").value.trim();
-    if (!t) return notyf.error("Escribe una frase.");
-    state.phrases.unshift({ id: crypto.randomUUID(), text: t, createdAt: Date.now(), tags:["custom"], source:"custom" });
-    $("newPhrase").value = ""; await savePhrases();
-    rebuildTags(); buildFuse(); renderTagFilter(); renderPhrases(); notyf.success("Frase agregada.");
-  };
-  $("phraseSearch").oninput = renderPhrases;
-  $("tagFilter").onchange = renderPhrases;
-  $("useSelectedBtn").onclick = () => {
-    const p = getSelected(); if (!p) return notyf.error("Primero selecciona una frase.");
-    $("referenceText").value = p.text; updatePhoneticFromReference(); showTab("practice"); notyf.success("Frase enviada.");
-  };
-  $("podQuery").addEventListener("keydown", e=>{ if(e.key==="Enter") $("podSearchBtn").click(); });
-  $("newPhrase").addEventListener("keydown", e=>{ if(e.key==="Enter") $("addPhraseBtn").click(); });
-
-  /* --------------- SR --------------- */
-  function normalizeWords(text){
-    return text.toLowerCase().replace(/[^a-z0-9\s']/g," ").replace(/\s+/g," ").trim().split(" ").filter(Boolean);
-  }
-  function levenshtein(a,b){ const n=a.length,m=b.length; if(!n) return m; if(!m) return n; const dp=Array.from({length:n+1},()=>Array(m+1).fill(0)); for(let i=0;i<=n;i++) dp[i][0]=i; for(let j=0;j<=m;j++) dp[0][j]=j; for(let i=1;i<=n;i++){ for(let j=1;j<=m;j++){ const c=a[i-1]===b[j-1]?0:1; dp[i][j]=Math.min(dp[i-1][j]+1,dp[i][j-1]+1,dp[i-1][j-1]+c);} } return dp[n][m]; }
-  function similarityPct(ref,said){ const a=ref.trim().toLowerCase(), b=said.trim().toLowerCase(); if(!a&&!b) return 100; if(!a||!b) return 0; const d=levenshtein(a,b), L=Math.max(a.length,b.length); return Math.max(0,Math.min(100,Math.round((1-d/L)*100))); }
-  function highlightByWords(reference,recognized){
-    const ref=normalizeWords(reference), rec=normalizeWords(recognized); let ptr=0, out=[];
-    for(const w of ref){ let found=false; for(let k=ptr;k<rec.length;k++){ if(rec[k]===w){ found=true; ptr=k+1; break; } } out.push(found?`<span class="word-ok">${esc(w)}</span>`:`<span class="word-bad">${esc(w)}</span>`); }
-    return out.join(" ");
-  }
-
-  function startRecognition(){
-    if(!SR) return notyf.error("Tu navegador no soporta SpeechRecognition.");
-    const reference=$("referenceText").value.trim(); if(!reference) return notyf.error("Escribe una frase objetivo.");
-    const rec=new SR(); rec.lang="en-US"; rec.interimResults=true; rec.continuous=false;
-    state.recognition=rec; state.recognizing=true;
-    $("startRecBtn").classList.add("d-none"); $("stopRecBtn").classList.remove("d-none");
-    $("recognizedText").textContent="Escuchando…"; $("highlighted").textContent="—"; $("scorePct").textContent="—";
-    let finalText="";
-
-    rec.onresult=(event)=>{
-      let interim=""; for(let i=event.resultIndex;i<event.results.length;i++){ const t=event.results[i][0].transcript; if(event.results[i].isFinal) finalText+=t+" "; else interim+=t; }
-      const shown=(finalText+interim).trim();
-      $("recognizedText").textContent=shown||"…";
-      $("scorePct").textContent=similarityPct(reference,shown)+"%";
-      $("highlighted").innerHTML=highlightByWords(reference,shown);
+        await savePhrases();
+        renderPhrases();
+        renderSelectedPreview();
+        notyf.success('Eliminada.');
+      }
     };
-    rec.onerror=(e)=>{ stopRecognition(); notyf.error("Error de mic/reconocimiento."); };
-    rec.onend=()=>{ if(!state.recognizing) return; stopRecognition(); notyf.success("Evaluación terminada."); };
-    rec.start(); notyf.open({ type:"info", message:"🎙️ Habla la frase completa." });
   }
-  function stopRecognition(){
-    if(state.recognition){ try{ state.recognition.stop(); }catch{} }
-    state.recognition=null; state.recognizing=false;
-    $("startRecBtn").classList.remove("d-none"); $("stopRecBtn").classList.add("d-none");
-  }
-  $("startRecBtn").onclick = startRecognition;
-  $("stopRecBtn").onclick = stopRecognition;
 
-  /* --------------- Pronunciación figurada --------------- */
-  function cfg(){ return { th:$("thMode").value, r:$("rMode").value, stress:$("stressMarks").checked }; }
-  async function saveCfg(){ await store.setItem("phonetic_cfg", cfg()); }
-  ["thMode","rMode","stressMarks"].forEach(id => $(id).addEventListener("change", async ()=>{ await saveCfg(); renderPhrases(); renderSelectedPreview(); updatePhoneticFromReference(); }));
+  $('addPhraseBtn').addEventListener('click', async () => {
+    const t = $('newPhrase').value.trim();
+    if(!t) return notyf.error('Escribe una frase.');
+    state.phrases.unshift({ id: crypto.randomUUID(), text: t, createdAt: Date.now(), source:'custom' });
+    $('newPhrase').value='';
+    await savePhrases();
+    renderPhrases();
+    renderSelectedPreview();
+    notyf.success('Frase agregada.');
+  });
 
-  function englishToSpanishPhonetic(text){
-    const words=(text||"").replace(/[“”]/g,'"').replace(/[‘’]/g,"'").split(/\s+/).filter(Boolean);
-    return words.map(w=>wordToPhonetic(w,cfg())).join(" ");
-  }
-  function wordToPhonetic(word,opt){
-    const m=word.match(/^(.+?)([.,!?;:]*)$/); let core=m?m[1]:word; const punct=m?m[2]:""; const lower=core.toLowerCase();
-    const dict={ "the":opt.th==="z"?"ze":"de","this":opt.th==="z"?"zis":"dis","that":opt.th==="z"?"zat":"dat","these":opt.th==="z"?"ziiz":"diiz","those":opt.th==="z"?"zóuz":"dóuz",
-      "you":"yuu","your":"yor","are":"ar","to":"tú","of":"ov","for":"for","and":"and","with":"wíd","what":"wát","when":"wen","where":"wer","why":"wái","how":"jáu",
-      "i":"ái","my":"mái","we":"wí","they":opt.th==="z"?"zéi":"dei","it":"it","is":"iz","was":"wos","were":"wer","please":"plíiz","english":"ínglish","pronunciation":"pronánsiéishon","repeat":"ripíit","slowly":"slóuli","today":"tudéi" };
-    if(dict[lower]) return dict[lower]+punct;
-    let x=lower;
-    x=x.replace(/n't\b/g,"nt").replace(/'re\b/g," ar").replace(/'ll\b/g,"l").replace(/'ve\b/g,"v").replace(/'d\b/g,"d").replace(/'m\b/g,"m");
-    x=x.replace(/ing\b/g,"in").replace(/tion\b/g,"shon").replace(/sion\b/g,"shon");
-    x=x.replace(/ph/g,"f").replace(/ght/g,"t").replace(/kn/g,"n").replace(/wr/g,"r").replace(/wh/g,"w").replace(/qu/g,"kw");
-    x=x.replace(/ch/g,"ch").replace(/sh/g,"sh");
-    x=x.replace(/th/g, opt.th==="z" ? "z" : "d");
-    x=x.replace(/ee/g,"ii").replace(/ea/g,"ii").replace(/oo/g,"uu");
-    x=x.replace(/ou/g,"au").replace(/ow/g,"au").replace(/ai/g,"ei").replace(/ay/g,"ei").replace(/igh/g,"ai").replace(/ie/g,"ai").replace(/oa/g,"óu");
-    x=x.replace(/ce/g,"s").replace(/ci/g,"si").replace(/cy/g,"si");
-    x=x.replace(/ge/g,"y").replace(/gi/g,"yi").replace(/gy/g,"yi");
-    x=x.replace(/ck/g,"k").replace(/c/g,"k");
-    x=x.replace(/j/g,"y");
-    x=x.replace(/y\b/g,"i");
-    x=x.replace(/e\b/g,"");
-    if(opt.r==="marked"){ x=x.replace(/er\b/g,"er").replace(/ar\b/g,"ar").replace(/or\b/g,"or"); }
-    x=x.replace(/(.)\1+/g,"$1$1");
-    if(opt.stress) x=addStressMark(x);
-    if(/^[A-ZÁÉÍÓÚÑ]/.test(core)) x=x.charAt(0).toUpperCase()+x.slice(1);
-    return x+punct;
-  }
-  function addStressMark(w){
-    const vowels="aeiou"; const pos=[]; for(let i=0;i<w.length;i++) if(vowels.includes(w[i])) pos.push(i);
-    if(pos.length<=1) return w; const idx=pos[Math.max(0,pos.length-2)];
-    const map={a:"á",e:"é",i:"í",o:"ó",u:"ú"}; const ch=w[idx]; return map[ch] ? (w.slice(0,idx)+map[ch]+w.slice(idx+1)) : w;
-  }
-  function makeSegments(phon){
-    if(!phon||phon==="—") return "—"; return phon.split(/\s+/).filter(Boolean).slice(0,24).map(t=>`<span class="seg">${esc(t)}</span>`).join("") || "—";
-  }
-  function updatePhoneticFromReference(){
-    const t=$("referenceText").value.trim(); const ph=t ? englishToSpanishPhonetic(t) : "—";
-    $("phoneticFromReference").textContent=ph; $("segmentsFromReference").innerHTML=makeSegments(ph);
-  }
-  $("referenceText").addEventListener("input", updatePhoneticFromReference);
+  $('phraseSearch').addEventListener('input', () => { renderPhrases(); renderSelectedPreview(); });
 
-  /* --------------- Init --------------- */
+  $('clearPhrasesBtn').addEventListener('click', async () => {
+    state.phrases=[];
+    state.selectedPhraseId=null;
+    await store.removeItem('phrases');
+    await store.removeItem('selectedPhraseId');
+    renderPhrases();
+    renderSelectedPreview();
+    notyf.success('Lista limpiada.');
+  });
+
+  $('useSelectedBtn').addEventListener('click', () => {
+    const p = getSelected();
+    if(!p) return notyf.error('Primero selecciona una frase.');
+    $('referenceText').value = p.text;
+    updatePhoneticFromReference();
+    showTab('practice');
+    notyf.success('Enviado a Pronunciación.');
+  });
+
+  $('getInternetPhraseBtn').addEventListener('click', async () => {
+    try{
+      $('getInternetPhraseBtn').disabled=true;
+      $('getInternetPhraseBtn').innerHTML='<i class="fa-solid fa-spinner fa-spin me-2"></i>Cargando…';
+      const q = await getNextQuote();
+      if(!q) throw new Error('No hay frases ahora.');
+      const text = q.author ? `${q.text} — ${q.author}` : q.text;
+      state.phrases.unshift({ id: crypto.randomUUID(), text, createdAt: Date.now(), source:'internet' });
+      await savePhrases();
+      renderPhrases();
+      renderSelectedPreview();
+      notyf.success('Frase Internet agregada (sin repetir).');
+    }catch(err){
+      notyf.error('Error: ' + (err?.message || err));
+    }finally{
+      $('getInternetPhraseBtn').disabled=false;
+      $('getInternetPhraseBtn').innerHTML='<i class="fa-solid fa-cloud-arrow-down me-2"></i>Internet';
+    }
+  });
+
+  $('clearCacheBtn').addEventListener('click', async () => {
+    await store.removeItem('quotes_deck');
+    await store.removeItem('quotes_deck_index');
+    await store.removeItem('quotes_used_hashes');
+    state.quotesDeck=[];
+    state.deckIndex=0;
+    state.usedHashes=new Set();
+    notyf.success('Caché de Internet limpiada.');
+  });
+
+  // Init
   async function init(){
-    const dark = !!(await store.getItem("theme_dark"));
-    document.body.classList.toggle("dark", dark);
-    $("themeBtn").querySelector("i").className = dark ? "fa-solid fa-sun" : "fa-solid fa-moon";
+    const dark = !!(await store.getItem('theme_dark'));
+    document.body.classList.toggle('dark', dark);
+    $('themeBtn').querySelector('i').className = dark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
 
     setupSpeechSupport();
-    await loadPhrases();
-    await loadDeckFromStore();
 
-    renderPhrases(); renderSelectedPreview(); showTab("podcasts"); updatePhoneticFromReference();
-    $("podSearchBtn").click(); // búsqueda inicial
-    notyf.success("Listo ✅");
+    // cargar config fonética
+    const savedCfg = await store.getItem('phonetic_cfg');
+    if(savedCfg){
+      if(savedCfg.th) $('thMode').value = savedCfg.th;
+      if(savedCfg.r) $('rMode').value = savedCfg.r;
+      if(typeof savedCfg.stress === 'boolean') $('stressMarks').checked = savedCfg.stress;
+      if(typeof savedCfg.mxW === 'boolean') $('mxWMode').checked = savedCfg.mxW;
+    }
+
+    $('thMode').addEventListener('change', async () => { await store.setItem('phonetic_cfg', cfgPh()); renderPhrases(); renderSelectedPreview(); updatePhoneticFromReference(); });
+    $('rMode').addEventListener('change', async () => { await store.setItem('phonetic_cfg', cfgPh()); renderPhrases(); renderSelectedPreview(); updatePhoneticFromReference(); });
+    $('stressMarks').addEventListener('change', async () => { await store.setItem('phonetic_cfg', cfgPh()); renderPhrases(); renderSelectedPreview(); updatePhoneticFromReference(); });
+    $('mxWMode').addEventListener('change', async () => { await store.setItem('phonetic_cfg', cfgPh()); renderPhrases(); renderSelectedPreview(); updatePhoneticFromReference(); });
+
+    // prefs
+    const fb = (await store.getItem('rss_fallback')) || 'vercel';
+    $('rssFallback').value = fb;
+
+    await loadDeckFromStore();
+    await loadPhrases();
+
+    showTab('podcasts');
+    updatePhoneticFromReference();
+
+    // búsqueda inicial
+    doPodcastSearch();
+    notyf.success('Listo ✅');
   }
+
   init();
 })();
 </script>
