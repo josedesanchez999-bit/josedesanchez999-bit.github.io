@@ -3,46 +3,52 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>English Practice (Premium · 1 HTML)</title>
+  <title>English Practice · Premium One-File</title>
 
-  <!-- ✅ CSS externos (tema premium + iconos + toasts + tooltips + fuentes) -->
+  <!-- CSS externos -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lux/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Sora:wght@500;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
   <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css">
 
   <style>
     :root{
-      --bg0:#0b1220;
-      --bg1:#0f172a;
-      --muted:#6b7280;
+      --bg0:#0a0f1e;
+      --bg1:#0e162b;
+      --muted:#788097;
       --ok:#16a34a;
       --bad:#ef4444;
       --warn:#f59e0b;
-      --brand:#4f46e5;
-      --brand2:#22c55e;
+      --brand1:#7c3aed; /* purple */
+      --brand2:#06b6d4; /* cyan */
+      --brand3:#22c55e; /* green */
+      --glassLight: rgba(255,255,255,.75);
+      --glassDark: rgba(255,255,255,.08);
       --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       --ui:"Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       --title:"Sora","Inter",system-ui,sans-serif;
       --radius:18px;
     }
 
+    /* Background premium con gradientes */
     body{
       font-family:var(--ui);
       background:
-        radial-gradient(1200px 900px at 20% 10%, rgba(79,70,229,.18), transparent 50%),
-        radial-gradient(1000px 700px at 90% 20%, rgba(34,197,94,.14), transparent 50%),
-        linear-gradient(180deg, #f8fafc, #f1f5f9);
+        radial-gradient(1200px 900px at 10% 10%, rgba(124,58,237,.14), transparent 50%),
+        radial-gradient(1000px 700px at 95% 20%, rgba(6,182,212,.12), transparent 50%),
+        radial-gradient(1000px 700px at 20% 90%, rgba(34,197,94,.10), transparent 50%),
+        linear-gradient(180deg, #f6f9fc, #eef2f7);
       min-height:100vh;
+      color:#0f172a;
     }
-
     body.dark{
       background:
-        radial-gradient(1200px 900px at 20% 10%, rgba(79,70,229,.22), transparent 50%),
-        radial-gradient(1000px 700px at 90% 20%, rgba(34,197,94,.18), transparent 50%),
+        radial-gradient(1200px 900px at 10% 10%, rgba(124,58,237,.22), transparent 50%),
+        radial-gradient(1000px 700px at 95% 20%, rgba(6,182,212,.20), transparent 50%),
+        radial-gradient(1000px 700px at 20% 90%, rgba(34,197,94,.16), transparent 50%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
       color:#e5e7eb;
     }
@@ -50,28 +56,44 @@
     .title{font-family:var(--title);letter-spacing:-.02em;}
     .mono{font-family:var(--mono);}
 
+    /* Header/Hero */
+    .hero{
+      border-radius:28px;
+      padding:22px 22px;
+      background:linear-gradient(120deg, rgba(124,58,237,.10), rgba(6,182,212,.10));
+      border:1px solid rgba(124,58,237,.18);
+      box-shadow:0 22px 60px rgba(15,23,42,.10), inset 0 1px 0 rgba(255,255,255,.28);
+      backdrop-filter:blur(10px);
+    }
+    body.dark .hero{
+      background:linear-gradient(120deg, rgba(124,58,237,.18), rgba(6,182,212,.16));
+      border-color:rgba(255,255,255,.10);
+      box-shadow:0 24px 70px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    /* Tarjetas de vidrio premium */
     .app-card{
       border:0;
-      border-radius:var(--radius);
-      box-shadow:0 14px 40px rgba(2,6,23,.10);
+      border-radius:22px;
+      box-shadow:0 18px 54px rgba(15,23,42,.12);
       overflow:hidden;
-      background:rgba(255,255,255,.86);
+      background:rgba(255,255,255,.75);
       backdrop-filter:blur(10px);
-      border:1px solid rgba(255,255,255,.35);
+      border:1px solid rgba(255,255,255,.45);
     }
     body.dark .app-card{
       background:rgba(255,255,255,.06);
       border-color:rgba(255,255,255,.10);
-      box-shadow:0 18px 50px rgba(0,0,0,.35);
+      box-shadow:0 22px 70px rgba(0,0,0,.42);
     }
 
     .soft{
-      background:rgba(79,70,229,.08);
-      border:1px solid rgba(79,70,229,.10);
+      background:linear-gradient(180deg, rgba(255,255,255,.64), rgba(255,255,255,.48));
+      border:1px solid rgba(15,23,42,.06);
       border-radius:16px;
     }
     body.dark .soft{
-      background:rgba(79,70,229,.12);
+      background:rgba(255,255,255,.08);
       border-color:rgba(255,255,255,.10);
     }
 
@@ -79,23 +101,43 @@
     body.dark .tiny{color:rgba(229,231,235,.75);}
 
     .pill{border-radius:999px !important;}
-    .btn-premium{border-radius:14px;padding:.65rem .95rem;box-shadow:0 10px 26px rgba(79,70,229,.12);}
+    .btn-premium{
+      border-radius:16px;
+      padding:.68rem 1rem;
+      box-shadow:0 10px 26px rgba(124,58,237,.18);
+      font-weight:700;
+      letter-spacing:.2px;
+      transform:translateZ(0);
+      transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
+    }
+    .btn-premium:hover{ transform:translateY(-1px); filter:brightness(1.02); }
+    .btn-gradient{
+      color:#fff !important;
+      background:linear-gradient(92deg, var(--brand1), var(--brand2));
+      border:0;
+    }
+    .btn-gradient:focus{ box-shadow:0 0 0 .25rem rgba(124,58,237,.22) !important; }
 
     .nav-premium .nav-link{
       border-radius:14px;
-      padding:.65rem .8rem;
+      padding:.7rem .9rem;
       font-weight:800;
       color:#0f172a;
       background:rgba(15,23,42,.04);
+      border:1px solid rgba(15,23,42,.06);
+      transition:transform .12s ease, box-shadow .12s ease;
     }
     body.dark .nav-premium .nav-link{
       color:#e5e7eb;
       background:rgba(255,255,255,.06);
+      border-color:rgba(255,255,255,.10);
     }
+    .nav-premium .nav-link:hover{ transform:translateY(-1px); }
     .nav-premium .nav-link.active{
-      background:linear-gradient(90deg, rgba(79,70,229,.92), rgba(34,197,94,.80));
+      background:linear-gradient(90deg, rgba(124,58,237,.90), rgba(6,182,212,.85));
       color:#fff;
-      box-shadow:0 12px 28px rgba(2,6,23,.15);
+      box-shadow:0 14px 34px rgba(15,23,42,.18);
+      border:0;
     }
 
     .list-compact .list-group-item{
@@ -105,12 +147,10 @@
       background:rgba(15,23,42,.03);
       transition:transform .12s ease, box-shadow .12s ease;
     }
-    body.dark .list-compact .list-group-item{
-      background:rgba(255,255,255,.06);
-    }
+    body.dark .list-compact .list-group-item{ background:rgba(255,255,255,.06); }
     .list-compact .list-group-item:hover{
       transform:translateY(-1px);
-      box-shadow:0 10px 25px rgba(2,6,23,.08);
+      box-shadow:0 12px 28px rgba(15,23,42,.10);
     }
 
     .word-ok{color:var(--ok);font-weight:900;}
@@ -130,14 +170,14 @@
       color:#e5e7eb;
     }
 
-    .page-pad{padding-top:18px;padding-bottom:24px;}
+    .page-pad{padding-top:22px;padding-bottom:30px;}
 
     .brand-badge{
-      width:40px;height:40px;border-radius:16px;
+      width:44px;height:44px;border-radius:16px;
       display:flex;align-items:center;justify-content:center;
-      background:linear-gradient(135deg, rgba(79,70,229,.95), rgba(34,197,94,.78));
+      background:linear-gradient(135deg, var(--brand1), var(--brand2));
       color:#fff;
-      box-shadow:0 14px 30px rgba(79,70,229,.20);
+      box-shadow:0 16px 36px rgba(124,58,237,.28);
       flex:0 0 auto;
     }
 
@@ -150,11 +190,11 @@
 
     .seg{
       display:inline-block;
-      padding:.15rem .4rem;
-      margin:.15rem .15rem 0 0;
+      padding:.18rem .48rem;
+      margin:.18rem .18rem 0 0;
       border-radius:999px;
-      background:rgba(79,70,229,.10);
-      border:1px solid rgba(79,70,229,.12);
+      background:rgba(124,58,237,.10);
+      border:1px solid rgba(124,58,237,.16);
       font-family:var(--mono);
       font-size:.86rem;
     }
@@ -162,44 +202,67 @@
       background:rgba(255,255,255,.08);
       border-color:rgba(255,255,255,.10);
     }
+
+    /* Reproductor minimal */
+    audio{
+      border-radius:12px;
+      outline:none;
+      width:100%;
+      background:transparent;
+    }
+
+    /* Chips */
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:.28rem .6rem;border-radius:999px;font-size:.86rem;font-weight:600;
+      background:linear-gradient(90deg, rgba(124,58,237,.10), rgba(6,182,212,.10));
+      border:1px solid rgba(124,58,237,.18);
+    }
+
+    /* Micro-animación de brillo en botones importantes */
+    .shine{
+      position:relative;overflow:hidden;
+    }
+    .shine::after{
+      content:""; position:absolute; inset:0; transform:translateX(-120%);
+      background:linear-gradient(120deg, transparent 0%, rgba(255,255,255,.35) 20%, transparent 42%);
+      transition:transform .8s ease;
+    }
+    .shine:hover::after{ transform:translateX(120%); }
+
+    /* Sombra al foco */
+    .focus-ring:focus{ box-shadow:0 0 0 .25rem rgba(6,182,212,.25) !important; }
   </style>
 </head>
 
 <body>
 <main class="container page-pad">
+  <!-- Hero superior -->
+  <div class="hero mb-3">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+      <div class="d-flex align-items-center gap-3">
+        <div class="brand-badge"><i class="fa-solid fa-sparkles"></i></div>
+        <div>
+          <div class="title fw-bold" style="font-size:1.6rem;letter-spacing:-.02em;">English Practice · Premium</div>
+          <div class="tiny">Podcasts + Frases online sin repetir + Pronunciación · 1 HTML</div>
+        </div>
+      </div>
+      <div class="d-flex gap-2">
+        <button id="themeBtn" class="btn btn-light pill btn-premium focus-ring" data-tippy-content="Tema claro/oscuro">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button id="helpBtn" class="btn btn-light pill btn-premium focus-ring" data-tippy-content="Ayuda rápida">
+          <i class="fa-regular fa-circle-question"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div class="row g-3">
 
     <!-- PANEL IZQUIERDO -->
     <div class="col-lg-4">
       <div class="app-card p-3">
-        <div class="d-flex justify-content-between align-items-center gap-2">
-          <div class="d-flex align-items-center gap-2">
-            <div class="brand-badge"><i class="fa-solid fa-headphones-simple"></i></div>
-            <div>
-              <div class="title fw-bold">English Practice</div>
-              <div class="tiny">Premium UI · 1 HTML · Sin barra superior</div>
-            </div>
-          </div>
-
-          <div class="d-flex gap-2">
-            <button id="themeBtn" class="btn btn-sm btn-light pill" data-tippy-content="Cambiar tema">
-              <i class="fa-solid fa-moon"></i>
-            </button>
-            <button id="helpBtn" class="btn btn-sm btn-light pill" data-tippy-content="Ayuda rápida">
-              <i class="fa-regular fa-circle-question"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="d-flex align-items-center justify-content-between mt-2">
-          <div class="tiny">
-            <i class="fa-solid fa-microphone-lines me-1"></i> Soporte de voz (SpeechRecognition)
-          </div>
-          <span id="supportBadge" class="badge rounded-pill text-bg-warning">Detectando…</span>
-        </div>
-
-        <hr class="my-3">
-
         <ul class="nav nav-pills nav-premium flex-column gap-2" id="tabs">
           <li class="nav-item"><button class="nav-link active" data-tab="podcasts"><i class="fa-solid fa-podcast me-2"></i>Podcasts</button></li>
           <li class="nav-item"><button class="nav-link" data-tab="phrases"><i class="fa-solid fa-quote-left me-2"></i>Frases</button></li>
@@ -210,47 +273,51 @@
 
         <div class="soft p-3">
           <div class="fw-semibold">Voz (TTS)</div>
-          <div class="tiny">Escuchar usa SpeechSynthesis del navegador.</div>
-          <select id="voiceSelect" class="form-select mt-2"></select>
+          <div class="tiny">Usa SpeechSynthesis del navegador.</div>
+          <select id="voiceSelect" class="form-select mt-2 focus-ring"></select>
         </div>
 
         <div class="soft p-3 mt-3">
-          <div class="fw-semibold">Frase seleccionada</div>
+          <div class="fw-semibold d-flex align-items-center justify-content-between">
+            <span>Frase seleccionada</span>
+            <span id="supportBadge" class="badge rounded-pill text-bg-warning">Mic…</span>
+          </div>
           <div id="selectedPhrasePreview" class="tiny mt-1">Ninguna</div>
           <div class="d-grid mt-2">
-            <button id="useSelectedBtn" class="btn btn-primary btn-premium">
+            <button id="useSelectedBtn" class="btn btn-gradient btn-premium shine">
               <i class="fa-solid fa-arrow-right me-2"></i>Usar en Pronunciación
             </button>
           </div>
         </div>
 
         <div class="soft p-3 mt-3">
-          <div class="fw-semibold">Pronunciación figurada (config)</div>
+          <div class="fw-semibold">Pronunciación figurada</div>
           <div class="tiny">Ajusta la guía a tu preferencia.</div>
           <div class="row g-2 mt-2">
             <div class="col-6">
               <label class="tiny fw-semibold">TH</label>
-              <select id="thMode" class="form-select form-select-sm">
+              <select id="thMode" class="form-select form-select-sm focus-ring">
                 <option value="d" selected>TH → “D” (MX)</option>
                 <option value="z">TH → “Z” (ES)</option>
               </select>
             </div>
             <div class="col-6">
               <label class="tiny fw-semibold">R</label>
-              <select id="rMode" class="form-select form-select-sm">
+              <select id="rMode" class="form-select form-select-sm focus-ring">
                 <option value="simple" selected>R simple</option>
                 <option value="marked">R marcada (er/ar)</option>
               </select>
             </div>
           </div>
           <div class="form-check form-switch mt-2">
-            <input class="form-check-input" type="checkbox" role="switch" id="stressMarks" checked>
+            <input class="form-check-input focus-ring" type="checkbox" role="switch" id="stressMarks" checked>
             <label class="form-check-label tiny" for="stressMarks">Marcar acento (á/é/í/ó/ú)</label>
           </div>
         </div>
 
         <div class="tiny mt-3">
-          <div><span class="kbd">Tip</span> Si “Frases de Internet” falla, abre la página con <span class="kbd">Live Server</span> (no con doble clic).</div>
+          <div class="chip"><i class="fa-solid fa-microphone-lines"></i><span>SpeechRecognition</span></div>
+          <div class="mt-2"><span class="kbd">Tip</span> Si algo externo falla, reintenta o usa <span class="kbd">Live Server</span>.</div>
         </div>
       </div>
     </div>
@@ -263,19 +330,19 @@
         <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
           <div>
             <div class="title fw-bold fs-4"><i class="fa-solid fa-podcast me-2"></i>Podcasts</div>
-            <div class="tiny">Busca podcasts y reproduce episodios.</div>
+            <div class="tiny">iTunes JSONP + rss2json JSONP (sin CORS).</div>
           </div>
-          <div class="soft px-3 py-2"><span class="tiny"><i class="fa-solid fa-wand-magic-sparkles me-1"></i>Premium UI</span></div>
+          <div class="chip"><i class="fa-solid fa-bolt"></i>Premium UI</div>
         </div>
 
         <hr class="my-3">
 
         <div class="row g-2">
           <div class="col-md-8">
-            <input id="podQuery" class="form-control form-control-lg" placeholder="Ej: english learning, science, business, news..." />
+            <input id="podQuery" class="form-control form-control-lg focus-ring" placeholder="Ej: english learning, science, business, news..." value="english learning" />
           </div>
           <div class="col-md-4 d-grid">
-            <button id="podSearchBtn" class="btn btn-primary btn-premium btn-lg">
+            <button id="podSearchBtn" class="btn btn-gradient btn-premium btn-lg shine">
               <i class="fa-solid fa-magnifying-glass me-2"></i>Buscar
             </button>
           </div>
@@ -285,7 +352,7 @@
 
         <div id="feedHeader" class="soft p-3 mt-3 d-none">
           <div class="d-flex gap-3 align-items-start">
-            <img id="feedArt" src="" alt="" style="width:92px;height:92px;border-radius:18px;object-fit:cover;">
+            <img id="feedArt" src="" alt="" style="width:92px;height:92px;border-radius:18px;object-fit:cover;" loading="lazy">
             <div class="flex-grow-1">
               <div id="feedTitle" class="fw-bold"></div>
               <div id="feedDesc" class="tiny truncate-2"></div>
@@ -311,13 +378,13 @@
         <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
           <div>
             <div class="title fw-bold fs-4"><i class="fa-solid fa-quote-left me-2"></i>Frases</div>
-            <div class="tiny">Crea tus frases o tráelas de Internet (con fallback).</div>
+            <div class="tiny">Internet sin repetir (baraja aleatoria con memoria entre sesiones).</div>
           </div>
           <div class="d-flex gap-2">
-            <button id="getInternetPhraseBtn" class="btn btn-outline-primary btn-premium" data-tippy-content="Traer una frase de Internet">
+            <button id="getInternetPhraseBtn" class="btn btn-outline-primary btn-premium focus-ring" data-tippy-content="Traer una frase de Internet">
               <i class="fa-solid fa-cloud-arrow-down me-2"></i>Internet
             </button>
-            <button id="clearCacheBtn" class="btn btn-outline-secondary btn-premium" data-tippy-content="Borra caché local de frases">
+            <button id="clearCacheBtn" class="btn btn-outline-secondary btn-premium focus-ring" data-tippy-content="Borrar caché de frases">
               <i class="fa-solid fa-broom me-2"></i>Caché
             </button>
           </div>
@@ -327,7 +394,7 @@
 
         <div class="row g-2">
           <div class="col-md-8">
-            <input id="newPhrase" class="form-control form-control-lg" placeholder="Escribe tu frase (corta o larga)..." />
+            <input id="newPhrase" class="form-control form-control-lg focus-ring" placeholder="Escribe tu frase (corta o larga)..." />
           </div>
           <div class="col-md-4 d-grid">
             <button id="addPhraseBtn" class="btn btn-success btn-premium btn-lg">
@@ -338,10 +405,10 @@
 
         <div class="row g-2 mt-2">
           <div class="col-md-8">
-            <input id="phraseSearch" class="form-control" placeholder="Buscar en tus frases..." />
+            <input id="phraseSearch" class="form-control focus-ring" placeholder="Buscar en tus frases..." />
           </div>
           <div class="col-md-4">
-            <select id="tagFilter" class="form-select">
+            <select id="tagFilter" class="form-select focus-ring">
               <option value="">Todos los tags</option>
             </select>
           </div>
@@ -368,21 +435,21 @@
         <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
           <div>
             <div class="title fw-bold fs-4"><i class="fa-solid fa-microphone-lines me-2"></i>Pronunciación</div>
-            <div class="tiny">Gratis: SpeechRecognition (aproximado) + TTS.</div>
+            <div class="tiny">SpeechRecognition (aproximado) + TTS.</div>
           </div>
           <span class="badge rounded-pill text-bg-warning" data-tippy-content="Aproximado: compara texto reconocido vs objetivo.">Aprox.</span>
         </div>
 
         <hr class="my-3">
 
-        <label class="form-label fw-semibold">Frase objetivo (lo que debes decir)</label>
-        <textarea id="referenceText" class="form-control form-control-lg" rows="3" placeholder="Ej: I would like to improve my English pronunciation."></textarea>
+        <label class="form-label fw-semibold">Frase objetivo</label>
+        <textarea id="referenceText" class="form-control form-control-lg focus-ring" rows="3" placeholder="Ej: I would like to improve my English pronunciation."></textarea>
 
         <div class="row g-2 mt-2">
           <div class="col-md-6">
             <div class="soft p-3 h-100">
               <div class="fw-semibold"><i class="fa-solid fa-language me-2"></i>Guía al español</div>
-              <div class="tiny">Te ayuda a leer el inglés con sonidos cercanos al español.</div>
+              <div class="tiny">Sonidos cercanos al español.</div>
               <div class="mono mt-2" id="phoneticFromReference">—</div>
               <div class="mt-2">
                 <div class="tiny fw-semibold">Segmentos:</div>
@@ -394,17 +461,17 @@
             <div class="soft p-3 h-100">
               <div class="fw-semibold"><i class="fa-solid fa-wand-magic-sparkles me-2"></i>Acciones</div>
               <div class="d-flex flex-wrap gap-2 mt-2">
-                <button id="ttsBtn" class="btn btn-secondary btn-premium" data-tippy-content="Escuchar con voz del navegador">
+                <button id="ttsBtn" class="btn btn-secondary btn-premium">
                   <i class="fa-solid fa-volume-high me-2"></i>Escuchar
                 </button>
-                <button id="startRecBtn" class="btn btn-primary btn-premium" data-tippy-content="Habla la frase para evaluar">
+                <button id="startRecBtn" class="btn btn-gradient btn-premium shine" data-tippy-content="Habla la frase para evaluar">
                   <i class="fa-solid fa-microphone me-2"></i>Probar
                 </button>
                 <button id="stopRecBtn" class="btn btn-outline-danger btn-premium d-none">
                   <i class="fa-solid fa-stop me-2"></i>Detener
                 </button>
               </div>
-              <div class="tiny mt-2">Si no funciona el micrófono, prueba Chrome/Edge y permite permisos.</div>
+              <div class="tiny mt-2">Si no funciona el micrófono, usa Chrome/Edge y permite permisos.</div>
             </div>
           </div>
         </div>
@@ -413,7 +480,7 @@
           <div class="col-md-4">
             <div class="soft p-3">
               <div class="tiny">Porcentaje</div>
-              <div id="scorePct" class="title fw-bold" style="font-size:2.2rem;">—</div>
+              <div id="scorePct" class="title fw-bold" style="font-size:2.3rem;">—</div>
             </div>
           </div>
           <div class="col-md-8">
@@ -434,38 +501,39 @@
   </div>
 </main>
 
-<!-- ✅ JS externos -->
+<!-- JS externos -->
 <script src="https://cdn.jsdelivr.net/npm/localforage@1.10.0/dist/localforage.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 <script src="https://unpkg.com/@popperjs/core@2"></script>
 <script src="https://unpkg.com/tippy.js@6"></script>
-<script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
 
 <script>
 (() => {
   const $ = (id) => document.getElementById(id);
-  const notyf = new Notyf({ duration: 2400, ripple: true, dismissible: true, position: { x:'right', y:'top' } });
+  const notyf = new Notyf({ duration: 2600, ripple: true, dismissible: true, position: { x:'right', y:'top' } });
   tippy('[data-tippy-content]', { animation: 'scale', theme: 'light-border' });
 
-  const store = localforage.createInstance({ name: "english_practice_single_html_fixed_v1" });
+  const store = localforage.createInstance({ name: "english_practice_premium_v1" });
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 
   const state = {
     phrases: [],
     selectedPhraseId: null,
-    quotesCache: null,
     phraseFuse: null,
     tags: new Set(),
-    howl: null,
     recognition: null,
     recognizing: false,
+
+    quotesDeck: [],
+    deckIndex: 0,
+    usedHashes: new Set()
   };
 
   const esc = (s="") => s.replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;" }[m]));
 
-  /* ---------------- Tabs ---------------- */
+  /* ---------------- Navegación ---------------- */
   function showTab(tab){
     ["podcasts","phrases","practice"].forEach(t => $("view-"+t).classList.toggle("d-none", t !== tab));
     document.querySelectorAll("#tabs .nav-link").forEach(btn => btn.classList.toggle("active", btn.dataset.tab === tab));
@@ -476,20 +544,17 @@
     showTab(btn.dataset.tab);
   });
 
-  /* ---------------- Theme ---------------- */
-  function applyTheme(isDark){
+  /* ---------------- Tema ---------------- */
+  async function applyTheme(isDark){
     document.body.classList.toggle("dark", isDark);
-    const icon = $("themeBtn").querySelector("i");
-    icon.className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
+    $("themeBtn").querySelector("i").className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
+    await store.setItem("theme_dark", isDark);
   }
   $("themeBtn").addEventListener("click", async () => {
-    const next = !document.body.classList.contains("dark");
-    await store.setItem("theme_dark", next);
-    applyTheme(next);
+    await applyTheme(!document.body.classList.contains("dark"));
   });
-
   $("helpBtn").addEventListener("click", () => {
-    notyf.open({ type: "info", message: "💡 Abre con Live Server (http://localhost) para que 'Internet' funcione. Podcasts: busca 'english learning'. Frases: agrega o trae. Pronunciación: Escuchar → Probar." });
+    notyf.open({ type: "info", message: "Podcasts: iTunes + rss2json via JSONP (sin CORS). Frases: Internet sin repetir, guardado en caché. Tema y guía fonética persistentes." });
   });
 
   /* ---------------- Speech support ---------------- */
@@ -503,7 +568,7 @@
     }
   }
 
-  /* ---------------- Voices (TTS) ---------------- */
+  /* ---------------- Voces (TTS) ---------------- */
   function loadVoices(){
     const voices = speechSynthesis.getVoices();
     const sel = $("voiceSelect");
@@ -516,6 +581,8 @@
       opt.textContent = `${v.name} (${v.lang})`;
       sel.appendChild(opt);
     });
+    store.getItem("tts_voice").then(name => { if (name && list.some(v => v.name === name)) sel.value = name; });
+    sel.addEventListener("change", () => store.setItem("tts_voice", sel.value));
   }
   speechSynthesis.onvoiceschanged = loadVoices;
   loadVoices();
@@ -530,7 +597,6 @@
     speechSynthesis.cancel();
     speechSynthesis.speak(u);
   }
-  $("ttsBtn").addEventListener("click", () => speak($("referenceText").value.trim()));
 
   /* ---------------- JSONP helper ---------------- */
   function jsonp(url, { timeout=16000, callbackParam="callback" } = {}) {
@@ -556,7 +622,7 @@
     });
   }
 
-  /* ---------------- Podcasts: iTunes JSONP + rss2json JSONP ---------------- */
+  /* ---------------- Podcasts (iTunes JSONP + rss2json JSONP) ---------------- */
   function renderPodcastResults(list){
     const box = $("podResults");
     if (!list.length){
@@ -574,13 +640,13 @@
           return `
             <button class="list-group-item text-start" data-feed="${esc(feedUrl)}">
               <div class="d-flex gap-3 align-items-start">
-                <img src="${esc(art)}" alt="" style="width:64px;height:64px;border-radius:14px;object-fit:cover;">
+                <img src="${esc(art)}" alt="" style="width:64px;height:64px;border-radius:14px;object-fit:cover;" loading="lazy" onerror="this.src='';">
                 <div class="flex-grow-1">
                   <div class="fw-bold">${esc(title)}</div>
                   <div class="tiny">${esc(author)}</div>
                   <div class="tiny mono truncate-2">${esc(feedUrl)}</div>
                 </div>
-                <div class="align-self-center"><i class="fa-solid fa-chevron-right"></i></div>
+                <div class="align-self-center chip"><i class="fa-solid fa-headphones"></i>Play</div>
               </div>
             </button>
           `;
@@ -592,7 +658,7 @@
 
   async function searchPodcasts(term){
     const q = encodeURIComponent(term.trim());
-    const url = `https://itunes.apple.com/search?term=${q}&media=podcast&entity=podcast&limit=14`;
+    const url = `https://itunes.apple.com/search?term=${q}&media=podcast&entity=podcast&limit=18`;
     const data = await jsonp(url, { callbackParam: "callback" });
     const results = (data && data.results) ? data.results : [];
     return results.filter(x => x.feedUrl);
@@ -612,9 +678,9 @@
     try{
       const list = await searchPodcasts(term);
       renderPodcastResults(list);
-      notyf.success("Resultados listos.");
+      notyf.success(`Resultados: ${list.length}`);
     } catch (e) {
-      notyf.error("No se pudo buscar. Intenta de nuevo.");
+      notyf.error("No se pudo buscar ahora. Intenta de nuevo.");
       $("podResults").innerHTML = `<div class="soft p-3 tiny">Error al buscar (temporal).</div>`;
       console.warn(e);
     } finally {
@@ -630,9 +696,8 @@
 
     try{
       const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
-      const data = await jsonp(api, { callbackParam: "callback", timeout: 18000 });
+      const data = await jsonp(api, { callbackParam: "callback", timeout: 20000 });
       if (data.status !== "ok") throw new Error(data.message || "rss2json error");
-
       const feed = data.feed || {};
       const items = Array.isArray(data.items) ? data.items : [];
 
@@ -672,30 +737,200 @@
           const url = btn.dataset.audio;
           const title = btn.dataset.title || "";
           $("nowPlaying").textContent = title;
-
-          try { if (state.howl) { state.howl.stop(); state.howl.unload(); } } catch {}
-          state.howl = new Howl({
-            src: [url],
-            html5: true,
-            onloaderror: () => notyf.error("No se pudo cargar el audio."),
-            onplayerror: () => notyf.error("No se pudo reproducir."),
-          });
-
-          $("player").src = url;
-          $("player").play().catch(()=>{});
-          state.howl.play();
+          const audio = $("player");
+          audio.src = url;
+          audio.play().catch(()=>{});
         });
       });
 
       notyf.success("Episodios cargados.");
     } catch (e) {
-      notyf.error("No se pudo cargar el RSS (límite/host).");
+      notyf.error("No se pudo cargar el RSS.");
       $("episodes").innerHTML = `<div class="soft p-3 tiny">Error cargando episodios. Intenta con otro podcast.</div>`;
       console.warn(e);
     }
   }
 
-  /* ---------------- Phrases ---------------- */
+  /* ---------------- Frases de Internet (sin repetir) ---------------- */
+  const FALLBACK_DECK = [
+    "Small progress is still progress. — Unknown",
+    "The secret of getting ahead is getting started. — Mark Twain",
+    "If you want to go fast, go alone. If you want to go far, go together. — African Proverb",
+    "Success is the sum of small efforts, repeated day in and day out. — Robert Collier",
+    "What we think, we become. — Buddha",
+    "Well done is better than well said. — Benjamin Franklin",
+    "It always seems impossible until it’s done. — Nelson Mandela",
+    "Action is the foundational key to all success. — Pablo Picasso",
+    "Quality is not an act, it is a habit. — Aristotle",
+    "Dream big and dare to fail. — Norman Vaughan",
+    "The best way out is always through. — Robert Frost",
+    "Either you run the day or the day runs you. — Jim Rohn",
+    "Don’t watch the clock; do what it does. Keep going. — Sam Levenson",
+    "Do one thing every day that scares you. — Eleanor Roosevelt",
+    "What you do today can improve all your tomorrows. — Ralph Marston",
+    "Everything you can imagine is real. — Pablo Picasso",
+    "Act as if what you do makes a difference. It does. — William James",
+    "The future depends on what you do today. — Mahatma Gandhi",
+    "Turn your wounds into wisdom. — Oprah Winfrey",
+    "No pressure, no diamonds. — Thomas Carlyle",
+    "Make each day your masterpiece. — John Wooden",
+    "A year from now you may wish you had started today. — Karen Lamb",
+    "If it matters to you, you’ll find a way. — Unknown",
+    "Slow progress is better than no progress. — Unknown",
+    "Learn from yesterday, live for today, hope for tomorrow. — Albert Einstein",
+    "Keep going. Be all in. — Bryan Hutchinson",
+    "The best time to plant a tree was 20 years ago. The second best time is now. — Chinese Proverb",
+    "You miss 100% of the shots you don’t take. — Wayne Gretzky",
+    "Stay hungry, stay foolish. — Steve Jobs",
+    "Do it with passion or not at all. — Rosa Nouchette Carey",
+    "Hope is a waking dream. — Aristotle",
+    "Great things never came from comfort zones. — Unknown",
+    "Doubt kills more dreams than failure ever will. — Suzy Kassem",
+    "Start where you are. Use what you have. Do what you can. — Arthur Ashe",
+    "Keep your face always toward the sunshine—and shadows will fall behind you. — Walt Whitman",
+    "Work hard in silence, let your success be your noise. — Frank Ocean",
+    "Dreams don’t work unless you do. — John C. Maxwell",
+    "The only way to do great work is to love what you do. — Steve Jobs",
+    "Done is better than perfect. — Sheryl Sandberg",
+    "Focus on being productive instead of busy. — Tim Ferriss",
+    "If you get tired, learn to rest, not to quit. — Banksy",
+    "Discipline is destiny. — Ryan Holiday",
+    "You are what you do, not what you say you’ll do. — Carl Jung",
+    "A little progress each day adds up to big results. — Unknown",
+    "Courage is grace under pressure. — Ernest Hemingway",
+    "The hard days are what make you stronger. — Aly Raisman",
+    "Don’t let yesterday take up too much of today. — Will Rogers",
+    "Win the morning, win the day. — Tim Ferriss",
+    "Your limitation—it’s only your imagination. — Unknown",
+    "Do the hard things. — Unknown"
+  ];
+
+  function sha1Like(s){
+    let h = 0, i = 0, len = s.length;
+    while (i < len) { h = (h << 5) - h + s.charCodeAt(i++) | 0; }
+    return String(h);
+  }
+  function shuffle(array){
+    for (let i=array.length-1;i>0;i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  async function loadDeckFromStore(){
+    const deck = await store.getItem("quotes_deck");
+    const idx = await store.getItem("quotes_deck_index");
+    const used = await store.getItem("quotes_used_hashes");
+    state.quotesDeck = Array.isArray(deck) ? deck : [];
+    state.deckIndex = Number.isInteger(idx) ? idx : 0;
+    state.usedHashes = new Set(Array.isArray(used) ? used : []);
+  }
+  async function saveDeck(){
+    await store.setItem("quotes_deck", state.quotesDeck);
+    await store.setItem("quotes_deck_index", state.deckIndex);
+    await store.setItem("quotes_used_hashes", Array.from(state.usedHashes));
+  }
+
+  async function providerQuotable(){
+    const url = "https://api.quotable.io/quotes/random?limit=60&tags=famous-quotes|wisdom|inspirational";
+    const r = await fetch(url, { cache:"no-store" });
+    if (!r.ok) throw new Error("Quotable HTTP " + r.status);
+    const arr = await r.json();
+    return (Array.isArray(arr) ? arr : []).map(x => ({
+      text: (x.content || "").trim(),
+      author: (x.author || "").trim()
+    })).filter(x => x.text.length >= 10 && x.text.length <= 200);
+  }
+  async function providerTypeFit(){
+    const url = "https://type.fit/api/quotes";
+    const r = await fetch(url, { cache:"no-store" });
+    if (!r.ok) throw new Error("type.fit HTTP " + r.status);
+    const arr = await r.json();
+    return (Array.isArray(arr) ? arr : []).map(x => ({
+      text: (x.text || "").trim(),
+      author: (x.author || "").trim()
+    })).filter(x => x.text.length >= 10 && x.text.length <= 200).slice(0, 600);
+  }
+
+  async function buildNewDeck(){
+    let combined = [];
+    try{
+      const [q1, q2] = await Promise.allSettled([providerQuotable(), providerTypeFit()]);
+      if (q1.status === "fulfilled") combined = combined.concat(q1.value);
+      if (q2.status === "fulfilled") combined = combined.concat(q2.value);
+    } catch {}
+    if (!combined.length){
+      combined = FALLBACK_DECK.map(t => {
+        const parts = t.split(" — ");
+        return { text: parts[0], author: parts[1] || "" };
+      });
+    }
+    const seen = new Set();
+    const cleaned = [];
+    for (const q of combined){
+      const key = q.text.trim().toLowerCase();
+      if (seen.has(key)) continue;
+      seen.add(key);
+      const h = sha1Like(key);
+      if (state.usedHashes.has(h)) continue;
+      cleaned.push(q);
+    }
+    shuffle(cleaned);
+    state.quotesDeck = cleaned;
+    state.deckIndex = 0;
+    await saveDeck();
+  }
+
+  async function getNextQuote(){
+    if (!state.quotesDeck.length || state.deckIndex >= state.quotesDeck.length){
+      await buildNewDeck();
+      if (!state.quotesDeck.length){
+        state.usedHashes = new Set();
+        await buildNewDeck();
+      }
+    }
+    const q = state.quotesDeck[state.deckIndex++];
+    if (!q) return null;
+    const h = sha1Like(q.text.trim().toLowerCase());
+    state.usedHashes.add(h);
+    await saveDeck();
+    return q;
+  }
+
+  $("getInternetPhraseBtn").addEventListener("click", async () => {
+    try{
+      $("getInternetPhraseBtn").disabled = true;
+      $("getInternetPhraseBtn").innerHTML = `<i class="fa-solid fa-spinner fa-spin me-2"></i>Cargando…`;
+
+      const q = await getNextQuote();
+      if (!q) throw new Error("No hay frases disponibles ahora.");
+      const text = q.author ? `${q.text} — ${q.author}` : q.text;
+
+      state.phrases.unshift({ id: crypto.randomUUID(), text, createdAt: Date.now(), tags:["internet"], source:"internet" });
+      await savePhrases();
+      rebuildTags(); buildFuse(); renderTagFilter();
+      renderPhrases(); renderSelectedPreview();
+      notyf.success("Frase agregada (sin repetir).");
+    } catch (err){
+      notyf.error("Error: " + (err?.message || err));
+    } finally{
+      $("getInternetPhraseBtn").disabled = false;
+      $("getInternetPhraseBtn").innerHTML = `<i class="fa-solid fa-cloud-arrow-down me-2"></i>Internet`;
+    }
+  });
+
+  $("clearCacheBtn").addEventListener("click", async () => {
+    await store.removeItem("quotes_deck");
+    await store.removeItem("quotes_deck_index");
+    await store.removeItem("quotes_used_hashes");
+    state.quotesDeck = [];
+    state.deckIndex = 0;
+    state.usedHashes = new Set();
+    notyf.success("Caché de frases limpiada.");
+  });
+
+  /* ---------------- Phrases CRUD + búsqueda ---------------- */
   function rebuildTags(){
     state.tags = new Set();
     state.phrases.forEach(p => (p.tags || []).forEach(t => state.tags.add(t)));
@@ -838,6 +1073,10 @@
     });
   }
 
+  // Accesos rápidos: Enter en buscar y agregar
+  $("podQuery").addEventListener("keydown", (e)=>{ if(e.key==="Enter") $("podSearchBtn").click(); });
+  $("newPhrase").addEventListener("keydown", (e)=>{ if(e.key==="Enter") $("addPhraseBtn").click(); });
+
   $("addPhraseBtn").addEventListener("click", async () => {
     const t = $("newPhrase").value.trim();
     if (!t) return notyf.error("Escribe una frase.");
@@ -861,96 +1100,7 @@
     notyf.success("Frase enviada a Pronunciación.");
   });
 
-  /* ---------- ✅ Frases de Internet corregido (con diagnóstico + fallback) ---------- */
-  const FALLBACK_QUOTES = [
-    { text: "Success is the sum of small efforts, repeated day in and day out.", author: "Robert Collier" },
-    { text: "The secret of getting ahead is getting started.", author: "Mark Twain" },
-    { text: "If you want to go fast, go alone. If you want to go far, go together.", author: "Proverb" },
-    { text: "Small progress is still progress.", author: "Unknown" },
-  ];
-
-  async function getQuotesCache(){
-    if (state.quotesCache && Array.isArray(state.quotesCache) && state.quotesCache.length) return state.quotesCache;
-
-    const cached = await store.getItem("quotesCache");
-    if (Array.isArray(cached) && cached.length){
-      state.quotesCache = cached;
-      return cached;
-    }
-
-    const url = "https://type.fit/api/quotes";
-
-    let resp;
-    try{
-      resp = await fetch(url, { cache: "no-store" });
-    } catch (err){
-      throw new Error(
-        "Fallo de red al pedir frases. Si abriste el HTML con doble clic (file://), usa Live Server/localhost. " +
-        "Detalle: " + (err?.message || err)
-      );
-    }
-
-    if (!resp.ok){
-      const text = await resp.text().catch(()=> "");
-      throw new Error(`HTTP ${resp.status} al pedir frases. Resp: ${text.slice(0,120)}...`);
-    }
-
-    let data;
-    try{
-      data = await resp.json();
-    } catch {
-      throw new Error("La respuesta no fue JSON válido (posible bloqueo/proxy).");
-    }
-
-    const cleaned = (Array.isArray(data) ? data : [])
-      .filter(x => x && typeof x.text === "string" && x.text.trim().length)
-      .map(x => ({ text: x.text.trim(), author: (x.author || "").trim() }))
-      .filter(x => x.text.length >= 10 && x.text.length <= 180);
-
-    if (!cleaned.length) throw new Error("La API respondió pero sin frases útiles.");
-
-    await store.setItem("quotesCache", cleaned);
-    state.quotesCache = cleaned;
-    return cleaned;
-  }
-
-  $("getInternetPhraseBtn").addEventListener("click", async () => {
-    try{
-      $("getInternetPhraseBtn").disabled = true;
-      $("getInternetPhraseBtn").innerHTML = `<i class="fa-solid fa-spinner fa-spin me-2"></i>Cargando…`;
-
-      let quotes;
-      try{
-        quotes = await getQuotesCache();
-      } catch (e){
-        console.warn("API frases falló, usando fallback:", e);
-        quotes = FALLBACK_QUOTES;
-        notyf.open({ type: "warning", message: "No pude acceder a la API. Usando frases de respaldo." });
-      }
-
-      const q = quotes[Math.floor(Math.random() * quotes.length)];
-      const text = q.author ? `${q.text} — ${q.author}` : q.text;
-
-      state.phrases.unshift({ id: crypto.randomUUID(), text, createdAt: Date.now(), tags:["internet"], source:"internet" });
-      await savePhrases();
-      rebuildTags(); buildFuse(); renderTagFilter();
-      renderPhrases(); renderSelectedPreview();
-      notyf.success("Frase agregada.");
-    } catch (err){
-      notyf.error("Error: " + (err?.message || err));
-    } finally{
-      $("getInternetPhraseBtn").disabled = false;
-      $("getInternetPhraseBtn").innerHTML = `<i class="fa-solid fa-cloud-arrow-down me-2"></i>Internet`;
-    }
-  });
-
-  $("clearCacheBtn").addEventListener("click", async () => {
-    await store.removeItem("quotesCache");
-    state.quotesCache = null;
-    notyf.success("Caché limpiada.");
-  });
-
-  /* ---------------- Pronunciation (SpeechRecognition) ---------------- */
+  /* ---------------- SpeechRecognition ---------------- */
   function normalizeWords(text){
     return text.toLowerCase().replace(/[^a-z0-9\s']/g," ").replace(/\s+/g," ").trim().split(" ").filter(Boolean);
   }
@@ -1053,17 +1203,16 @@
   $("startRecBtn").addEventListener("click", startRecognition);
   $("stopRecBtn").addEventListener("click", stopRecognition);
 
-  /* ---------------- Pronunciación figurada al español (configurable) ---------------- */
+  /* ---------------- Pronunciación figurada ---------------- */
   function cfg(){
     return {
-      th: $("thMode").value,      // "d" o "z"
-      r: $("rMode").value,        // "simple" o "marked"
+      th: $("thMode").value,
+      r: $("rMode").value,
       stress: $("stressMarks").checked
     };
   }
-  $("thMode").addEventListener("change", () => { renderPhrases(); renderSelectedPreview(); updatePhoneticFromReference(); });
-  $("rMode").addEventListener("change", () => { renderPhrases(); renderSelectedPreview(); updatePhoneticFromReference(); });
-  $("stressMarks").addEventListener("change", () => { renderPhrases(); renderSelectedPreview(); updatePhoneticFromReference(); });
+  async function saveCfg(){ await store.setItem("phonetic_cfg", cfg()); }
+  ["thMode","rMode","stressMarks"].forEach(id => $(id).addEventListener("change", async ()=>{ await saveCfg(); renderPhrases(); renderSelectedPreview(); updatePhoneticFromReference(); }));
 
   function englishToSpanishPhonetic(text){
     const words=(text||"").replace(/[“”]/g,'"').replace(/[‘’]/g,"'").split(/\s+/).filter(Boolean);
@@ -1122,8 +1271,7 @@
   }
 
   function addStressMark(w){
-    const vowels="aeiou";
-    const pos=[];
+    const vowels="aeiou"; const pos=[];
     for(let i=0;i<w.length;i++) if(vowels.includes(w[i])) pos.push(i);
     if(pos.length<=1) return w;
     const idx=pos[Math.max(0,pos.length-2)];
@@ -1148,20 +1296,21 @@
 
   /* ---------------- Init ---------------- */
   async function init(){
-    // Aviso si se abre con file:// (causa común de fallo de fetch)
-    if (location.protocol === "file:") {
-      notyf.open({ type:"warning", message:"⚠️ Estás en file://. Usa Live Server o http://localhost para que 'Internet' funcione." });
-    }
+    const dark = !!(await store.getItem("theme_dark"));
+    document.body.classList.toggle("dark", dark);
+    $("themeBtn").querySelector("i").className = dark ? "fa-solid fa-sun" : "fa-solid fa-moon";
 
-    applyTheme(!!(await store.getItem("theme_dark")));
     setupSpeechSupport();
-
     await loadPhrases();
+    await loadDeckFromStore();
+
     renderPhrases();
     renderSelectedPreview();
-
     showTab("podcasts");
     updatePhoneticFromReference();
+
+    // Búsqueda inicial
+    $("podSearchBtn").click();
 
     notyf.success("Listo ✅");
   }
