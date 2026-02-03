@@ -2,1364 +2,1038 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>English Practice · Completo (Podcasts + Frases + Pronunciación)</title>
-
-  <!-- CSS externos -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lux/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Sora:wght@500;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css">
-
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#070b16" />
+  <title>Podcasts · 6 en 6 — Premium</title>
   <style>
+    /* =========================================================
+       Podcasts · 6 en 6 — PREMIUM UI (v4 + copy llamativo)
+       - Diseño tipo app premium (glass + depth + micro-interactions)
+       - PC: sidebar + content
+       - Móvil: bottom sheet + sticky player
+       - Sin frameworks, funciona local (JSONP)
+       ========================================================= */
+
     :root{
-      --bg0:#0a0f1e; --bg1:#0e162b; --muted:#788097;
-      --ok:#16a34a; --bad:#ef4444; --brand1:#7c3aed; --brand2:#06b6d4;
-      --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      --ui:"Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      --title:"Sora","Inter",system-ui,sans-serif;
-      --radius:18px;
+      --bg0:#040713; --bg1:#070b16;
+      --text:#f3f6ff;
+      --muted: rgba(243,246,255,.74);
+      --muted2: rgba(243,246,255,.56);
+      --border: rgba(255,255,255,.10);
+      --border2: rgba(255,255,255,.16);
+
+      --a:#8b5cf6; --b:#22d3ee; --c:#fb7185;
+
+      --ok:#22c55e; --bad:#ef4444; --warn:#f59e0b;
+
+      --shadow: 0 26px 60px rgba(0,0,0,.58);
+      --shadow2: 0 14px 28px rgba(0,0,0,.38);
+      --shadow3: 0 10px 18px rgba(0,0,0,.28);
+
+      --r: 22px; --r2: 18px;
+      --max: 1240px; --gap: 14px;
+
+      --h1: clamp(18px, 1.2vw + 14px, 22px);
+      --h2: clamp(14px, .75vw + 12px, 17px);
+      --p:  clamp(13px, .5vw + 11px, 14px);
+      --small: 12px;
+
+      --ring: 0 0 0 4px rgba(34,211,238,.18);
+      color-scheme: dark;
     }
-    *{ -webkit-tap-highlight-color: transparent; }
-    @media (prefers-reduced-motion: reduce){
-      *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
-    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+
     body{
-      font-family:var(--ui);
+      margin:0;
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
       background:
-        radial-gradient(1100px 800px at 10% 10%, rgba(124,58,237,.14), transparent 50%),
-        radial-gradient(900px 600px at 95% 20%, rgba(6,182,212,.12), transparent 50%),
-        linear-gradient(180deg, #f6f9fc, #eef2f7);
-      min-height:100vh; color:#0f172a;
-    }
-    body.dark{
-      background:
-        radial-gradient(1100px 800px at 10% 10%, rgba(124,58,237,.22), transparent 50%),
-        radial-gradient(900px 600px at 95% 20%, rgba(6,182,212,.20), transparent 50%),
+        radial-gradient(900px 600px at 8% 12%, rgba(139,92,246,.30), transparent 55%),
+        radial-gradient(900px 650px at 92% 16%, rgba(34,211,238,.22), transparent 55%),
+        radial-gradient(1000px 700px at 55% 96%, rgba(251,113,133,.10), transparent 55%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
-      color:#e5e7eb;
-    }
-    .title{ font-family:var(--title); letter-spacing:-.02em; }
-    .mono{ font-family:var(--mono); }
-    .tiny{ font-size:.92rem; color:var(--muted); }
-    body.dark .tiny{ color:rgba(229,231,235,.75); }
-
-    .app-card{
-      border:0; border-radius:var(--radius);
-      background:rgba(255,255,255,.78);
-      backdrop-filter:blur(10px);
-      border:1px solid rgba(255,255,255,.45);
-      box-shadow:0 14px 40px rgba(2,6,23,.10);
-    }
-    body.dark .app-card{
-      background:rgba(255,255,255,.06);
-      border-color:rgba(255,255,255,.10);
-      box-shadow:0 18px 50px rgba(0,0,0,.35);
-    }
-    .soft{
-      background:rgba(255,255,255,.66);
-      border:1px solid rgba(15,23,42,.06);
-      border-radius:16px;
-    }
-    body.dark .soft{
-      background:rgba(255,255,255,.08);
-      border-color:rgba(255,255,255,.10);
+      min-height:100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    .nav-premium .nav-link{
-      border-radius:14px; padding:.65rem .85rem; font-weight:800;
-      background:rgba(15,23,42,.04); border:1px solid rgba(15,23,42,.06);
+    /* subtle noise */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.10;
+      mix-blend-mode: overlay;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
     }
-    body.dark .nav-premium .nav-link{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.10); color:#e5e7eb; }
-    .nav-premium .nav-link.active{
-      background:linear-gradient(90deg, rgba(124,58,237,.90), rgba(6,182,212,.85));
-      color:#fff; border:0; box-shadow:0 12px 28px rgba(2,6,23,.15);
+
+    .container{ max-width: var(--max); margin: 0 auto; padding: 16px; position:relative; }
+
+    /* Appbar */
+    .appbar{
+      position: sticky;
+      top: 10px;
+      z-index: 30;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      background:
+        radial-gradient(120% 220% at 0% 0%, rgba(255,255,255,.12), transparent 40%),
+        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow2);
     }
 
-    .list-compact .list-group-item{
-      border:0; border-radius:16px; margin-bottom:10px;
-      background:rgba(15,23,42,.03);
+    .brand{ display:flex; align-items:center; gap:12px; min-width:0; }
+    .logo{
+      width:46px; height:46px;
+      border-radius: 18px;
+      display:grid;
+      place-items:center;
+      background: linear-gradient(135deg, var(--a), var(--b));
+      box-shadow: 0 16px 24px rgba(0,0,0,.38);
+      font-weight: 950;
+      flex: 0 0 auto;
     }
-    body.dark .list-compact .list-group-item{ background:rgba(255,255,255,.06); }
 
-    .brand-badge{
-      width:40px;height:40px;border-radius:16px; display:flex; align-items:center; justify-content:center;
-      background:linear-gradient(135deg, var(--brand1), var(--brand2)); color:#fff;
+    .brandText{ min-width:0; }
+    .title{ font-size: var(--h1); font-weight: 950; letter-spacing: -.02em; margin:0; }
+    .subtitle{ font-size: var(--p); color: var(--muted); line-height: 1.35; }
+
+    .rightTop{ display:flex; align-items:center; gap:10px; }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.11);
+      background: rgba(255,255,255,.06);
+      font-size: 13px;
+      color: var(--muted);
+      white-space: nowrap;
     }
-    .truncate-2{
-      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+
+    /* Buttons */
+    .btn{
+      cursor:pointer;
+      border: 1px solid transparent;
+      color: white;
+      font-weight: 900;
+      padding: 12px 12px;
+      border-radius: 16px;
+      user-select:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      box-shadow: 0 16px 30px rgba(0,0,0,.32);
+      background:
+        radial-gradient(120% 180% at 10% 0%, rgba(255,255,255,.20), transparent 38%),
+        linear-gradient(90deg, rgba(139,92,246,.98), rgba(34,211,238,.92));
+      transition: transform .10s ease, filter .12s ease, box-shadow .12s ease;
     }
-    .thumb-64{ width:64px; height:64px; border-radius:14px; object-fit:cover; flex:0 0 auto; }
+    .btn:hover{ filter: brightness(1.05); box-shadow: 0 18px 36px rgba(0,0,0,.38); }
+    .btn:active{ transform: translateY(1px) scale(.99); }
+    .btn:disabled{ opacity:.55; cursor:not-allowed; box-shadow:none; }
 
-    .skeleton{ border-radius:14px; height:74px; background:linear-gradient(90deg, rgba(148,163,184,.18), rgba(148,163,184,.28), rgba(148,163,184,.18)); background-size:200% 100%; animation:shimmer 1.1s infinite; margin-bottom:10px; }
-    body.dark .skeleton{ background:linear-gradient(90deg, rgba(255,255,255,.06), rgba(255,255,255,.12), rgba(255,255,255,.06)); }
-    @keyframes shimmer{ 0%{ background-position:200% 0; } 100%{ background-position:-200% 0; } }
+    .btn.secondary{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.12);
+      color: var(--text);
+      font-weight: 850;
+      box-shadow:none;
+    }
+    .btn.secondary:hover{ background: rgba(255,255,255,.10); }
 
-    .seg{ display:inline-block; padding:.15rem .4rem; margin:.15rem .15rem 0 0; border-radius:999px;
-          background:rgba(124,58,237,.10); border:1px solid rgba(124,58,237,.16); font-family:var(--mono); font-size:.86rem; }
-    body.dark .seg{ background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.10); }
+    .btn.ghost{
+      background: rgba(255,255,255,.045);
+      border-color: rgba(255,255,255,.10);
+      color: var(--text);
+      box-shadow:none;
+    }
+    .btn.ghost:hover{ background: rgba(255,255,255,.07); }
 
-    .word-ok{ color:var(--ok); font-weight:900; }
-    .word-bad{ color:var(--bad); font-weight:900; }
+    .btn.sm{ padding: 9px 11px; border-radius: 14px; font-size: 13px; }
+    .btn.block{ width:100%; }
 
-    .pagination .page-link{ border-radius:12px; margin:0 3px; font-weight:700; }
-    .pagination .page-item.active .page-link{ background:linear-gradient(90deg, rgba(124,58,237,.90), rgba(6,182,212,.85)); border-color:transparent; }
-    body.dark .pagination .page-link{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.10); color:#e5e7eb; }
-    body.dark .pagination .page-item.active .page-link{ color:#fff; }
+    .icon{ width:18px; height:18px; fill: currentColor; opacity:.95; }
 
-    .inline-controls{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-    .badge-provider{ font-weight:700; }
-  </style>
+    /* Layout */
+    .grid{ display:grid; grid-template-columns: 410px 1fr; gap: var(--gap); margin-top: var(--gap); align-items:start; }
+
+    .panel{
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--r);
+      background:
+        radial-gradient(120% 220% at 0% 0%, rgba(255,255,255,.10), transparent 40%),
+        linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.045));
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+
+    .panelHeader{
+      padding: 14px 14px 10px 14px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.10);
+    }
+
+    .panelTitle{ font-weight: 950; font-size: 16px; }
+    .panelSub{ margin-top: 2px; font-size: var(--p); color: var(--muted); line-height: 1.35; }
+    .panelBody{ padding: 14px; }
+
+    .divider{ height:1px; background: linear-gradient(90deg, transparent, var(--border2), transparent); margin: 12px 0; }
+
+    /* Inputs */
+    label.hint{ display:block; margin: 0 0 6px 0; font-size: var(--small); color: rgba(243,246,255,.82); }
+    .field{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(120% 240% at 0% 0%, rgba(255,255,255,.12), transparent 40%),
+        rgba(0,0,0,.22);
+      color: var(--text);
+      outline: none;
+      transition: border-color .15s ease, box-shadow .15s ease;
+    }
+    .field::placeholder{ color: var(--muted2); }
+    .field:focus{ border-color: rgba(34,211,238,.55); box-shadow: var(--ring); }
+
+    .row{ display:flex; gap:10px; flex-wrap:wrap; }
+    .row > *{ flex:1; min-width: 150px; }
+
+    /* Lists */
+    .list{ display:flex; flex-direction:column; gap:10px; margin-top: 10px; }
+
+    .cardItem{
+      border: 1px solid rgba(255,255,255,.11);
+      background:
+        radial-gradient(120% 260% at 0% 0%, rgba(255,255,255,.10), transparent 40%),
+        rgba(0,0,0,.16);
+      border-radius: 20px;
+      padding: 12px;
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .cardItem:hover{ transform: translateY(-1px); background: rgba(0,0,0,.20); border-color: rgba(255,255,255,.18); }
+    .cardItem.clickable{ cursor:pointer; }
+    .cardItem.clickable:active{ transform: translateY(0) scale(.995); }
+
+    .thumb{ width:74px; height:74px; border-radius: 20px; object-fit: cover; background: rgba(255,255,255,.07); flex: 0 0 auto; box-shadow: 0 16px 20px rgba(0,0,0,.26); }
+    .grow{ flex:1; min-width:0; }
+    .h2{ font-weight: 950; margin: 0 0 5px 0; font-size: var(--h2); }
+    .meta{ font-size: var(--p); color: var(--muted); line-height: 1.35; }
+    .mono{ margin-top: 6px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 12px; color: rgba(243,246,255,.60); }
+    .actions{ margin-left:auto; display:flex; flex-direction:column; gap:8px; align-items:flex-end; }
+
+    .badgeSmall{ display:inline-flex; align-items:center; gap:6px; padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.06); color: rgba(243,246,255,.78); font-size: 12px; width: fit-content; }
+
+    /* Pager */
+    .pager{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:flex-end; margin-top: 10px; }
+    .pagebtn{ padding: 9px 11px; border-radius: 14px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.06); color: var(--text); font-weight: 850; transition: background .12s ease, transform .08s ease; }
+    .pagebtn:hover{ background: rgba(255,255,255,.09); }
+    .pagebtn:active{ transform: translateY(1px); }
+    .pagebtn.active{ background: linear-gradient(90deg, rgba(139,92,246,.92), rgba(34,211,238,.88)); border-color: transparent; }
+
+    /* Toast */
+    .toast{ margin-top: 10px; padding: 10px 12px; border-radius: 16px; border: 1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.22); color: var(--muted); }
+    .toast.ok{ border-color: rgba(34,197,94,.35); color: rgba(187,247,208,.95); background: rgba(34,197,94,.08); }
+    .toast.bad{ border-color: rgba(239,68,68,.35); color: rgba(254,202,202,.95); background: rgba(239,68,68,.08); }
+    .toast.warn{ border-color: rgba(245,158,11,.35); color: rgba(254,215,170,.95); background: rgba(245,158,11,.08); }
+
+    .note{ font-size: 12px; color: rgba(243,246,255,.62); }
+
+    /* Skeleton */
+    .skeleton{ position:relative; overflow:hidden; }
+    .skeleton::before{ content:""; position:absolute; inset:0; background: linear-gradient(90deg, rgba(255,255,255,.03), rgba(255,255,255,.16), rgba(255,255,255,.03)); transform: translateX(-100%); animation: shimmer 1.05s infinite; }
+    @keyframes shimmer{ 100%{ transform: translateX(100%); } }
+    .skRow{ display:flex; gap:12px; align-items:center; }
+    .skThumb{ width:74px; height:74px; border-radius:20px; background: rgba(255,255,255,.06); }
+    .skLine{ height:12px; border-radius:10px; background: rgba(255,255,255,.06); }
+
+    /* Player */
+    .playerBox{ margin-top: 10px; padding: 12px; border-radius: 20px; border:1px solid rgba(255,255,255,.12);
+      background: radial-gradient(120% 220% at 0% 0%, rgba(255,255,255,.10), transparent 40%), rgba(0,0,0,.24);
+      box-shadow: var(--shadow3);
+    }
+    audio{ width:100%; margin-top: 10px; border-radius: 14px; overflow:hidden; }
+
+    /* Mobile */
+    #backdrop{ position:fixed; inset:0; background: rgba(0,0,0,.66); backdrop-filter: blur(12px); display:none; z-index:40; }
+    #openSearchBtn{ display:none; }
+
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+      .pill{ display:none; }
+      #openSearchBtn{ display:inline-flex; }
+
+      #searchPanel{ position: fixed; left: 0; right: 0; bottom: 0; transform: translateY(110%); max-height: 86vh; z-index: 50; border-radius: 26px 26px 0 0; box-shadow: var(--shadow); }
+      body.panel-open #searchPanel{ transform: translateY(0%); transition: transform .20s ease; }
+      body.panel-open #backdrop{ display:block; }
+
+      .cardItem{ flex-direction: column; align-items: stretch; }
+      .thumb{ width:92px; height:92px; border-radius: 22px; }
+      .actions{ margin-left:0; width:100%; flex-direction: row; align-items: stretch; gap:10px; }
+      .actions .btn{ width:100%; }
+
+      .playerBox{ position: sticky; bottom: 10px; }
+      .btn{ border-radius: 18px; }
+    }
+
+    .mobileOnly{ display:none; }
+    @media (max-width: 980px){ .mobileOnly{ display:inline-flex; } }
+
+    :focus-visible{ outline:none; box-shadow: var(--ring); }
+    @media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
+  
+
+/* =========================
+   Reproductor PRO (custom)
+========================= */
+.proPlayer{ padding: 14px; }
+.proControls{ display:flex; gap:12px; align-items:flex-start; }
+.proMain{ flex:0 0 auto; width:54px; height:54px; padding:0; border-radius: 18px; display:grid; place-items:center; }
+.proCenter{ flex:1; min-width:0; }
+.proTopLine{ display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.proTime{ font-weight: 950; font-size: 13px; color: rgba(243,246,255,.92); white-space:nowrap; }
+.proTime small{ color: var(--muted); font-weight: 850; }
+.proRight{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+.proSelect{ width:auto; padding: 10px 10px; border-radius: 14px; font-weight: 900; }
+
+.proRange{ width:100%; -webkit-appearance:none; appearance:none; height: 8px; border-radius: 999px; background: rgba(255,255,255,.12); outline:none; position:relative; overflow:hidden; }
+.proRange::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none; width:18px; height:18px; border-radius:999px; background:#fff; box-shadow: 0 0 0 5px rgba(34,211,238,.16); border: 1px solid rgba(0,0,0,.35); }
+.proRange::-moz-range-thumb{ width:18px; height:18px; border-radius:999px; background:#fff; border: 1px solid rgba(0,0,0,.35); }
+
+.proRangeWrap{ position:relative; margin-top:10px; border-radius: 999px; }
+.proRangeWrap::before{ content:""; position:absolute; inset:0; border-radius:999px; width: var(--fill, 0%); background: linear-gradient(90deg, rgba(139,92,246,.95), rgba(34,211,238,.85)); pointer-events:none; }
+.proRangeWrap > input{ position:relative; background: transparent; }
+
+.proVolRow{ display:flex; gap:10px; align-items:center; margin-top:12px; flex-wrap:wrap; }
+
+/* make secondary small buttons tighter on player */
+.proPlayer .btn.secondary.sm{ padding: 9px 10px; border-radius: 14px; }
+
+@media (max-width: 980px){
+  .proControls{ align-items:stretch; }
+  .proMain{ width:56px; height:56px; }
+}
+
+</style>
 </head>
-
 <body>
-<main class="container py-3">
-  <div class="app-card p-3 mb-3">
-    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-      <div class="d-flex align-items-center gap-2">
-        <div class="brand-badge"><i class="fa-solid fa-sparkles"></i></div>
-        <div>
-          <div class="title fw-bold">English Practice</div>
-          <div class="tiny">Completo y estable · Podcasts + Frases + Pronunciación</div>
+  <div class="container">
+    <header class="appbar" aria-label="Barra superior">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">🎙️</div>
+        <div class="brandText">
+          <div class="title">Podcasts · 6 en 6 <span style="opacity:.75;font-weight:850;">Premium</span></div>
+          <div class="subtitle">Descubre, explora y escucha los mejores podcasts. Encuentra historias, ideas y conversaciones que valen la pena.</div>
         </div>
       </div>
-      <div class="d-flex gap-2">
-        <button id="themeBtn" class="btn btn-sm btn-light" data-tippy-content="Cambiar tema"><i class="fa-solid fa-moon"></i></button>
-        <button id="helpBtn" class="btn btn-sm btn-light" data-tippy-content="Ayuda rápida"><i class="fa-regular fa-circle-question"></i></button>
+      <div class="rightTop">
+        <div class="pill">Origen: <b id="providerLabel">—</b></div>
+        <button class="btn secondary sm" id="openSearchBtn" type="button">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4a6 6 0 104.47 10.03l3.25 3.25 1.41-1.41-3.25-3.25A6 6 0 0010 4zm0 2a4 4 0 110 8 4 4 0 010-8z"/></svg>
+          Buscar
+        </button>
       </div>
-    </div>
-    <div class="d-flex align-items-center justify-content-between mt-2">
-      <div class="tiny"><i class="fa-solid fa-microphone-lines me-1"></i> Reconocimiento</div>
-      <span id="supportBadge" class="badge rounded-pill text-bg-warning">Detectando…</span>
-    </div>
-  </div>
+    </header>
 
-  <div class="row g-3">
-    <!-- Lateral -->
-    <div class="col-lg-4">
-      <div class="app-card p-3">
-        <ul class="nav nav-pills nav-premium flex-column gap-2" id="tabs">
-          <li class="nav-item"><button class="nav-link active" data-tab="podcasts"><i class="fa-solid fa-podcast me-2"></i>Podcasts</button></li>
-          <li class="nav-item"><button class="nav-link" data-tab="phrases"><i class="fa-solid fa-quote-left me-2"></i>Frases</button></li>
-          <li class="nav-item"><button class="nav-link" data-tab="practice"><i class="fa-solid fa-microphone-lines me-2"></i>Pronunciación</button></li>
-        </ul>
+    <div id="backdrop" aria-hidden="true"></div>
 
-        <hr class="my-3">
-
-        <div class="soft p-3">
-          <div class="fw-semibold">Voz (TTS)</div>
-          <div class="tiny">Usa SpeechSynthesis del navegador.</div>
-          <select id="voiceSelect" class="form-select mt-2"></select>
-          <div id="voiceHint" class="tiny mt-2">Cargando voces…</div>
-        </div>
-
-        <div class="soft p-3 mt-3">
-          <div class="fw-semibold">Pronunciación figurada</div>
-          <div class="tiny">TH→D/Z, H→J, W→U (opc).</div>
-          <div class="row g-2 mt-2">
-            <div class="col-6">
-              <label class="tiny fw-semibold">TH</label>
-              <select id="thMode" class="form-select form-select-sm">
-                <option value="d" selected>TH → D (MX)</option>
-                <option value="z">TH → Z (ES)</option>
-              </select>
-            </div>
-            <div class="col-6">
-              <label class="tiny fw-semibold">R</label>
-              <select id="rMode" class="form-select form-select-sm">
-                <option value="simple" selected>R simple</option>
-                <option value="marked">R marcada</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-check form-switch mt-2">
-            <input class="form-check-input" type="checkbox" id="stressMarks" checked>
-            <label class="form-check-label tiny" for="stressMarks">Marcar acento</label>
-          </div>
-          <div class="form-check form-switch mt-2">
-            <input class="form-check-input" type="checkbox" id="mxWMode" checked>
-            <label class="form-check-label tiny" for="mxWMode">Modo W→U</label>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Principal -->
-    <div class="col-lg-8">
-      <!-- Podcasts -->
-      <section id="view-podcasts" class="app-card p-3">
-        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+    <div class="grid">
+      <aside class="panel" id="searchPanel" aria-label="Panel de búsqueda">
+        <div class="panelHeader">
           <div>
-            <div class="title fw-bold fs-4"><i class="fa-solid fa-podcast me-2"></i>Podcasts</div>
-            <div class="tiny">Búsqueda robusta · Paginación numérica · Cargar todo</div>
+            <div class="panelTitle">Buscar</div>
+            <div class="panelSub">Escribe lo que te interesa y descubre podcasts hechos para ti.</div>
           </div>
-          <span id="providerBadge" class="badge rounded-pill text-bg-secondary badge-provider">—</span>
+          <button class="btn ghost sm mobileOnly" id="closeSearchBtn" type="button" title="Cerrar">✕</button>
         </div>
+        <div class="panelBody">
+          <label class="hint" for="q">Palabra clave</label>
+          <input class="field" id="q" placeholder="Ej: inglés, noticias, ciencia…" value="english learning" />
 
-        <hr class="my-3">
-
-        <div class="row g-2">
-          <div class="col-md-8">
-            <input id="podQuery" class="form-control form-control-lg" placeholder="Ej: english learning, science, news..." value="english learning" />
+          <div class="row" style="margin-top:10px;">
+            <button class="btn" id="searchBtn" type="button">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4a6 6 0 104.47 10.03l3.25 3.25 1.41-1.41-3.25-3.25A6 6 0 0010 4zm0 2a4 4 0 110 8 4 4 0 010-8z"/></svg>
+              Buscar
+            </button>
+            <button class="btn secondary" id="clearBtn" type="button">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1 14H7L6 7zm3-3h6l1 2H8l1-2z"/></svg>
+              Limpiar
+            </button>
           </div>
-          <div class="col-md-4 d-grid">
-            <button id="podSearchBtn" class="btn btn-primary btn-lg"><i class="fa-solid fa-magnifying-glass me-2"></i>Buscar</button>
-          </div>
-        </div>
 
-        <div class="row g-2 mt-2">
-          <div class="col-md-6">
-            <div class="soft p-2 inline-controls">
-              <div class="tiny"><i class="fa-solid fa-layer-group me-1"></i>Podcasts por página</div>
-              <select id="podPageSize" class="form-select form-select-sm w-auto">
+          <div style="margin-top:10px;" class="row">
+            <div>
+              <label class="hint" for="podSize">Podcasts por página</label>
+              <select class="field" id="podSize">
                 <option value="6" selected>6</option>
                 <option value="9">9</option>
                 <option value="12">12</option>
                 <option value="16">16</option>
               </select>
             </div>
-          </div>
-          <div class="col-md-6">
-            <div class="soft p-2 inline-controls">
-              <div class="tiny"><i class="fa-solid fa-layer-group me-1"></i>Episodios por página</div>
-              <select id="epPageSize" class="form-select form-select-sm w-auto">
-                <option value="6" selected>6</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-              </select>
+            <div>
+              <label class="hint">Episodios por página</label>
+              <select class="field" disabled><option selected>6</option></select>
             </div>
           </div>
-        </div>
 
-        <div class="d-flex gap-2 mt-2">
-          <button id="refreshFeedBtn" class="btn btn-outline-secondary btn-sm d-none"><i class="fa-solid fa-rotate me-1"></i>Actualizar</button>
-          <button id="loadAllBtn" class="btn btn-outline-primary btn-sm d-none"><i class="fa-solid fa-infinity me-1"></i>Cargar todo</button>
-          <button id="cancelAllBtn" class="btn btn-outline-danger btn-sm d-none"><i class="fa-solid fa-ban me-1"></i>Cancelar</button>
-          <span id="bgLoadHint" class="tiny d-none">Cargando en segundo plano…</span>
-          <span id="cacheHint" class="tiny d-none">Desde caché · rápido</span>
-        </div>
+          <div class="divider"></div>
 
-        <div id="podResults" class="mt-3"></div>
-
-        <div id="feedHeader" class="soft p-3 mt-3 d-none">
-          <div class="d-flex gap-3 align-items-start">
-            <img id="feedArt" src="" alt="" class="thumb-64" loading="lazy">
-            <div class="flex-grow-1">
-              <div id="feedTitle" class="fw-bold"></div>
-              <div id="feedDesc" class="tiny"></div>
-              <div class="tiny mt-1 inline-controls">
-                <span class="badge rounded-pill text-bg-secondary" id="feedCount">0 eps</span>
-                <button id="loadNextFeedPageBtn" class="btn btn-sm btn-outline-primary d-none"><i class="fa-solid fa-plus me-1"></i>Más del feed</button>
-              </div>
-            </div>
+          <div class="panelTitle" style="font-size:14px;">Abrir por iTunes ID (opcional)</div>
+          <div class="panelSub" style="margin-top:2px;">¿Ya tienes un podcast en mente? Pega su ID y entra directo a los episodios.</div>
+          <input class="field" id="manualId" placeholder="Ej: 979020229" style="margin-top:8px;" />
+          <div class="row" style="margin-top:10px;">
+            <button class="btn secondary" id="openByIdBtn" type="button">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l4 4h-3v6h-2V7H8l4-4zm-7 14h14v2H5v-2z"/></svg>
+              Abrir por ID
+            </button>
           </div>
+
+          <div id="toast" class="toast" style="display:none;" role="status" aria-live="polite"></div>
+          <div class="note" style="margin-top:10px;">Consejo: prueba con temas como <b>ciencia</b>, <b>historias</b>, <b>finanzas</b> o <b>inglés</b>.</div>
         </div>
+      </aside>
 
-        <div id="episodes" class="mt-3"></div>
-
-        <div class="soft p-3 mt-3">
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="fw-semibold"><i class="fa-solid fa-play me-2"></i>Reproductor</div>
-            <div id="nowPlaying" class="tiny" aria-live="polite"></div>
-          </div>
-          <div class="mt-2">
-            <audio id="player" controls class="w-100"></audio>
-          </div>
-        </div>
-      </section>
-
-      <!-- Frases -->
-      <section id="view-phrases" class="app-card p-3 d-none">
-        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+      <main class="panel" aria-label="Contenido">
+        <div class="panelHeader">
           <div>
-            <div class="title fw-bold fs-4"><i class="fa-solid fa-quote-left me-2"></i>Frases</div>
-            <div class="tiny">Internet sin repetir (baraja + caché) + guía figurada</div>
+            <div class="panelTitle">Resultados</div>
+            <div class="panelSub" id="summary">¿Qué te gustaría escuchar hoy? Empieza buscando un tema.</div>
           </div>
-          <div class="d-flex gap-2">
-            <button id="getInternetPhraseBtn" class="btn btn-outline-primary"><i class="fa-solid fa-cloud-arrow-down me-2"></i>Internet</button>
-            <button id="clearCacheBtn" class="btn btn-outline-secondary"><i class="fa-solid fa-broom me-2"></i>Caché</button>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <button class="btn secondary sm" id="refreshBtn" type="button" style="display:none;">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6V3L8 7l4 4V8c2.76 0 5 2.24 5 5a5 5 0 11-9.9-1H5.02A7 7 0 1012 6z"/></svg>
+              Actualizar
+            </button>
           </div>
         </div>
 
-        <hr class="my-3">
+        <div class="panelBody">
+          <div id="podList" class="list"></div>
+          <div id="podPager" class="pager"></div>
 
-        <div class="row g-2">
-          <div class="col-md-8"><input id="newPhrase" class="form-control form-control-lg" placeholder="Escribe una frase..." /></div>
-          <div class="col-md-4 d-grid"><button id="addPhraseBtn" class="btn btn-success btn-lg"><i class="fa-solid fa-plus me-2"></i>Agregar</button></div>
-        </div>
+          <div class="divider"></div>
 
-        <div class="row g-2 mt-2">
-          <div class="col-md-8"><input id="phraseSearch" class="form-control" placeholder="Buscar en tus frases..." /></div>
-          <div class="col-md-4 d-grid"><button id="clearPhrasesBtn" class="btn btn-outline-danger"><i class="fa-solid fa-trash me-2"></i>Limpiar lista</button></div>
-        </div>
-
-        <div class="soft p-3 mt-3">
-          <div class="fw-semibold"><i class="fa-solid fa-spell-check me-2"></i>Pronunciación figurada (preview)</div>
-          <div class="tiny">Selecciona una frase para ver guía y segmentos.</div>
-          <div class="mt-2"><div class="tiny fw-semibold">Guía:</div><div id="phoneticPreview" class="mono">—</div></div>
-          <div class="mt-2"><div class="tiny fw-semibold">Segmentos:</div><div id="segmentsPreview">—</div></div>
-        </div>
-
-        <div id="phrasesList" class="mt-3 list-group list-compact"></div>
-      </section>
-
-      <!-- Pronunciación -->
-      <section id="view-practice" class="app-card p-3 d-none">
-        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
-          <div>
-            <div class="title fw-bold fs-4"><i class="fa-solid fa-microphone-lines me-2"></i>Pronunciación</div>
-            <div class="tiny">SR (aprox) + TTS + evaluación híbrida (caracteres + palabras) + modo manual</div>
-          </div>
-          <span class="badge rounded-pill text-bg-warning">Aprox.</span>
-        </div>
-
-        <hr class="my-3">
-
-        <label class="form-label fw-semibold">Frase objetivo</label>
-        <textarea id="referenceText" class="form-control form-control-lg" rows="3" placeholder="Ej: I would like to improve my English pronunciation."></textarea>
-
-        <div class="row g-2 mt-2">
-          <div class="col-md-6">
-            <div class="soft p-3 h-100">
-              <div class="fw-semibold"><i class="fa-solid fa-language me-2"></i>Guía al español</div>
-              <div class="tiny">Sonidos cercanos al español.</div>
-              <div class="mono mt-2" id="phoneticFromReference">—</div>
-              <div class="mt-2"><div class="tiny fw-semibold">Segmentos:</div><div id="segmentsFromReference">—</div></div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="soft p-3 h-100">
-              <div class="fw-semibold"><i class="fa-solid fa-wand-magic-sparkles me-2"></i>Acciones</div>
-              <div class="d-flex flex-wrap gap-2 mt-2">
-                <button id="ttsBtn" class="btn btn-secondary"><i class="fa-solid fa-volume-high me-2"></i>Escuchar</button>
-                <button id="startRecBtn" class="btn btn-primary"><i class="fa-solid fa-microphone me-2"></i>Probar</button>
-                <button id="stopRecBtn" class="btn btn-outline-danger d-none"><i class="fa-solid fa-stop me-2"></i>Detener</button>
+          <section id="feedBox" style="display:none;" aria-label="Episodios">
+            <div style="display:flex; justify-content:space-between; gap:12px; align-items:flex-end; flex-wrap:wrap;">
+              <div style="min-width:0;">
+                <div class="panelTitle" id="feedTitle">Podcast</div>
+                <div class="panelSub" id="feedDesc" style="max-width: 80ch;"></div>
+                <div class="panelSub">Episodios disponibles: <b id="feedCount">0</b></div>
               </div>
-              <div class="tiny mt-2">Si SR no funciona, usa el modo manual (abajo).</div>
+              <div class="badgeSmall" title="Se muestran 6 en 6">📄 6 en 6</div>
             </div>
-          </div>
-        </div>
 
-        <div class="row g-2 mt-3">
-          <div class="col-md-4"><div class="soft p-3"><div class="tiny">Puntaje</div><div id="scorePct" class="title fw-bold" style="font-size:2.2rem;">—</div></div></div>
-          <div class="col-md-8"><div class="soft p-3"><div class="tiny">Lo que se evaluó</div><div id="recognizedText" class="mono mt-1">—</div></div></div>
-        </div>
+            <div id="epList" class="list" style="margin-top:12px;"></div>
+            <div id="epPager" class="pager"></div>
 
-        <div class="soft p-3 mt-3">
-          <div class="tiny mb-2">Comparación (verde = coincide, rojo = no)</div>
-          <div id="highlighted" class="lead mb-0">—</div>
-        </div>
+            <div class="divider"></div>
 
-        <div class="soft p-3 mt-3">
-          <div class="fw-semibold"><i class="fa-solid fa-keyboard me-2"></i>Modo manual</div>
-          <div class="tiny">Escribe lo que dijiste y presiona Evaluar.</div>
-          <div class="row g-2 mt-2">
-            <div class="col-md-9"><input id="manualSaid" class="form-control" placeholder="Escribe aquí lo que dijiste…" /></div>
-            <div class="col-md-3 d-grid"><button id="manualEvalBtn" class="btn btn-outline-primary">Evaluar</button></div>
-          </div>
-        </div>
-      </section>
+            <div class="panelTitle" style="font-size:14px;">Reproductor</div>
+            <div class="playerBox proPlayer" id="playerBox">
+              <div class="panelSub" id="nowPlaying">🎧 Selecciona un episodio para empezar a escuchar</div>
 
+              <!-- Reproductor PRO (UI personalizada) -->
+              <div class="proControls" role="group" aria-label="Controles del reproductor">
+                <button class="btn proMain" id="ppPlay" type="button" aria-label="Reproducir / Pausar">
+                  <svg class="icon" id="ppPlayIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+
+                <div class="proCenter">
+                  <div class="proTopLine">
+                    <div class="proTime"><span id="ppCur">0:00</span> <small>/</small> <span id="ppDur">0:00</span></div>
+
+                    <div class="proRight">
+                      <button class="btn secondary sm" id="ppRew" type="button" aria-label="Retroceder 15 segundos">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L8 6l4 4V7c2.76 0 5 2.24 5 5a5 5 0 11-8.66-3.54L6.9 7.02A7 7 0 1012 5z"/></svg>
+                      </button>
+                      <button class="btn secondary sm" id="ppFwd" type="button" aria-label="Adelantar 30 segundos">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5a7 7 0 105.1 11.8l-1.44-1.44A5 5 0 1112 7v3l4-4-4-4v3z"/></svg>
+                      </button>
+                      <button class="btn secondary sm" id="ppMute" type="button" aria-label="Silenciar">
+                        <svg class="icon" id="ppVolIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10v4h4l5 4V6L7 10H3zm13.5 2a3.5 3.5 0 00-1.5-2.9v5.8A3.5 3.5 0 0016.5 12zm0-8a9.5 9.5 0 01.5 16.9v-2.2A7.5 7.5 0 0017 6.3V4z"/></svg>
+                      </button>
+
+                      <select class="field proSelect" id="ppSpeed" aria-label="Velocidad">
+                        <option value="0.75">0.75×</option>
+                        <option value="1" selected>1×</option>
+                        <option value="1.25">1.25×</option>
+                        <option value="1.5">1.5×</option>
+                        <option value="2">2×</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="proRangeWrap" id="ppSeekWrap" style="--fill:0%;">
+                    <input class="proRange" id="ppSeek" type="range" min="0" max="1000" value="0" aria-label="Progreso"/>
+                  </div>
+
+                  <div class="proVolRow">
+                    <div class="badgeSmall" title="Volumen">🔊 Volumen</div>
+                    <div class="proRangeWrap" id="ppVolWrap" style="--fill:70%; flex:1;">
+                      <input class="proRange" id="ppVol" type="range" min="0" max="1" step="0.01" value="0.7" aria-label="Volumen"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Audio real (oculto, lo maneja la UI) -->
+              <audio id="player" preload="none" style="display:none"></audio>
+            </div>
+          </section>
+        </div>
+      </main>
     </div>
   </div>
-</main>
 
-<!-- JS externos -->
-<script src="https://cdn.jsdelivr.net/npm/localforage@1.10.0/dist/localforage.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-<script src="https://unpkg.com/@popperjs/core@2"></script>
-<script src="https://unpkg.com/tippy.js@6"></script>
-<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  <script>
+  (function(){
+    function $(id){ return document.getElementById(id); }
 
-<script>
-(() => {
-  const $ = (id) => document.getElementById(id);
-  const notyf = new Notyf({ duration: 2600, ripple: true, dismissible: true, position:{x:'right',y:'top'} });
-  tippy('[data-tippy-content]', { animation:'scale', theme:'light-border' });
+    function toast(msg, type){
+      var t = $('toast');
+      if(!t) return;
+      t.style.display = 'block';
+      t.className = 'toast' + (type ? (' ' + type) : '');
+      t.textContent = msg;
+    }
 
-  const store = localforage.createInstance({ name:'english_practice_full_final_v1' });
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    function setProvider(name){ $('providerLabel').textContent = name || '—'; }
 
-  const esc = (s="") => String(s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
-  const stripHtml = (h="") => { const d=document.createElement('div'); d.innerHTML=String(h); return (d.textContent||d.innerText||'').trim(); };
-  const setBadge = (t, cls='text-bg-secondary') => { const b=$('providerBadge'); b.textContent=t; b.className='badge rounded-pill badge-provider '+cls; };
+    function jsonp(url, callbackParam, timeout){
+      callbackParam = callbackParam || 'callback';
+      timeout = timeout || 20000;
+      return new Promise(function(resolve, reject){
+        var cb = 'cb_' + Math.random().toString(36).slice(2);
+        var sep = url.indexOf('?') >= 0 ? '&' : '?';
+        var full = url + sep + encodeURIComponent(callbackParam) + '=' + encodeURIComponent(cb);
+        var s = document.createElement('script');
+        var done = false;
+        var timer = setTimeout(function(){
+          if(done) return;
+          done = true;
+          cleanup();
+          reject(new Error('JSONP timeout'));
+        }, timeout);
 
-  const state = {
-    podsAll: [], podPage: 1, podPageSize: 6,
-    epsAll: [], epPage: 1, epPageSize: 6,
-    feedNextUrl: null, feedLoading:false, bgLoading:false, feedUrlActive:null,
-    feedMeta: { title:'', description:'', image:'' },
-    abortAll: null, loadingAll:false,
+        function cleanup(){
+          clearTimeout(timer);
+          try{ delete window[cb]; }catch(e){}
+          if(s && s.parentNode) s.parentNode.removeChild(s);
+        }
 
-    phrases: [], selectedPhraseId: null,
-    quotesDeck: [], deckIndex: 0, usedHashes: new Set(),
+        window[cb] = function(data){
+          if(done) return;
+          done = true;
+          cleanup();
+          resolve(data);
+        };
 
-    recognition: null, recognizing: false
-  };
+        s.onerror = function(){
+          if(done) return;
+          done = true;
+          cleanup();
+          reject(new Error('JSONP error'));
+        };
 
-  function showTab(tab){
-    ['podcasts','phrases','practice'].forEach(t => $('view-'+t).classList.toggle('d-none', t !== tab));
-    document.querySelectorAll('#tabs .nav-link').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tab));
-  }
-  $('tabs').addEventListener('click', e => { const b=e.target.closest('button[data-tab]'); if(!b) return; showTab(b.dataset.tab); });
+        s.src = full;
+        document.head.appendChild(s);
+      });
+    }
 
-  async function applyTheme(isDark){ document.body.classList.toggle('dark', isDark); $('themeBtn').querySelector('i').className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon'; await store.setItem('theme_dark', isDark); }
-  $('themeBtn').addEventListener('click', async ()=> applyTheme(!document.body.classList.contains('dark')));
-  $('helpBtn').addEventListener('click', ()=> notyf.open({ type:'info', message:'• Búsqueda de podcasts robusta (iTunes JSONP + iTunes AllOrigins + gPodder). • Episodios: carrera de proveedores y paginación. • Frases: Internet con deck. • Pronunciación: SR + TTS + evaluación híbrida.' }));
+    function stripHtml(h){
+      var d = document.createElement('div');
+      d.innerHTML = String(h || '');
+      return (d.textContent || d.innerText || '').trim();
+    }
 
-  (function setupSR(){
-    const ok = !!SR;
-    $('supportBadge').className = 'badge rounded-pill '+(ok?'text-bg-success':'text-bg-danger');
-    $('supportBadge').textContent = ok ? 'Mic OK' : 'Sin SR';
-  })();
-
-  function loadVoices(){
-    const voices = speechSynthesis.getVoices();
-    const sel = $('voiceSelect'); sel.innerHTML='';
-    let list = voices.filter(v => (v.lang||'').toLowerCase().startsWith('en')); if(!list.length) list = voices;
-    list.forEach(v => { const opt=document.createElement('option'); opt.value=v.name; opt.textContent=`${v.name} (${v.lang})`; sel.appendChild(opt); });
-    $('voiceHint').textContent = list.length ? `Voces disponibles: ${list.length}` : 'Cargando voces…';
-    store.getItem('tts_voice').then(name => { if(name && list.some(v=>v.name===name)) sel.value=name; });
-    sel.onchange = ()=> store.setItem('tts_voice', sel.value);
-  }
-  speechSynthesis.onvoiceschanged = loadVoices; setTimeout(loadVoices, 350);
-
-  async function speak(text){
-    if(!text) return notyf.error('No hay texto para leer.');
-    const waitVoices = () => new Promise(res=>{
-      if (speechSynthesis.getVoices().length) return res();
-      const id = setInterval(()=>{ if (speechSynthesis.getVoices().length){ clearInterval(id); res(); } }, 120);
-      setTimeout(()=>{ clearInterval(id); res(); }, 1500);
-    });
-    await waitVoices();
-    const u = new SpeechSynthesisUtterance(text);
-    const voices = speechSynthesis.getVoices();
-    const chosen = voices.find(v => v.name === $('voiceSelect').value) || voices.find(v => (v.lang||'').toLowerCase().startsWith('en')) || voices[0];
-    if(chosen) u.voice = chosen;
-    speechSynthesis.cancel();
-    speechSynthesis.speak(u);
-  }
-  $('ttsBtn').addEventListener('click', () => speak($('referenceText').value.trim()));
-
-  function jsonp(url, { timeout=14000, callbackParam='callback' } = {}){
-    return new Promise((resolve, reject) => {
-      const cbName = 'cb_' + Math.random().toString(36).slice(2);
-      const full = `${url}${url.includes('?')?'&':'?'}${callbackParam}=${cbName}`;
-      const script = document.createElement('script'); let done=false;
-      window[cbName] = (data) => { done=true; cleanup(); resolve(data); };
-      const timer = setTimeout(()=>{ if(done) return; done=true; cleanup(); reject(new Error('JSONP timeout')); }, timeout);
-      function cleanup(){ clearTimeout(timer); try{ delete window[cbName]; }catch{} script.remove(); }
-      script.onerror = ()=>{ if(done) return; done=true; cleanup(); reject(new Error('JSONP load error')); };
-      script.src = full; document.head.appendChild(script);
-    });
-  }
-
-  async function fetchAllOrigins(url){
-    try{
-      const r = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`, { cache:'no-store' });
-      if (r.ok){
-        const j = await r.json();
-        if (j && typeof j.contents === 'string' && j.contents.trim().length) return j.contents;
+    function formatDate(s){
+      s = (s || '').trim();
+      if(!s) return '';
+      var d = new Date(s);
+      if(!isNaN(d.getTime())){
+        var dd = String(d.getDate()).padStart(2,'0');
+        var mm = String(d.getMonth()+1).padStart(2,'0');
+        var yy = d.getFullYear();
+        return dd + '/' + mm + '/' + yy;
       }
-    }catch(e){}
-    try{
-      const r = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`, { cache:'no-store' });
-      if (r.ok) return await r.text();
-    }catch(e){}
-    throw new Error('AllOrigins falló');
-  }
-  async function fetchJina(url){
-    const noScheme = url.replace(/^https?:\/\//i,'');
-    const prox = `https://r.jina.ai/http://${noScheme}`;
-    const r = await fetch(prox, { cache:'no-store' });
-    if(!r.ok) throw new Error('jina.ai HTTP '+r.status);
-    return await r.text();
-  }
-  async function fetchVercel(feedUrl){
-    const api = `https://rss-to-json-serverless-api.vercel.app/convert?url=${encodeURIComponent(feedUrl)}`;
-    const r = await fetch(api, { cache:'no-store' });
-    if(!r.ok) throw new Error('vercel HTTP '+r.status);
-    const data = await r.json();
-    const meta = { title: data?.title || data?.feed?.title || 'Podcast', description: data?.description || data?.feed?.description || '', image: data?.image || data?.feed?.image || '' };
-    const items = (data?.items || data?.feed?.items || []).map(it=>{
-      const title=(it.title||'(sin título)').toString().trim();
-      const pubDate=(it.pubDate || it.published || it.date || '').toString().trim();
-      const desc=stripHtml((it.description || it.summary || it.content || '').toString());
-      let audioUrl='';
-      if(typeof it.enclosure==='string') audioUrl=it.enclosure;
-      if(!audioUrl && it.enclosure && typeof it.enclosure==='object') audioUrl = it.enclosure.url || it.enclosure.link || '';
-      if(!audioUrl && Array.isArray(it.enclosure) && it.enclosure.length) audioUrl = it.enclosure[0]?.url || it.enclosure[0]?.link || '';
-      if(!audioUrl && it.link && typeof it.link==='string' && /\.(mp3|m4a)(\?|$)/i.test(it.link)) audioUrl = it.link;
-      return audioUrl ? { title, desc, pubDate, audioUrl } : null;
-    }).filter(Boolean);
-    return { items, meta, nextUrl:null };
-  }
-  function parseRss(xmlStr){
-    const doc = new DOMParser().parseFromString(xmlStr, 'text/xml');
-    if (doc.getElementsByTagName('parsererror').length) throw new Error('RSS inválido.');
+      return s;
+    }
 
-    const meta = {
-      title: (doc.querySelector('channel > title')?.textContent || doc.querySelector('feed > title')?.textContent || 'Podcast').trim(),
-      description: (doc.querySelector('channel > description')?.textContent || doc.querySelector('feed > subtitle')?.textContent || '').trim(),
-      image: (doc.querySelector('channel > itunes\\:image')?.getAttribute('href') ||
-              doc.querySelector('channel > image > url')?.textContent || '').trim()
+    function safeText(el, txt){ el.textContent = (txt === undefined || txt === null) ? '' : String(txt); }
+
+    function openPanel(){ document.body.classList.add('panel-open'); document.body.style.overflow = 'hidden'; }
+    function closePanel(){ document.body.classList.remove('panel-open'); document.body.style.overflow = ''; }
+
+    $('openSearchBtn').addEventListener('click', openPanel);
+    $('backdrop').addEventListener('click', closePanel);
+    $('closeSearchBtn').addEventListener('click', closePanel);
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closePanel(); });
+
+    var state = { pods: [], podPage: 1, podSize: 6, selectedId: null, eps: [], epPage: 1, epSize: 6 };
+
+    function renderPager(container, current, total, onGo){
+      container.innerHTML = '';
+      if(total <= 1) return;
+      function add(label, page, active, disabled){
+        var b = document.createElement('button');
+        b.className = 'pagebtn' + (active ? ' active' : '');
+        b.textContent = label;
+        b.disabled = !!disabled;
+        b.type = 'button';
+        b.onclick = function(){ onGo(page); };
+        container.appendChild(b);
+      }
+      add('«', 1, false, current===1);
+      add('‹', Math.max(1, current-1), false, current===1);
+      var start = Math.max(1, current-2);
+      var end = Math.min(total, current+2);
+      if(start > 1) add('1', 1, current===1, false);
+      for(var p=start; p<=end; p++){
+        if(p===1 || p===total) continue;
+        add(String(p), p, p===current, false);
+      }
+      if(end < total) add(String(total), total, current===total, false);
+      add('›', Math.min(total, current+1), false, current===total);
+      add('»', total, false, current===total);
+    }
+
+    function showSkeleton(count){
+      var box = $('podList');
+      box.innerHTML = '';
+      for(var i=0;i<count;i++){
+        var it = document.createElement('div');
+        it.className = 'cardItem skeleton';
+        var row = document.createElement('div');
+        row.className = 'skRow';
+        var th = document.createElement('div'); th.className = 'skThumb';
+        var col = document.createElement('div');
+        col.style.flex='1'; col.style.display='grid'; col.style.gap='8px';
+        var l1=document.createElement('div'); l1.className='skLine'; l1.style.width='62%';
+        var l2=document.createElement('div'); l2.className='skLine'; l2.style.width='42%';
+        var l3=document.createElement('div'); l3.className='skLine'; l3.style.width='86%';
+        col.appendChild(l1); col.appendChild(l2); col.appendChild(l3);
+        row.appendChild(th); row.appendChild(col);
+        it.appendChild(row);
+        box.appendChild(it);
+      }
+    }
+
+    function renderPods(){
+      var total = state.pods.length;
+      var size = state.podSize;
+      var pages = Math.max(1, Math.ceil(total/size));
+      state.podPage = Math.max(1, Math.min(pages, state.podPage));
+      var start = (state.podPage-1)*size;
+      var end = Math.min(total, start+size);
+      $('summary').textContent = total ? ('Mostrando ' + (start+1) + '–' + end + ' de ' + total) : '¿Qué te gustaría escuchar hoy? Empieza buscando un tema.';
+
+      var box = $('podList');
+      box.innerHTML = '';
+
+      for(var i=start; i<end; i++){
+        var p = state.pods[i];
+        var item = document.createElement('div');
+        item.className = 'cardItem clickable';
+        item.tabIndex = 0;
+        item.setAttribute('role','button');
+        item.setAttribute('aria-label', 'Abrir podcast ' + (p.title || ''));
+
+        item.addEventListener('click', function(id){ return function(){ openById(id); }; }(p.id));
+        item.addEventListener('keydown', function(id){ return function(e){ if(e.key==='Enter' || e.key===' ') openById(id); }; }(p.id));
+
+        var img = document.createElement('img');
+        img.className = 'thumb';
+        img.alt = '';
+        img.loading = 'lazy';
+        img.referrerPolicy = 'no-referrer';
+        img.src = p.artwork || '';
+
+        var grow = document.createElement('div');
+        grow.className = 'grow';
+
+        var h = document.createElement('div');
+        h.className = 'h2';
+        safeText(h, p.title || 'Podcast');
+
+        var a = document.createElement('div');
+        a.className = 'meta';
+        safeText(a, p.author || '');
+
+        var m = document.createElement('div');
+        m.className = 'mono';
+        safeText(m, p.feedUrl ? ('RSS: ' + p.feedUrl) : ('ID: ' + p.id));
+
+        grow.appendChild(h); grow.appendChild(a); grow.appendChild(m);
+
+        var actions = document.createElement('div');
+        actions.className = 'actions';
+
+        var btn = document.createElement('button');
+        btn.className = 'btn sm block';
+        btn.type = 'button';
+        btn.innerHTML = "<svg class='icon' viewBox='0 0 24 24' aria-hidden='true'><path d='M12 5v14m7-7H5' stroke='currentColor' stroke-width='2' fill='none' stroke-linecap='round'/></svg> Ver episodios";
+        btn.addEventListener('click', function(id){ return function(e){ e.stopPropagation(); openById(id); }; }(p.id));
+
+        actions.appendChild(btn);
+
+        item.appendChild(img); item.appendChild(grow); item.appendChild(actions);
+        box.appendChild(item);
+      }
+
+      renderPager($('podPager'), state.podPage, pages, function(page){ state.podPage = page; renderPods(); });
+    }
+
+    function renderEpisodes(){
+      var total = state.eps.length;
+      var size = state.epSize; // 6
+      var pages = Math.max(1, Math.ceil(total/size));
+      state.epPage = Math.max(1, Math.min(pages, state.epPage));
+      var start = (state.epPage-1)*size;
+      var end = Math.min(total, start+size);
+      $('feedCount').textContent = String(total);
+
+      var box = $('epList');
+      box.innerHTML = '';
+
+      for(var i=start; i<end; i++){
+        var ep = state.eps[i];
+        var item = document.createElement('div');
+        item.className = 'cardItem';
+
+        var grow = document.createElement('div');
+        grow.className = 'grow';
+
+        var h = document.createElement('div');
+        h.className = 'h2';
+        safeText(h, ep.title || '(sin título)');
+
+        var d = document.createElement('div');
+        d.className = 'meta';
+        safeText(d, formatDate(ep.pubDate));
+
+        var desc = document.createElement('div');
+        desc.className = 'meta';
+        desc.style.display='-webkit-box';
+        desc.style.webkitLineClamp='2';
+        desc.style.webkitBoxOrient='vertical';
+        desc.style.overflow='hidden';
+        safeText(desc, ep.desc || '');
+
+        grow.appendChild(h); grow.appendChild(d); grow.appendChild(desc);
+
+        var actions = document.createElement('div');
+        actions.className = 'actions';
+
+        var btn = document.createElement('button');
+        btn.className = 'btn sm block';
+        btn.type = 'button';
+        btn.innerHTML = "<svg class='icon' viewBox='0 0 24 24' aria-hidden='true'><path d='M8 5v14l11-7z' fill='currentColor'/></svg> Reproducir";
+        btn.onclick = (function(audioUrl, title){
+          return function(){
+            $('nowPlaying').textContent = '🎧 ' + title;
+            var a = $('player');
+            a.src = audioUrl;
+            a.play().catch(function(){});
+          };
+        })(ep.audioUrl, ep.title);
+
+        actions.appendChild(btn);
+
+        item.appendChild(grow); item.appendChild(actions);
+        box.appendChild(item);
+      }
+
+      renderPager($('epPager'), state.epPage, pages, function(page){ state.epPage = page; renderEpisodes(); });
+    }
+
+    async function search(){
+      var term = $('q').value.trim();
+      if(!term){ toast('Escribe algo para buscar.', 'bad'); return; }
+
+      $('searchBtn').disabled = true;
+      $('podPager').innerHTML = '';
+      $('summary').textContent = 'Buscando…';
+      setProvider('—');
+      showSkeleton(Math.min(6, state.podSize));
+
+      try{
+        var q = encodeURIComponent(term);
+        var url = 'https://itunes.apple.com/search?term=' + q + '&media=podcast&entity=podcast&limit=200';
+        var data = await jsonp(url, 'callback', 20000);
+        var raw = (data && data.results) ? data.results : [];
+
+        var list = [];
+        var seen = {};
+        for(var i=0;i<raw.length;i++){
+          var r = raw[i];
+          if(!r || !r.collectionId) continue;
+          var key = String(r.collectionId);
+          if(seen[key]) continue;
+          seen[key] = 1;
+          list.push({
+            id: r.collectionId,
+            title: r.collectionName || r.trackName || 'Podcast',
+            author: r.artistName || '',
+            artwork: r.artworkUrl100 || r.artworkUrl60 || '',
+            feedUrl: r.feedUrl || ''
+          });
+        }
+
+        state.pods = list;
+        state.podPage = 1;
+        setProvider('iTunes Search');
+        toast('Encontramos ' + list.length + ' podcasts para ti ✨', list.length ? 'ok' : 'warn');
+        renderPods();
+        closePanel();
+
+      }catch(e){
+        console.warn(e);
+        toast('No se pudo buscar. Revisa tu conexión e intenta de nuevo.', 'bad');
+        $('summary').textContent = 'Ocurrió un error al buscar.';
+        setProvider('Error');
+        $('podList').innerHTML = '';
+      }finally{
+        $('searchBtn').disabled = false;
+      }
+    }
+
+    async function openById(itunesId){
+      itunesId = String(itunesId || '').trim();
+      if(!itunesId){ toast('ID vacío.', 'bad'); return; }
+
+      state.selectedId = itunesId;
+      state.eps = [];
+      state.epPage = 1;
+
+      $('feedBox').style.display = 'block';
+      $('refreshBtn').style.display = 'inline-flex';
+      $('epList').innerHTML = '';
+      $('epPager').innerHTML = '';
+      $('feedTitle').textContent = 'Cargando…';
+      $('feedDesc').textContent = '';
+      $('feedCount').textContent = '0';
+
+      toast('Preparando episodios…', '');
+      setProvider('iTunes Lookup');
+
+      try{
+        var url = 'https://itunes.apple.com/lookup?id=' + encodeURIComponent(itunesId) + '&media=podcast&entity=podcastEpisode&limit=200&sort=recent';
+        var data = await jsonp(url, 'callback', 22000);
+        if(!data || !Array.isArray(data.results)) throw new Error('Respuesta inválida');
+
+        var results = data.results;
+        var meta = results.find(function(x){
+          return x && (x.wrapperType === 'track' || x.wrapperType === 'collection') && (x.kind === 'podcast' || x.collectionName || x.trackName);
+        }) || results[0] || {};
+
+        var title = meta.collectionName || meta.trackName || meta.artistName || ('Podcast ' + itunesId);
+        var desc = stripHtml(meta.description || meta.collectionExplicitness || '');
+
+        $('feedTitle').textContent = title;
+        $('feedDesc').textContent = (desc || '').slice(0, 240);
+
+        var eps = [];
+        for(var i=0;i<results.length;i++){
+          var it = results[i];
+          var isEpisode = it && (it.kind === 'podcast-episode' || (it.wrapperType === 'track' && (it.episodeUrl || it.previewUrl || it.enclosureUrl)));
+          if(!isEpisode) continue;
+
+          var audioUrl = it.episodeUrl || it.previewUrl || it.enclosureUrl || '';
+          if(!audioUrl) continue;
+
+          eps.push({
+            title: it.trackName || it.collectionName || '(sin título)',
+            pubDate: it.releaseDate || it.pubDate || '',
+            desc: stripHtml(it.description || it.shortDescription || it.longDescription || ''),
+            audioUrl: audioUrl
+          });
+        }
+
+        var seen = {};
+        var deduped = [];
+        for(var j=0;j<eps.length;j++){
+          var k = String(eps[j].audioUrl || '').trim();
+          if(!k || seen[k]) continue;
+          seen[k]=1;
+          deduped.push(eps[j]);
+        }
+
+        state.eps = deduped;
+        $('feedCount').textContent = String(state.eps.length);
+        setProvider('iTunes');
+
+        if(!state.eps.length){
+          toast('Este podcast no comparte audio aquí. Prueba con otro 😉', 'warn');
+        }else{
+          toast('Listo: ' + state.eps.length + ' episodios para escuchar 🎧', 'ok');
+        }
+
+        renderEpisodes();
+        closePanel();
+
+      }catch(e){
+        console.warn(e);
+        setProvider('Error');
+        toast('No pude cargar episodios. Prueba con otro podcast o revisa tu conexión.', 'bad');
+      }
+    }
+
+    function clearAll(){
+      state.pods = []; state.podPage = 1;
+      state.selectedId = null;
+      state.eps = []; state.epPage = 1;
+
+      $('podList').innerHTML = '';
+      $('podPager').innerHTML = '';
+      $('summary').textContent = '¿Qué te gustaría escuchar hoy? Empieza buscando un tema.';
+
+      $('feedBox').style.display = 'none';
+      $('refreshBtn').style.display = 'none';
+
+      $('nowPlaying').textContent = '🎧 Selecciona un episodio para empezar a escuchar';
+      var a = $('player');
+      a.pause();
+      a.removeAttribute('src');
+      a.load();
+
+      setProvider('—');
+      toast('Listo. ¿Qué escuchamos ahora?', 'ok');
+    }
+
+    $('searchBtn').onclick = search;
+    $('clearBtn').onclick = clearAll;
+    $('q').addEventListener('keydown', function(e){ if(e.key==='Enter') search(); });
+    $('podSize').onchange = function(){ state.podSize = parseInt($('podSize').value,10) || 6; state.podPage = 1; renderPods(); };
+    $('openByIdBtn').onclick = function(){ openById($('manualId').value); };
+    $('refreshBtn').onclick = function(){ if(state.selectedId) openById(state.selectedId); };
+
+    toast('Listo ✅. Busca un tema y descubre podcasts increíbles.', 'ok');
+    setProvider('—');
+  
+
+    /* =========================
+       Reproductor PRO - wiring
+    ========================= */
+    var pp = {
+      a: $('player'),
+      playBtn: $('ppPlay'),
+      playIcon: $('ppPlayIcon'),
+      seek: $('ppSeek'),
+      seekWrap: $('ppSeekWrap'),
+      vol: $('ppVol'),
+      volWrap: $('ppVolWrap'),
+      cur: $('ppCur'),
+      dur: $('ppDur'),
+      speed: $('ppSpeed'),
+      mute: $('ppMute'),
+      volIcon: $('ppVolIcon'),
+      rew: $('ppRew'),
+      fwd: $('ppFwd')
     };
 
-    const items = [];
-    const rssItems = Array.from(doc.querySelectorAll('channel > item'));
-    const atomEntries = Array.from(doc.querySelectorAll('feed > entry'));
-
-    if (rssItems.length){
-      for (const it of rssItems){
-        const title=(it.querySelector('title')?.textContent||'(sin título)').trim();
-        const pubDate=(it.querySelector('pubDate')?.textContent||it.querySelector('dc\\:date')?.textContent||'').trim();
-        const desc=stripHtml((it.querySelector('description')?.textContent||it.querySelector('content\\:encoded')?.textContent||'').trim());
-        let audioUrl = it.querySelector('enclosure')?.getAttribute('url')||'';
-        if(!audioUrl){
-          const media = it.querySelector('media\\:content, content');
-          if(media){
-            const type=(media.getAttribute('type')||'').toLowerCase();
-            const url=media.getAttribute('url')||'';
-            if(type.startsWith('audio') || /\.(mp3|m4a)(\?|$)/i.test(url)) audioUrl=url;
-          }
-        }
-        if(!audioUrl){
-          const link = (it.querySelector('link')?.textContent||'').trim();
-          if(/\.(mp3|m4a)(\?|$)/i.test(link)) audioUrl=link;
-        }
-        if(audioUrl) items.push({ title, desc, pubDate, audioUrl });
-      }
-    } else if (atomEntries.length){
-      for (const en of atomEntries){
-        const title=(en.querySelector('title')?.textContent||'(sin título)').trim();
-        const pubDate=(en.querySelector('updated')?.textContent||en.querySelector('published')?.textContent||'').trim();
-        const desc=stripHtml((en.querySelector('summary')?.textContent||en.querySelector('content')?.textContent||'').trim());
-        let audioUrl='';
-        const links = Array.from(en.querySelectorAll('link'));
-        for (const l of links){
-          const rel=(l.getAttribute('rel')||'').toLowerCase();
-          const type=(l.getAttribute('type')||'').toLowerCase();
-          const href=l.getAttribute('href')||'';
-          if ((rel==='enclosure' || type.startsWith('audio')) && href){ audioUrl=href; break; }
-        }
-        if(audioUrl) items.push({ title, desc, pubDate, audioUrl });
-      }
+    function ppFmt(t){
+      if (!isFinite(t) || t < 0) return '0:00';
+      var m = Math.floor(t/60);
+      var s = Math.floor(t%60);
+      return m + ':' + String(s).padStart(2,'0');
     }
-
-    let nextUrl = null;
-    const allLinks = Array.from(doc.getElementsByTagName('*')).filter(e => (e.localName||'').toLowerCase()==='link');
-    for (const l of allLinks){
-      const rel=(l.getAttribute('rel')||'').toLowerCase();
-      const href=l.getAttribute('href')||'';
-      if(rel==='next' && href){ nextUrl=href; break; }
+    function ppSetPlayIcon(isPlaying){
+      pp.playIcon.innerHTML = isPlaying
+        ? '<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>'
+        : '<path d="M8 5v14l11-7z"/>';
     }
-
-    return { items, meta, nextUrl };
-  }
-
-  function hash(s){ let h=0; for(let i=0;i<s.length;i++){ h=((h<<5)-h + s.charCodeAt(i))|0; } return 'h'+(h>>>0); }
-  async function getFeedCache(url){
-    const key = 'feed_cache_'+hash(url);
-    const obj = await store.getItem(key);
-    if(!obj) return null;
-    const ttl = 6*60*60*1000;
-    if(Date.now()-obj.time > ttl){ await store.removeItem(key); return null; }
-    return obj.data;
-  }
-  async function setFeedCache(url, data){
-    const key = 'feed_cache_'+hash(url);
-    await store.setItem(key, { time: Date.now(), data });
-  }
-
-  async function raceProviders(feedUrl){
-    setBadge('—','text-bg-secondary');
-    const pJina = (async ()=>{ const xml=await fetchJina(feedUrl); const parsed=parseRss(xml); return { provider:'jina.ai', parsed }; })();
-    const pAO = (async ()=>{ const xml=await fetchAllOrigins(feedUrl); const parsed=parseRss(xml); return { provider:'AllOrigins', parsed }; })();
-    const pVercel = (async ()=>{ const parsed=await fetchVercel(feedUrl); return { provider:'vercel', parsed }; })();
-    const pRss2Json = (async ()=>{
-      const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
-      const data = await jsonp(api, { callbackParam:'callback', timeout: 20000 });
-      if(data.status!=='ok') throw new Error(data.message||'rss2json error');
-      const feed = data.feed || {};
-      const items=(data.items||[]).map(it=>{
-        const title=(it.title||'(sin título)').trim();
-        const pubDate=(it.pubDate||'').trim();
-        const desc=stripHtml(it.description||'');
-        const audioUrl=it.enclosure?.link || it.enclosure?.url || '';
-        return audioUrl ? { title, desc, pubDate, audioUrl } : null;
-      }).filter(Boolean);
-      return { provider:'rss2json', parsed:{ items, meta:{ title:feed.title||'Podcast', description:stripHtml(feed.description||''), image:feed.image||'' }, nextUrl:null } };
-    })();
-
-    return firstSuccessful([pJina, pAO, pVercel, pRss2Json]);
-  }
-  async function firstSuccessful(promises){
-    return new Promise((resolve, reject)=>{
-      let rejected = 0; const errs=[];
-      promises.forEach(p=>{
-        p.then(resolve).catch(e=>{ errs.push(e); rejected++; if(rejected===promises.length) reject(errs[0]||new Error('all failed')); });
-      });
-    });
-  }
-
-  async function searchItunesJsonp(term, limit=200){
-    const q = encodeURIComponent(term.trim());
-    const url = `https://itunes.apple.com/search?term=${q}&media=podcast&entity=podcast&limit=${limit}`;
-    const data = await jsonp(url, { callbackParam:'callback', timeout: 14000 });
-    const raw = (data && data.results) ? data.results : [];
-    return raw.filter(x => x.feedUrl).map(p => ({
-      title: p.collectionName || p.trackName || 'Podcast',
-      author: p.artistName || '',
-      artwork: p.artworkUrl100 || p.artworkUrl60 || '',
-      feedUrl: p.feedUrl || ''
-    }));
-  }
-  async function searchItunesViaAllOrigins(term, limit=200){
-    const q = encodeURIComponent(term.trim());
-    const url = `https://itunes.apple.com/search?term=${q}&media=podcast&entity=podcast&limit=${limit}`;
-    const txt = await fetchAllOrigins(url);
-    let data; try{ data = JSON.parse(txt); }catch{ throw new Error('JSON parse itunes'); }
-    const raw = (data && data.results) ? data.results : [];
-    return raw.filter(x => x.feedUrl).map(p => ({
-      title: p.collectionName || p.trackName || 'Podcast',
-      author: p.artistName || '',
-      artwork: p.artworkUrl100 || p.artworkUrl60 || '',
-      feedUrl: p.feedUrl || ''
-    }));
-  }
-  async function searchGpodder(term){
-    const q = encodeURIComponent(term.trim());
-    const url = `https://gpodder.net/search.json?q=${q}`;
-    const r = await fetch(url, { cache:'no-store' });
-    if(!r.ok) throw new Error('gPodder HTTP '+r.status);
-    const data = await r.json();
-    const list = Array.isArray(data) ? data : [];
-    return list.map(it => ({
-      title: it.title || 'Podcast',
-      author: it.author || '',
-      artwork: it.logo_url || '',
-      feedUrl: it.url || ''
-    })).filter(x => x.feedUrl);
-  }
-
-  async function searchPodcastsAggregator(term){
-    const providers = [
-      { name:'iTunes(JSONP)', fn: ()=>searchItunesJsonp(term) },
-      { name:'iTunes(AO)', fn: ()=>searchItunesViaAllOrigins(term) },
-      { name:'gPodder', fn: ()=>searchGpodder(term) }
-    ];
-    const settled = await Promise.allSettled(providers.map(p => p.fn()));
-    let merged = [];
-    let usedProvider = [];
-    for(let i=0;i<settled.length;i++){
-      const s = settled[i];
-      if(s.status==='fulfilled' && Array.isArray(s.value) && s.value.length){
-        merged = merged.concat(s.value);
-        usedProvider.push(providers[i].name);
-      }
-    }
-    const seen = new Set();
-    merged = merged.filter(p => {
-      const key = (p.feedUrl||'').trim().toLowerCase();
-      if(!key || seen.has(key)) return false;
-      seen.add(key); return true;
-    });
-    return { list: merged, providers: usedProvider.join(' + ') || '—' };
-  }
-
-  function renderPodSkeleton(){
-    $('podResults').innerHTML = `
-      <div class="tiny mb-2">Buscando podcasts…</div>
-      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>`;
-  }
-
-  function renderPodcastsPage(){
-    const box = $('podResults');
-    const total = state.podsAll.length;
-    const size = state.podPageSize;
-    const totalPages = Math.max(1, Math.ceil(total/size));
-    state.podPage = Math.max(1, Math.min(totalPages, state.podPage));
-    const start=(state.podPage-1)*size, end=Math.min(total, start+size);
-    const slice = state.podsAll.slice(start,end);
-
-    box.innerHTML = `
-      <div class="soft p-3 d-flex align-items-center justify-content-between">
-        <div>
-          <div class="fw-semibold">Resultados</div>
-          <div class="tiny">Mostrando <b>${start+1}</b>–<b>${end}</b> de <b>${total}</b> · Página <b>${state.podPage}</b>/<b>${totalPages}</b></div>
-        </div>
-        <div id="podPaginationTop"></div>
-      </div>
-      <div class="list-group list-compact mt-3" id="podList"></div>
-      <div class="d-flex justify-content-end mt-2" id="podPaginationBottom"></div>
-    `;
-    const listBox = $('podList');
-    const frag = document.createDocumentFragment();
-    slice.forEach(p => {
-      const btn = document.createElement('button');
-      btn.className='list-group-item text-start';
-      btn.dataset.feed=p.feedUrl;
-      btn.innerHTML = `
-        <div class="d-flex gap-3 align-items-start">
-          <img src="${esc(p.artwork)}" class="thumb-64" alt="" loading="lazy">
-          <div class="flex-grow-1">
-            <div class="fw-bold">${esc(p.title)}</div>
-            <div class="tiny">${esc(p.author)}</div>
-            <div class="tiny mono truncate-2">${esc(p.feedUrl)}</div>
-          </div>
-          <span class="badge text-bg-primary align-self-center">Abrir</span>
-        </div>`;
-      frag.appendChild(btn);
-    });
-    listBox.appendChild(frag);
-    listBox.onclick = (e)=>{ const btn=e.target.closest('button[data-feed]'); if(!btn) return; loadEpisodesFast(btn.dataset.feed); };
-
-    const onGo = (page)=>{ state.podPage=page; renderPodcastsPage(); };
-    renderPagination($('podPaginationTop'), state.podPage, totalPages, onGo);
-    renderPagination($('podPaginationBottom'), state.podPage, totalPages, onGo);
-  }
-
-  $('podSearchBtn').addEventListener('click', doPodcastSearch);
-  $('podQuery').addEventListener('keydown', e => { if(e.key==='Enter') doPodcastSearch(); });
-  $('podPageSize').addEventListener('change', ()=>{ state.podPageSize=parseInt($('podPageSize').value,10)||6; state.podPage=1; if(state.podsAll.length) renderPodcastsPage(); });
-  $('epPageSize').addEventListener('change', ()=>{ state.epPageSize=parseInt($('epPageSize').value,10)||6; state.epPage=1; if(state.epsAll.length) renderEpisodesPage(); });
-
-  async function doPodcastSearch(){
-    const term = $('podQuery').value.trim();
-    if(!term) return notyf.error('Escribe algo para buscar.');
-    $('podSearchBtn').disabled = true; $('podSearchBtn').innerHTML = `<i class="fa-solid fa-spinner fa-spin me-2"></i>Buscando…`;
-
-    $('episodes').innerHTML = '';
-    $('feedHeader').classList.add('d-none');
-    $('loadNextFeedPageBtn').classList.add('d-none');
-    $('bgLoadHint').classList.add('d-none');
-    $('refreshFeedBtn').classList.add('d-none');
-    $('cacheHint').classList.add('d-none');
-    $('loadAllBtn').classList.add('d-none');
-    $('cancelAllBtn').classList.add('d-none');
-    setBadge('—','text-bg-secondary');
-    renderPodSkeleton();
-
-    try{
-      const { list, providers } = await searchPodcastsAggregator(term);
-      if(!list.length){
-        $('podResults').innerHTML = `<div class="soft p-3 tiny">Sin resultados. Prueba con otras palabras clave. Revisa conexión o bloqueadores si persiste.</div>`;
-        setBadge('sin resultados','text-bg-warning');
+    function ppSetVolIcon(isMuted, v){
+      if (isMuted || v === 0){
+        pp.volIcon.innerHTML = '<path d="M3 10v4h4l5 4V6L7 10H3zm13.59-4.41L20 9l-1.41 1.41L15.17 7l1.42-1.41zM18.59 13.59L20 15l-3.41 3.41-1.42-1.41L18.59 13.59z"/>';
         return;
       }
-      state.podsAll = list; state.podPage = 1;
-      setBadge(providers || '—','text-bg-primary');
-      renderPodcastsPage();
-      notyf.success(`Resultados: ${list.length}`);
-    }catch(e){
-      console.warn(e);
-      setBadge('Error','text-bg-danger');
-      $('podResults').innerHTML = `<div class="soft p-3 tiny">No se pudo buscar ahora (conexión o bloqueadores). Intenta de nuevo.</div>`;
-      notyf.error('No se pudo buscar ahora.');
-    }finally{
-      $('podSearchBtn').disabled = false; $('podSearchBtn').innerHTML = `<i class="fa-solid fa-magnifying-glass me-2"></i>Buscar`;
-    }
-  }
-
-  function renderPagination(container, current, total, onClick){
-    container.innerHTML = '';
-    if(total<=1) return;
-    const ul = document.createElement('ul');
-    ul.className = 'pagination pagination-sm mb-0';
-    const mk = (label, page, disabled=false, active=false) => {
-      const li=document.createElement('li');
-      li.className='page-item'+(disabled?' disabled':'')+(active?' active':'');
-      const a=document.createElement('a'); a.className='page-link'; a.href='#'; a.textContent=label; a.dataset.page=String(page);
-      a.addEventListener('click', e=>{ e.preventDefault(); if(disabled||active) return; onClick(page); });
-      li.appendChild(a); return li;
-    };
-    ul.appendChild(mk('«', 1, current===1));
-    ul.appendChild(mk('‹', Math.max(1,current-1), current===1));
-    let start = Math.max(1, current-2), end = Math.min(total, current+2);
-    if(start>1){ ul.appendChild(mk('1',1,false, current===1)); if(start>2){ const li=document.createElement('li'); li.className='page-item disabled'; li.innerHTML='<span class="page-link">…</span>'; ul.appendChild(li);} }
-    for(let p=start;p<=end;p++) if(p!==1 && p!==total) ul.appendChild(mk(String(p), p, false, p===current));
-    if(end<total){ if(end<total-1){ const li=document.createElement('li'); li.className='page-item disabled'; li.innerHTML='<span class="page-link">…</span>'; ul.appendChild(li);} ul.appendChild(mk(String(total), total, false, current===total)); }
-    ul.appendChild(mk('›', Math.min(total,current+1), current===total));
-    ul.appendChild(mk('»', total, current===total));
-    container.appendChild(ul);
-  }
-
-  async function loadEpisodesFast(feedUrl, { forceRefresh=false } = {}){
-    state.feedUrlActive = feedUrl;
-    state.epsAll = []; state.epPage = 1; state.feedNextUrl = null; state.feedLoading=false; state.bgLoading=false;
-    state.feedMeta = { title:'', description:'', image:'' };
-    state.loadingAll=false; state.abortAll=null;
-
-    $('episodes').innerHTML = `
-      <div class="tiny mb-2">Cargando episodios…</div>
-      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>`;
-    $('feedHeader').classList.add('d-none');
-    $('loadNextFeedPageBtn').classList.add('d-none');
-    $('bgLoadHint').classList.add('d-none');
-    $('refreshFeedBtn').classList.remove('d-none');
-    $('cacheHint').classList.add('d-none');
-    $('loadAllBtn').classList.add('d-none'); $('cancelAllBtn').classList.add('d-none');
-    setBadge('—','text-bg-secondary');
-
-    try{
-      if(!forceRefresh){
-        const cached = await getFeedCache(feedUrl);
-        if(cached && Array.isArray(cached.items) && cached.items.length){
-          state.epsAll = cached.items;
-          state.feedNextUrl = cached.nextUrl || null;
-          state.feedMeta = cached.meta || {};
-          $('feedArt').src = state.feedMeta.image || '';
-          $('feedTitle').textContent = state.feedMeta.title || 'Podcast';
-          $('feedDesc').textContent = (state.feedMeta.description || '').slice(0,220);
-          $('feedHeader').classList.remove('d-none');
-          $('feedCount').textContent = `${state.epsAll.length}${state.feedNextUrl ? ' +…' : ''} eps`;
-          $('cacheHint').classList.remove('d-none');
-          setBadge('Caché','text-bg-success');
-          $('loadAllBtn').classList.toggle('d-none', !state.feedNextUrl);
-          renderEpisodesPage();
-          refreshFeedInBackground(feedUrl);
-          return;
-        }
+      if (v < 0.45){
+        pp.volIcon.innerHTML = '<path d="M3 10v4h4l5 4V6L7 10H3zm12 2a3 3 0 00-1-2.24v4.48A3 3 0 0015 12z"/>';
+        return;
       }
-
-      const { provider, parsed } = await raceProviders(feedUrl);
-      state.epsAll = parsed.items || [];
-      state.feedNextUrl = parsed.nextUrl || null;
-      state.feedMeta = parsed.meta || {};
-      $('feedArt').src = state.feedMeta.image || '';
-      $('feedTitle').textContent = state.feedMeta.title || 'Podcast';
-      $('feedDesc').textContent = (state.feedMeta.description || '').slice(0,220);
-      $('feedHeader').classList.remove('d-none');
-      $('feedCount').textContent = `${state.epsAll.length}${state.feedNextUrl ? ' +…' : ''} eps`;
-      setBadge(provider, 'text-bg-primary');
-      $('loadNextFeedPageBtn').classList.toggle('d-none', !state.feedNextUrl);
-      $('loadAllBtn').classList.toggle('d-none', !state.feedNextUrl);
-      await setFeedCache(feedUrl, { items: state.epsAll, meta: state.feedMeta, nextUrl: state.feedNextUrl });
-
-      renderEpisodesPage();
-
-      if (state.feedNextUrl){
-        state.bgLoading = true;
-        $('bgLoadHint').classList.remove('d-none');
-        try{
-          let hops = 0;
-          while(state.feedNextUrl && hops < 2){
-            const ok = await fetchNextPage(state.feedNextUrl);
-            if(!ok) break;
-            hops++;
-          }
-          $('feedCount').textContent = `${state.epsAll.length}${state.feedNextUrl ? ' +…' : ''} eps`;
-          renderEpisodesPage();
-          await setFeedCache(feedUrl, { items: state.epsAll, meta: state.feedMeta, nextUrl: state.feedNextUrl });
-        } finally {
-          state.bgLoading = false;
-          $('bgLoadHint').classList.add('d-none');
-          $('loadNextFeedPageBtn').classList.toggle('d-none', !state.feedNextUrl);
-          $('loadAllBtn').classList.toggle('d-none', !state.feedNextUrl);
-        }
-      }
-
-      notyf.success(`Episodios: ${state.epsAll.length}`);
-    }catch(e){
-      console.warn(e);
-      setBadge('Error','text-bg-danger');
-      $('episodes').innerHTML = `<div class="soft p-3 tiny">No se pudo cargar el RSS (temporal). Prueba de nuevo o selecciona otro podcast.</div>`;
-      notyf.error('RSS no disponible ahora.');
+      pp.volIcon.innerHTML = '<path d="M3 10v4h4l5 4V6L7 10H3zm13.5 2a3.5 3.5 0 00-1.5-2.9v5.8A3.5 3.5 0 0016.5 12zm0-8a9.5 9.5 0 01.5 16.9v-2.2A7.5 7.5 0 0017 6.3V4z"/>';
     }
-  }
-
-  async function refreshFeedInBackground(feedUrl){
-    try{
-      await loadEpisodesFast(feedUrl, { forceRefresh:true });
-    }catch(e){ console.warn('Refresh background falló', e); }
-  }
-
-  async function fetchNextPage(url){
-    if (state.feedLoading || !url) return false;
-    state.feedLoading = true;
-    try{
-      const xml = await fetchAllOrigins(url);
-      const parsed = parseRss(xml);
-      const before = state.epsAll.length;
-      state.epsAll = state.epsAll.concat(parsed.items || []);
-      state.feedNextUrl = parsed.nextUrl || null;
-      $('feedCount').textContent = `${state.epsAll.length}${state.feedNextUrl ? ' +…' : ''} eps`;
-      return state.epsAll.length > before;
-    } catch (e){
-      console.warn('Error al cargar página siguiente del feed:', e);
-      notyf.error('No se pudo cargar más episodios.');
-      return false;
-    } finally {
-      state.feedLoading = false;
+    function ppUpdateSeekUI(){
+      var d = pp.a.duration || 0;
+      var c = pp.a.currentTime || 0;
+      var pct = d ? Math.min(1, Math.max(0, c/d)) : 0;
+      pp.seek.value = Math.round(pct * 1000);
+      pp.seekWrap.style.setProperty('--fill', (pct*100).toFixed(2) + '%');
+      pp.cur.textContent = ppFmt(c);
+      pp.dur.textContent = ppFmt(d);
     }
-  }
-
-  async function loadNextFeedPage(){
-    if (!state.feedNextUrl) return;
-    $('loadNextFeedPageBtn').disabled = true;
-    const prev = $('loadNextFeedPageBtn').innerHTML;
-    $('loadNextFeedPageBtn').innerHTML = `<i class="fa-solid fa-spinner fa-spin me-1"></i>Cargando…`;
-    try{
-      const ok = await fetchNextPage(state.feedNextUrl);
-      if (ok){
-        renderEpisodesPage();
-        await setFeedCache(state.feedUrlActive, { items: state.epsAll, meta: state.feedMeta, nextUrl: state.feedNextUrl });
-      }
-    } finally {
-      $('loadNextFeedPageBtn').disabled = false;
-      $('loadNextFeedPageBtn').innerHTML = prev;
-      $('loadNextFeedPageBtn').classList.toggle('d-none', !state.feedNextUrl);
-      $('loadAllBtn').classList.toggle('d-none', !state.feedNextUrl);
+    function ppUpdateVolUI(){
+      pp.vol.value = pp.a.volume;
+      pp.volWrap.style.setProperty('--fill', (pp.a.volume*100).toFixed(0) + '%');
+      ppSetVolIcon(pp.a.muted, pp.a.volume);
     }
-  }
 
-  async function loadAllPages(){
-    if (!state.feedNextUrl || state.loadingAll) return;
-    state.loadingAll = true;
-    state.abortAll = { aborted:false };
-    $('loadAllBtn').classList.add('d-none');
-    $('cancelAllBtn').classList.remove('d-none');
-    notyf.open({ type:'info', message:'Cargando todas las páginas del feed…' });
-    try{
-      while(state.feedNextUrl && !state.abortAll.aborted){
-        const ok = await fetchNextPage(state.feedNextUrl);
-        if(!ok) break;
-        renderEpisodesPage();
-        await setFeedCache(state.feedUrlActive, { items: state.epsAll, meta: state.feedMeta, nextUrl: state.feedNextUrl });
-        await new Promise(r=>setTimeout(r, 60));
-      }
-      notyf.success('Carga completada.');
-    } catch(e){
-      console.warn(e);
-      notyf.error('Fallo cargando todo el feed.');
-    } finally {
-      state.loadingAll = false;
-      $('cancelAllBtn').classList.add('d-none');
-      $('loadAllBtn').classList.toggle('d-none', !state.feedNextUrl);
-      $('loadNextFeedPageBtn').classList.toggle('d-none', !state.feedNextUrl);
-    }
-  }
-  function cancelLoadAll(){
-    if(!state.loadingAll) return;
-    state.abortAll.aborted = true;
-    notyf.open({ type:'warning', message:'Carga total cancelada.' });
-    state.loadingAll = false;
-    $('cancelAllBtn').classList.add('d-none');
-    $('loadAllBtn').classList.toggle('d-none', !state.feedNextUrl);
-    $('loadNextFeedPageBtn').classList.toggle('d-none', !state.feedNextUrl);
-  }
-  $('refreshFeedBtn').addEventListener('click', ()=>{ if(state.feedUrlActive) loadEpisodesFast(state.feedUrlActive, { forceRefresh:true }); });
-  $('loadNextFeedPageBtn').addEventListener('click', async ()=>{ await loadNextFeedPage(); });
-  $('loadAllBtn').addEventListener('click', ()=> loadAllPages());
-  $('cancelAllBtn').addEventListener('click', ()=> cancelLoadAll());
-
-  function renderEpisodesPage(){
-    const box = $('episodes');
-    const total = state.epsAll.length;
-    const size = state.epPageSize;
-    const totalPages = Math.max(1, Math.ceil(total/size));
-    state.epPage = Math.max(1, Math.min(totalPages, state.epPage));
-    const start=(state.epPage-1)*size, end=Math.min(total, start+size);
-    const slice = state.epsAll.slice(start,end);
-
-    box.innerHTML = `
-      <div class="soft p-3">
-        <div class="d-flex align-items-center justify-content-between">
-          <div>
-            <div class="fw-semibold">Episodios</div>
-            <div class="tiny">Mostrando <b>${start+1}</b>–<b>${end}</b> de <b>${total}</b> · Página <b>${state.epPage}</b>/<b>${totalPages}</b></div>
-          </div>
-          <div class="inline-controls">
-            <input id="epGoto" type="number" min="1" class="form-control form-control-sm" style="width:110px" placeholder="Página">
-            <button id="epGotoBtn" class="btn btn-sm btn-outline-primary">Ir</button>
-          </div>
-        </div>
-        <div class="d-flex justify-content-end mt-2" id="epPaginationTop"></div>
-      </div>
-      <div class="list-group list-compact mt-3" id="epList"></div>
-      <div class="d-flex justify-content-end mt-2" id="epPaginationBottom"></div>
-    `;
-    const listBox = $('epList');
-    const frag = document.createDocumentFragment();
-    slice.forEach(ep => {
-      const btn = document.createElement('button');
-      btn.className = 'list-group-item text-start';
-      btn.dataset.audio = ep.audioUrl;
-      btn.dataset.title = ep.title;
-      btn.innerHTML = `
-        <div class="d-flex justify-content-between align-items-start gap-2">
-          <div>
-            <div class="fw-bold">${esc(ep.title)}</div>
-            <div class="tiny">${esc(ep.pubDate ? dayjs(ep.pubDate).format('DD MMM YYYY') : '')}</div>
-            <div class="tiny truncate-2">${esc(ep.desc)}</div>
-          </div>
-          <span class="badge rounded-pill text-bg-primary">Play</span>
-        </div>`;
-      frag.appendChild(btn);
+    pp.playBtn.addEventListener('click', function(){
+      if (!pp.a.src){ toast('Selecciona un episodio primero 🙂', 'warn'); return; }
+      if (pp.a.paused){ pp.a.play().catch(function(){}); }
+      else { pp.a.pause(); }
     });
-    listBox.appendChild(frag);
-    listBox.onclick = (e)=>{ const btn=e.target.closest('button[data-audio]'); if(!btn) return; $('nowPlaying').textContent=btn.dataset.title||''; const audio=$('player'); audio.src=btn.dataset.audio; audio.play().catch(()=>{}); };
+    pp.a.addEventListener('play', function(){ ppSetPlayIcon(true); });
+    pp.a.addEventListener('pause', function(){ ppSetPlayIcon(false); });
+    pp.a.addEventListener('timeupdate', ppUpdateSeekUI);
+    pp.a.addEventListener('loadedmetadata', ppUpdateSeekUI);
+    pp.a.addEventListener('durationchange', ppUpdateSeekUI);
 
-    const onGo = async (page)=>{
-      state.epPage = page;
-      const needEnd = page * state.epPageSize;
-      while (state.feedNextUrl && state.epsAll.length < needEnd){
-        const ok = await fetchNextPage(state.feedNextUrl);
-        if (!ok) break;
-      }
-      const total2 = state.epsAll.length;
-      const totalPages2 = Math.max(1, Math.ceil(total2/state.epPageSize));
-      state.epPage = Math.max(1, Math.min(totalPages2, page));
-      renderEpisodesPage();
-      $('loadNextFeedPageBtn').classList.toggle('d-none', !state.feedNextUrl);
-      $('loadAllBtn').classList.toggle('d-none', !state.feedNextUrl);
-    };
-    renderPagination($('epPaginationTop'), state.epPage, totalPages, onGo);
-    renderPagination($('epPaginationBottom'), state.epPage, totalPages, onGo);
-    $('epGotoBtn').onclick = ()=>{ const p=parseInt($('epGoto').value,10); if(!Number.isFinite(p)) return; onGo(p); };
-  }
+    pp.seek.addEventListener('input', function(){
+      var pct = (pp.seek.value/1000);
+      pp.seekWrap.style.setProperty('--fill', (pct*100).toFixed(2) + '%');
+    });
+    pp.seek.addEventListener('change', function(){
+      var d = pp.a.duration || 0;
+      pp.a.currentTime = d * (pp.seek.value/1000);
+    });
 
-  // Pronunciación figurada
-  function cfgPh(){ return { th:$('thMode').value, r:$('rMode').value, stress:$('stressMarks').checked, mxW:$('mxWMode').checked }; }
-  function capLike(original, mapped){ return /^[A-ZÁÉÍÓÚÑ]/.test(original) ? (mapped.charAt(0).toUpperCase()+mapped.slice(1)) : mapped; }
-  function addStressMarkSmart(w){
-    if(/[áéíóú]/i.test(w)) return w;
-    const v='aeiou', pos=[]; for(let i=0;i<w.length;i++) if(v.includes(w[i])) pos.push(i);
-    if(pos.length<=1) return w; const idx=pos[Math.max(0,pos.length-2)], map={a:'á',e:'é',i:'í',o:'ó',u:'ú'}; const ch=w[idx];
-    return map[ch] ? (w.slice(0,idx)+map[ch]+w.slice(idx+1)) : w;
-  }
-  function buildDict(opt){
-    const thd = opt.th==='z' ? 'z' : 'd';
-    return {
-      'the': thd==='z'?'ze':'de', 'this': thd==='z'?'zis':'dis', 'that': thd==='z'?'zat':'dat',
-      'these': thd==='z'?'ziiz':'diiz', 'those': thd==='z'?'zóuz':'dóuz', 'they': thd==='z'?'zéi':'dei',
-      'you':'yuu','your':'yor','are':'ar','to':'tú','of':'ov','and':'and','with':'wíd',
-      'i':'ái','my':'mái','we':'wí','it':'it','is':'iz','was':'wos','were':'wer',
-      'please':'plíiz','english':'ínglish','pronunciation':'pronánsiéishon','repeat':'ripíit','slowly':'slóuli','today':'tudéi'
-    };
-  }
-  function wordToPhonetic(word,opt){
-    const m=word.match(/^(.+?)([.,!?;:]*)$/); let core=m?m[1]:word; const punct=m?m[2]:'';
-    const orig=core; core=core.replace(/[“”]/g,'"').replace(/[‘’]/g,"'");
-    const lower=core.toLowerCase(); const dict=buildDict(opt); if(dict[lower]) return capLike(orig, dict[lower])+punct;
-    let x=lower;
-    x=x.replace(/n't\b/g,'nt').replace(/'re\b/g,' ar').replace(/'ll\b/g,'l').replace(/'ve\b/g,'v').replace(/'d\b/g,'d').replace(/'m\b/g,'m');
-    x=x.replace(/^h/,'j');
-    if(opt.mxW){ x=x.replace(/^wor/g,'uór').replace(/^wo/g,'uó').replace(/^wa/g,'uá').replace(/^we/g,'uí').replace(/^wi/g,'uí').replace(/w/g,'u'); }
-    x=x.replace(/th/g, opt.th==='z'?'z':'d');
-    x=x.replace(/ing\b/g,'in').replace(/tion\b/g,'shon').replace(/sion\b/g,'shon');
-    x=x.replace(/ph/g,'f').replace(/ght/g,'t').replace(/kn/g,'n').replace(/wr/g,'r').replace(/qu/g,'kw').replace(/ck/g,'k').replace(/c/g,'k').replace(/j/g,'y');
-    x=x.replace(/oo/g,'u').replace(/ee/g,'ii').replace(/ea/g,'ii').replace(/ow/g,'au').replace(/ou/g,'au').replace(/igh/g,'ai').replace(/ie/g,'ai').replace(/ai/g,'ei').replace(/ay/g,'ei');
-    if(/ed\b/.test(x)){ const stem=x.slice(0,-2); x= /[td]$/.test(stem) ? stem+'id' : stem+'d'; }
-    x=x.replace(/e\b/g,'');
-    x=x.replace(/(.)\1+/g,'$1$1');
-    if(opt.r==='marked') x=x.replace(/er\b/g,'er').replace(/ar\b/g,'ar').replace(/or\b/g,'or');
-    if(opt.stress) x=addStressMarkSmart(x);
-    x=capLike(orig, x);
-    return x+punct;
-  }
-  function englishToSpanishPhonetic(text){
-    const words=(text||'').replace(/[“”]/g,'"').replace(/[‘’]/g,"'").split(/\s+/).filter(Boolean);
-    const opt=cfgPh(); return words.map(w=>wordToPhonetic(w,opt)).join(' ');
-  }
-  function makeSegmentsHtml(phon){
-    if(!phon||phon==='—') return '—';
-    return phon.split(/\s+/).filter(Boolean).slice(0,28).map(t=>`<span class="seg">${esc(t)}</span>`).join('') || '—';
-  }
-  function updatePhoneticFromReference(){
-    const t=$('referenceText').value.trim();
-    const ph=t?englishToSpanishPhonetic(t):'—';
-    $('phoneticFromReference').textContent=ph;
-    $('segmentsFromReference').innerHTML=makeSegmentsHtml(ph);
-  }
-  $('referenceText').addEventListener('input', updatePhoneticFromReference);
+    pp.vol.addEventListener('input', function(){
+      pp.a.volume = parseFloat(pp.vol.value);
+      if (pp.a.volume > 0 && pp.a.muted) pp.a.muted = false;
+      ppUpdateVolUI();
+    });
+    pp.mute.addEventListener('click', function(){
+      pp.a.muted = !pp.a.muted;
+      ppUpdateVolUI();
+    });
+    pp.speed.addEventListener('change', function(){
+      pp.a.playbackRate = parseFloat(pp.speed.value);
+    });
+    pp.rew.addEventListener('click', function(){
+      pp.a.currentTime = Math.max(0, (pp.a.currentTime || 0) - 15);
+    });
+    pp.fwd.addEventListener('click', function(){
+      var max = isFinite(pp.a.duration) ? pp.a.duration : (pp.a.currentTime || 0) + 30;
+      pp.a.currentTime = Math.min(max, (pp.a.currentTime || 0) + 30);
+    });
 
-  function normalizeText(s){ return (s||'').toLowerCase().replace(/[^a-z0-9\s']/g,' ').replace(/\s+/g,' ').trim(); }
-  function tokens(s){ return normalizeText(s).split(' ').filter(Boolean); }
-  function levenshtein(a,b){
-    const n=a.length,m=b.length; if(!n) return m; if(!m) return n;
-    const dp=Array.from({length:n+1},()=>Array(m+1).fill(0));
-    for(let i=0;i<=n;i++) dp[i][0]=i;
-    for(let j=0;j<=m;j++) dp[0][j]=j;
-    for(let i=1;i<=n;i++){
-      for(let j=1;j<=m;j++){
-        const cost=a[i-1]===b[j-1]?0:1;
-        dp[i][j]=Math.min(dp[i-1][j]+1, dp[i][j-1]+1, dp[i-1][j-1]+cost);
-      }
-    }
-    return dp[n][m];
-  }
-  function charSimilarity(a,b){
-    a=normalizeText(a); b=normalizeText(b);
-    if(!a && !b) return 1; if(!a || !b) return 0;
-    const dist=levenshtein(a,b), maxLen=Math.max(a.length,b.length);
-    return Math.max(0, 1 - dist/maxLen);
-  }
-  function wordSim(w1,w2){
-    if(!w1 && !w2) return 1; if(!w1||!w2) return 0;
-    const d=levenshtein(w1,w2); const L=Math.max(w1.length,w2.length)||1;
-    return Math.max(0, 1 - d/L);
-  }
-  function alignWords(refArr, recArr, threshold=0.6){
-    const used = new Array(recArr.length).fill(false);
-    let TP=0; const matched = new Array(refArr.length).fill(false);
-    for(let i=0;i<refArr.length;i++){
-      let bestK=-1, bestS=0;
-      for(let k=0;k<recArr.length;k++){
-        if(used[k]) continue;
-        const s=wordSim(refArr[i], recArr[k]);
-        if(s>bestS){ bestS=s; bestK=k; }
-      }
-      if(bestS>=threshold && bestK>=0){ TP++; used[bestK]=true; matched[i]=true; }
-    }
-    const FP = recArr.filter((_,k)=>!used[k]).length;
-    const FN = refArr.length - TP;
-    const precision = TP / Math.max(1, TP+FP);
-    const recall = TP / Math.max(1, TP+FN);
-    const f1 = (precision+recall) ? (2*precision*recall/(precision+recall)) : 0;
-    return { f1, matchedMask: matched };
-  }
-  function evaluatePronunciation(reference, recognized){
-    const ref = normalizeText(reference);
-    const rec = normalizeText(recognized);
-    if(!ref && !rec) return { score:1, f1:1, charSim:1, matchedMask:[], refTokens:[], recTokens:[] };
-    const charSim = charSimilarity(ref, rec);
-    const refT = tokens(reference), recT = tokens(recognized);
-    const { f1, matchedMask } = alignWords(refT, recT, 0.6);
-    const score = (charSim + f1)/2;
-    return { score, f1, charSim, matchedMask, refTokens: refT, recTokens: recT };
-  }
-  function renderEvaluation(reference, recognized){
-    const { score, matchedMask, refTokens } = evaluatePronunciation(reference, recognized);
-    $('recognizedText').textContent = recognized || '—';
-    $('scorePct').textContent = Math.round(score*100) + '%';
-    if(!refTokens.length){ $('highlighted').textContent = '—'; }
-    else{
-      const spans = refTokens.map((w,i)=> matchedMask[i] ? `<span class="word-ok">${esc(w)}</span>` : `<span class="word-bad">${esc(w)}</span>`);
-      $('highlighted').innerHTML = spans.join(' ');
-    }
-  }
-  function startRecognition(){
-    const ref=$('referenceText').value.trim();
-    if(!ref) return notyf.error('Escribe una frase objetivo.');
-    if(!SR){ notyf.error('Tu navegador no soporta SR. Usa modo manual.'); return; }
+    pp.a.volume = 0.7;
+    ppUpdateVolUI();
+    ppSetPlayIcon(false);
 
-    const rec=new SR();
-    rec.lang='en-US';
-    rec.interimResults=true;
-    rec.continuous=false;
-
-    state.recognition=rec; state.recognizing=true;
-    $('startRecBtn').classList.add('d-none'); $('stopRecBtn').classList.remove('d-none');
-    $('recognizedText').textContent='Escuchando…'; $('highlighted').textContent='—'; $('scorePct').textContent='—';
-
-    let finalText='';
-    rec.onresult=(event)=>{
-      let interim=''; for(let i=event.resultIndex;i<event.results.length;i++){
-        const t=event.results[i][0].transcript;
-        if(event.results[i].isFinal) finalText+=t+' '; else interim+=t;
-      }
-      const shown=(finalText+interim).trim();
-      renderEvaluation(ref, shown);
-    };
-    rec.onerror=(e)=>{ stopRecognition(); notyf.error('Error mic/reconocimiento: '+(e.error||'desconocido')); };
-    rec.onend=()=>{ if(!state.recognizing) return; stopRecognition(); notyf.success('Evaluación terminada.'); };
-
-    rec.start();
-    notyf.open({ type:'info', message:'🎙️ Habla la frase completa.' });
-  }
-  function stopRecognition(){
-    if(state.recognition){ try{ state.recognition.stop(); }catch{} }
-    state.recognition=null; state.recognizing=false;
-    $('startRecBtn').classList.remove('d-none'); $('stopRecBtn').classList.add('d-none');
-  }
-  $('startRecBtn').addEventListener('click', startRecognition);
-  $('stopRecBtn').addEventListener('click', stopRecognition);
-  $('manualEvalBtn').addEventListener('click', ()=>{
-    const ref=$('referenceText').value.trim();
-    if(!ref) return notyf.error('Escribe la frase objetivo.');
-    const said=$('manualSaid').value.trim();
-    renderEvaluation(ref, said);
-  });
-
-  const FALLBACK_DECK = [
-    'Small progress is still progress. — Unknown',
-    'The secret of getting ahead is getting started. — Mark Twain',
-    'Success is the sum of small efforts, repeated day in and day out. — Robert Collier',
-    'Well done is better than well said. — Benjamin Franklin',
-    'It always seems impossible until it’s done. — Nelson Mandela',
-    'The best time to plant a tree was 20 years ago. The second best time is now. — Chinese Proverb',
-    'You miss 100% of the shots you don’t take. — Wayne Gretzky',
-    'Stay hungry, stay foolish. — Steve Jobs',
-    'Courage is grace under pressure. — Ernest Hemingway',
-    'A little progress each day adds up to big results. — Unknown',
-    'Discipline is destiny. — Ryan Holiday',
-    'Focus on being productive instead of busy. — Tim Ferriss',
-    'Dreams don’t work unless you do. — John C. Maxwell',
-    'Make each day your masterpiece. — John Wooden',
-    'If you get tired, learn to rest, not to quit. — Banksy'
-  ];
-  const sha1Like = s => { let h=0; for(let i=0;i<s.length;i++){ h=(h<<5)-h+s.charCodeAt(i)|0; } return String(h); };
-  const shuffle = arr => { for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; };
-
-  async function loadDeckFromStore(){
-    state.quotesDeck = (await store.getItem('quotes_deck')) || [];
-    state.deckIndex = (await store.getItem('quotes_deck_index')) || 0;
-    state.usedHashes = new Set((await store.getItem('quotes_used_hashes')) || []);
-  }
-  async function saveDeck(){
-    await store.setItem('quotes_deck', state.quotesDeck);
-    await store.setItem('quotes_deck_index', state.deckIndex);
-    await store.setItem('quotes_used_hashes', Array.from(state.usedHashes));
-  }
-  async function providerQuotable(){
-    const r = await fetch('https://api.quotable.io/quotes/random?limit=50&tags=famous-quotes|wisdom|inspirational', { cache:'no-store' }); if(!r.ok) throw new Error('Quotable');
-    const arr = await r.json();
-    return (Array.isArray(arr)?arr:[]).map(x=>({ text:(x.content||'').trim(), author:(x.author||'').trim() })).filter(x => x.text.length>=10 && x.text.length<=220);
-  }
-  async function providerTypeFit(){
-    const r = await fetch('https://type.fit/api/quotes', { cache:'no-store' }); if(!r.ok) throw new Error('type.fit');
-    const arr = await r.json();
-    return (Array.isArray(arr)?arr:[]).slice(0,600).map(x=>({ text:(x.text||'').trim(), author:(x.author||'').trim() })).filter(x => x.text.length>=10 && x.text.length<=220);
-  }
-  async function providerGithub(){
-    const r = await fetch('https://raw.githubusercontent.com/akhiltak/inspirational-quotes/master/quotes.json', { cache:'no-store' }); if(!r.ok) throw new Error('GitHub quotes');
-    const arr = await r.json();
-    return (Array.isArray(arr)?arr:[]).map(x=>({ text:(x.quote||x.text||'').trim(), author:(x.author||'').trim() })).filter(x => x.text.length>=10 && x.text.length<=220);
-  }
-  async function buildNewDeck(){
-    let combined=[];
-    const settled = await Promise.allSettled([providerQuotable(), providerTypeFit(), providerGithub()]);
-    for(const s of settled){ if(s.status==='fulfilled') combined = combined.concat(s.value); }
-    if(!combined.length){
-      combined = FALLBACK_DECK.map(t=>{ const [text,author=''] = t.split(' — '); return { text, author }; });
-    }
-    const seen=new Set(), cleaned=[];
-    for(const q of combined){
-      const key=(q.text||'').trim().toLowerCase(); if(!key) continue;
-      if(seen.has(key)) continue; seen.add(key);
-      if(state.usedHashes.has(sha1Like(key))) continue;
-      cleaned.push(q);
-    }
-    shuffle(cleaned);
-    state.quotesDeck=cleaned; state.deckIndex=0; await saveDeck();
-  }
-  async function getNextQuote(){
-    if(!state.quotesDeck.length || state.deckIndex>=state.quotesDeck.length){
-      await buildNewDeck();
-      if(!state.quotesDeck.length){ state.usedHashes=new Set(); await buildNewDeck(); }
-    }
-    const q = state.quotesDeck[state.deckIndex++]; if(!q) return null;
-    state.usedHashes.add(sha1Like(q.text.trim().toLowerCase())); await saveDeck(); return q;
-  }
-
-  async function loadPhrases(){
-    state.phrases = (await store.getItem('phrases')) || [];
-    state.selectedPhraseId = (await store.getItem('selectedPhraseId')) || null;
-    if(!state.phrases.length){
-      state.phrases = [
-        { id: crypto.randomUUID(), text:'I would like to improve my English pronunciation.', createdAt: Date.now(), source:'starter' },
-        { id: crypto.randomUUID(), text:'Could you please repeat that more slowly?', createdAt: Date.now(), source:'starter' },
-        { id: crypto.randomUUID(), text:'What do you recommend I practice today?', createdAt: Date.now(), source:'starter' }
-      ];
-      await store.setItem('phrases', state.phrases);
-    }
-    renderPhrases(); renderSelectedPreview();
-  }
-  async function savePhrases(){ await store.setItem('phrases', state.phrases); }
-  function getSelected(){ return state.phrases.find(x => x.id === state.selectedPhraseId) || null; }
-
-  function renderSelectedPreview(){
-    const p = getSelected();
-    $('phoneticPreview').textContent = p ? englishToSpanishPhonetic(p.text) : '—';
-    $('segmentsPreview').innerHTML = p ? makeSegmentsHtml(englishToSpanishPhonetic(p.text)) : '—';
-  }
-  function renderPhrases(){
-    const box = $('phrasesList');
-    const q = $('phraseSearch').value.trim().toLowerCase();
-    let list = state.phrases.slice(); if(q) list = list.filter(p => (p.text||'').toLowerCase().includes(q));
-    if(!list.length){ box.innerHTML = `<div class="soft p-3 tiny">No hay coincidencias.</div>`; return; }
-    box.innerHTML = list.slice(0,120).map(p=>{
-      const sel = p.id === state.selectedPhraseId;
-      const phon = englishToSpanishPhonetic(p.text);
-      return `
-        <div class="list-group-item">
-          <div class="d-flex justify-content-between gap-2">
-            <div class="flex-grow-1">
-              <div class="fw-bold ${sel?'text-success':''}">${esc(p.text)}</div>
-              <div class="tiny">${dayjs(p.createdAt).format('DD MMM YYYY • HH:mm')} · <span class="badge rounded-pill text-bg-secondary">${esc(p.source||'custom')}</span></div>
-              <div class="soft p-2 mt-2">
-                <div class="tiny fw-semibold">Pronunciación figurada:</div>
-                <div class="mono">${esc(phon)}</div>
-                <div class="mt-1">${makeSegmentsHtml(phon)}</div>
-              </div>
-            </div>
-            <div class="btn-group btn-group-sm align-self-start">
-              <button class="btn ${sel?'btn-success':'btn-outline-success'}" data-act="select" data-id="${p.id}">${sel?'OK':'Seleccionar'}</button>
-              <button class="btn btn-outline-secondary" data-act="speak" data-id="${p.id}"><i class="fa-solid fa-volume-high"></i></button>
-              <button class="btn btn-outline-danger" data-act="del" data-id="${p.id}"><i class="fa-solid fa-trash"></i></button>
-            </div>
-          </div>
-        </div>`;
-    }).join('');
-    box.onclick = async (e)=>{
-      const btn = e.target.closest('button[data-act]'); if(!btn) return;
-      const id = btn.dataset.id, act = btn.dataset.act;
-      const item = state.phrases.find(x=>x.id===id);
-      if(act==='select'){ state.selectedPhraseId=id; await store.setItem('selectedPhraseId', id); renderPhrases(); renderSelectedPreview(); notyf.success('Frase seleccionada.'); $('referenceText').value = item.text; updatePhoneticFromReference(); showTab('practice'); }
-      if(act==='speak' && item) speak(item.text);
-      if(act==='del'){
-        state.phrases = state.phrases.filter(x=>x.id!==id);
-        if(state.selectedPhraseId===id){ state.selectedPhraseId=null; await store.removeItem('selectedPhraseId'); }
-        await savePhrases(); renderPhrases(); renderSelectedPreview(); notyf.success('Eliminada.');
-      }
-    };
-  }
-
-  $('addPhraseBtn').addEventListener('click', async ()=>{
-    const t = $('newPhrase').value.trim(); if(!t) return notyf.error('Escribe una frase.');
-    state.phrases.unshift({ id: crypto.randomUUID(), text:t, createdAt: Date.now(), source:'custom' });
-    $('newPhrase').value=''; await savePhrases(); renderPhrases(); renderSelectedPreview(); notyf.success('Frase agregada.');
-  });
-  $('phraseSearch').addEventListener('input', ()=>{ renderPhrases(); renderSelectedPreview(); });
-  $('clearPhrasesBtn').addEventListener('click', async ()=>{
-    state.phrases=[]; state.selectedPhraseId=null; await store.removeItem('phrases'); await store.removeItem('selectedPhraseId');
-    renderPhrases(); renderSelectedPreview(); notyf.success('Lista limpiada.');
-  });
-  $('getInternetPhraseBtn').addEventListener('click', async ()=>{
-    try{
-      $('getInternetPhraseBtn').disabled=true; $('getInternetPhraseBtn').innerHTML='<i class="fa-solid fa-spinner fa-spin me-2"></i>Cargando…';
-      const q = await getNextQuote(); if(!q) throw new Error('No hay frases ahora.');
-      const text = q.author ? `${q.text} — ${q.author}` : q.text;
-      state.phrases.unshift({ id: crypto.randomUUID(), text, createdAt: Date.now(), source:'internet' });
-      await savePhrases(); renderPhrases(); renderSelectedPreview(); notyf.success('Frase Internet agregada.');
-    }catch(e){ console.warn(e); notyf.error('No pude traer frases de Internet (usando fallback al agotar).'); }
-    finally{ $('getInternetPhraseBtn').disabled=false; $('getInternetPhraseBtn').innerHTML='<i class="fa-solid fa-cloud-arrow-down me-2"></i>Internet'; }
-  });
-  $('clearCacheBtn').addEventListener('click', async ()=>{
-    await store.removeItem('quotes_deck'); await store.removeItem('quotes_deck_index'); await store.removeItem('quotes_used_hashes');
-    state.quotesDeck=[]; state.deckIndex=0; state.usedHashes=new Set(); notyf.success('Caché de frases limpiada.');
-  });
-
-  async function init(){
-    const dark = !!(await store.getItem('theme_dark')); document.body.classList.toggle('dark', dark);
-    $('themeBtn').querySelector('i').className = dark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-
-    await loadDeckFromStore();
-    await loadPhrases();
-
-    showTab('podcasts');
-    updatePhoneticFromReference();
-
-    doPodcastSearch();
-    notyf.success('Listo ✅');
-  }
-  init();
 })();
-</script>
+  </script>
 </body>
 </html>
