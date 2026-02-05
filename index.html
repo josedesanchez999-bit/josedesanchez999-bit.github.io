@@ -1065,5 +1065,88 @@
 
 })();
   </script>
+  <script>
+(function () {
+
+  const audio = document.getElementById('player');
+  const nowPlaying = document.getElementById('nowPlaying');
+  const playBtn = document.getElementById('ppPlay');
+  const rewBtn = document.getElementById('ppRew');
+  const fwdBtn = document.getElementById('ppFwd');
+
+  if (!audio || !('mediaSession' in navigator)) {
+    console.warn('Media Session no disponible');
+    return;
+  }
+
+  // --- METADATOS DINÁMICOS ---
+  function updateMediaSession(title, artwork) {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: title || 'Podcast · 6 en 6',
+      artist: 'Podcasts · 6 en 6 Premium',
+      album: 'Podcast',
+      artwork: [
+        { src: artwork || 'https://via.placeholder.com/96', sizes: '96x96', type: 'image/png' },
+        { src: artwork || 'https://via.placeholder.com/192', sizes: '192x192', type: 'image/png' },
+        { src: artwork || 'https://via.placeholder.com/512', sizes: '512x512', type: 'image/png' }
+      ]
+    });
+  }
+
+  // --- CONTROLES DEL SISTEMA ---
+  navigator.mediaSession.setActionHandler('play', () => audio.play());
+  navigator.mediaSession.setActionHandler('pause', () => audio.pause());
+
+  navigator.mediaSession.setActionHandler('seekbackward', () => {
+    audio.currentTime = Math.max(0, audio.currentTime - 15);
+  });
+
+  navigator.mediaSession.setActionHandler('seekforward', () => {
+    audio.currentTime = Math.min(audio.duration || 0, audio.currentTime + 30);
+  });
+
+  navigator.mediaSession.setActionHandler('stop', () => {
+    audio.pause();
+    audio.currentTime = 0;
+  });
+
+  // --- ESTADO ---
+  audio.addEventListener('play', () => {
+    navigator.mediaSession.playbackState = 'playing';
+  });
+
+  audio.addEventListener('pause', () => {
+    navigator.mediaSession.playbackState = 'paused';
+  });
+
+  // --- CUANDO CAMBIA EL EPISODIO ---
+  audio.addEventListener('loadedmetadata', () => {
+    const title = nowPlaying ? nowPlaying.textContent.replace('🎧', '').trim() : 'Podcast';
+    const img = document.querySelector('.thumb')?.src || '';
+    updateMediaSession(title, img);
+  });
+
+  // --- SINCRONIZA TUS BOTONES ---
+  if (playBtn) {
+    playBtn.addEventListener('click', () => {
+      if (audio.paused) audio.play();
+      else audio.pause();
+    });
+  }
+
+  if (rewBtn) {
+    rewBtn.addEventListener('click', () => {
+      audio.currentTime -= 15;
+    });
+  }
+
+  if (fwdBtn) {
+    fwdBtn.addEventListener('click', () => {
+      audio.currentTime += 30;
+    });
+  }
+
+})();
+  </script>
 </body>
 </html>
